@@ -39,7 +39,10 @@ public class Draw extends ApplicationAdapter {
 	public void create () {
 		sr = new ShapeRenderer();
 		polyBatch = new PolygonSpriteBatch();
+
 		board = new Board();
+		board.generate();
+
 		batch = new SpriteBatch();
 		batch2 = new SpriteBatch();
 
@@ -51,42 +54,31 @@ public class Draw extends ApplicationAdapter {
 		Gdx.gl.glClearColor(0, 130, 175, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		System.out.println("+ "+board.getHextiles().size());
-//		int i=0;
+
+
 		batch.begin();
+		// Affichage de la mer
 		batch.draw(board.getTextureMer(),0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+		// Affichage de chaque Tuile/Terrain
 		for (int i=0 ; i<board.getHextiles().size() ;i++) {
-//			sr.begin(ShapeRenderer.ShapeType.Line);
-//			sr.polygon(board.getHextiles().get(i).getVertices());
-//			sr.setColor(255,255,255,1);
-//			sr.end();
-
 			batch.draw(board.getHextiles().get(i).getTextureTerrain(),board.getHextiles().get(i).getBottomLeftCorner().x,board.getHextiles().get(i).getBottomLeftCorner().y);
-
-//			System.out.println("i = "+i);
 		}
+		// Affichage de chaque Jeton
+		for (int i=0 ; i<board.getHextiles().size() ;i++) {
+			Texture t = board.getHextiles().get(i).getJeton().getTextureJeton();
+			float lex = board.getHextiles().get(i).getBottomLeftCorner2().x;
+			float ley = board.getHextiles().get(i).getBottomLeftCorner2().y;
+			batch.draw(t,lex,ley);
 
-		try {
-			for (int i=0 ; i<board.getHextiles().size() ;i++) {
-//				batch.begin();
- 				Texture t = board.getHextiles().get(i).getToken().getTextureToken();
-				//if (t==null)
-					//System.err.println("erreur");
-				float lex = board.getHextiles().get(i).getBottomLeftCorner2().x;
-				float ley = board.getHextiles().get(i).getBottomLeftCorner2().y;
-				batch.draw(t,lex,ley);
-//				batch.end();
-			}
-		} catch (Exception e) {
-			System.err.println(e.getMessage());
 		}
 		batch.end();
 
-
+		// Affichage du squelette en surcouche
 		for (int i=0 ; i<board.getHextiles().size() ;i++) {
 			sr.begin(ShapeRenderer.ShapeType.Line);
 			sr.polygon(board.getHextiles().get(i).getVertices());
 			sr.setColor(0,0,0,1);
-			Gdx.gl.glLineWidth(20);
+			Gdx.gl.glLineWidth(10);
 			sr.end();
 
 		}

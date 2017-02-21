@@ -11,14 +11,15 @@ import java.util.ArrayList;
  */
 
 public class HexTile {
-
+    /*
     public static final Texture
-            FORET = new Texture(Gdx.files.internal("texture_foret.png")),
-            PRE = new Texture(Gdx.files.internal("texture_pre.png")) ,
-            CHAMP = new Texture(Gdx.files.internal("texture_champ.png")),
-            COLLINE = new Texture(Gdx.files.internal("texture_colline.png")) ,
-            MONTAGNE = new Texture(Gdx.files.internal("texture_montagne.png")),
-            DESERT = new Texture(Gdx.files.internal("texture_desert.png"));
+            FORET = new Texture(Gdx.files.internal("textures/texture_foret.png")),
+            PRE = new Texture(Gdx.files.internal("textures/texture_pre.png")) ,
+            CHAMP = new Texture(Gdx.files.internal("textures/texture_champ.png")),
+            COLLINE = new Texture(Gdx.files.internal("textures/texture_colline.png")) ,
+            MONTAGNE = new Texture(Gdx.files.internal("textures/texture_montagne.png")),
+            DESERT = new Texture(Gdx.files.internal("textures/texture_desert.png"));
+            */
     private Vector2 center;
     private Vector2 point1;
     private Vector2 point2;
@@ -28,7 +29,7 @@ public class HexTile {
     private Vector2 point6;
     private float size;
     private float deltaX;
-    private Token token;
+    private Jeton jeton;
     private ArrayList<Vector2>corners;
     private String type;
 
@@ -41,7 +42,7 @@ public class HexTile {
         this.center = center;
         this.size = size;
         this.type = "desert";
-        this.token = new Token(3);
+        this.jeton = new Jeton(3);
         this.deltaX = (float) ((Math.sqrt(3)*size)/2);
         corners = new ArrayList<Vector2>();
         addCorner(this.center);
@@ -52,26 +53,26 @@ public class HexTile {
     public void affectType(String s){
         this.setType(s);
         if (s.equals("foret"))
-            textureTerrain = FORET;
+            textureTerrain = Board.getFORET();
         else if (s.equals("pre"))
-            textureTerrain = PRE;
+            textureTerrain = Board.getPRE();
         else if (s.equals("champ"))
-            textureTerrain = CHAMP;
+            textureTerrain = Board.getCHAMP();
         else if (s.equals("colline"))
-            textureTerrain = COLLINE;
+            textureTerrain = Board.getCOLLINE();
         else if (s.equals("montagne"))
-            textureTerrain = MONTAGNE;
+            textureTerrain = Board.getMONTAGNE();
         else if (s.equals("desert"))
-            textureTerrain = DESERT;
+            textureTerrain = Board.getDESERT();
         else {
-            textureTerrain = null;
+            textureTerrain = Board.getDESERT();
             System.out.println("Type incorrect");
         }
     }
 
-    public void affectToken(Token t) {
-        this.setToken(t);
-        t.affectHextile(this);
+    public void affectToken(Jeton t) {
+        this.setJeton(t);
+        t.affecterTuile(this);
     }
 
     // Renvoie le pixel le plus en bas à gauche
@@ -163,8 +164,8 @@ public class HexTile {
         this.point6 = point6;
     }
 
-    public void setToken(Token token) {
-        this.token = token;
+    public void setJeton(Jeton jeton) {
+        this.jeton = jeton;
     }
 
     public Vector2 getCentre() {
@@ -195,8 +196,8 @@ public class HexTile {
         return point6;
     }
 
-    public Token getToken() {
-        return token;
+    public Jeton getJeton() {
+        return jeton;
     }
 
 //    public TextureRegion getTextureRegion() {

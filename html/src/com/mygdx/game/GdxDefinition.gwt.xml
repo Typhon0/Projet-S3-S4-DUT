@@ -6,6 +6,6 @@
 
 	<inherits name='Draw' />
 	<entry-point class='com.mygdx.game.client.HtmlLauncher' />
-	<set-configuration-property name='xsiframe.failIfScriptTag' value='FALSE'/>
-	<set-configuration-property name="gdx.assetpath" value="../android/assets" />
+	<set-configuration-property name='xsiframe.failIfScriptTag' valeur='FALSE'/>
+	<set-configuration-property name="gdx.assetpath" valeur="../android/assets" />
 </module>

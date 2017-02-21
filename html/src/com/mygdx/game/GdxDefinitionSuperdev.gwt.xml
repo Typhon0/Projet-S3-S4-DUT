@@ -9,6 +9,6 @@
     <collapse-all-properties />
     
 	<add-linker name="xsiframe"/>	
-	<set-configuration-property name="devModeRedirectEnabled" value="true"/>
-	<set-configuration-property name='xsiframe.failIfScriptTag' value='FALSE'/>	
+	<set-configuration-property name="devModeRedirectEnabled" valeur="true"/>
+	<set-configuration-property name='xsiframe.failIfScriptTag' valeur='FALSE'/>
 </module>

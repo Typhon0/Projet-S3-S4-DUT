@@ -1,4 +1,4 @@
-package com.mygdx.game.model;
+package com.mygdx.game.autre;
 
 import java.util.Random;
 
@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class StackNonRedimensionnable<E> {
 
-    private E[] items;  // tableau de string
+    private E[] items;  // tableau d'éléments
     private int n;           // nombre d'éléments dans le paquet
 
     public StackNonRedimensionnable(int capacity) {
