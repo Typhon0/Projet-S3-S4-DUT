@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.FloatArray;
-import com.mygdx.game.model.Board;
+import com.mygdx.game.model.Plateau;
 
 import java.util.ArrayList;
 
@@ -31,7 +31,7 @@ public class Draw extends ApplicationAdapter {
 	private PolygonSprite polygonSprite,polygonSprite2;
 	private PolygonSpriteBatch polyBatch;
 	private ArrayList<PolygonRegion>listePolygonRegion;
-	private Board board;
+	private Plateau plateau;
 
 	//private SpriteBatch batch;
 	//
@@ -40,45 +40,51 @@ public class Draw extends ApplicationAdapter {
 		sr = new ShapeRenderer();
 		polyBatch = new PolygonSpriteBatch();
 
-		board = new Board();
-		board.generate();
+		plateau = new Plateau();
+		plateau.generer();
 
 		batch = new SpriteBatch();
 		batch2 = new SpriteBatch();
 
+		System.out.println(plateau.getListeTuiles().get(0).getListeSommets().get(2).toString());
+		System.out.println(plateau.getListeTuiles().get(1).getListeSommets().get(6).toString());
+
+		System.out.println(plateau.getListeTuiles().get(0).getListeSommets().get(2).equals(plateau.getListeTuiles().get(1).getListeSommets().get(6)));
 	}
 
 	@Override
 	public void render () {
-
 		Gdx.gl.glClearColor(0, 130, 175, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		System.out.println("+ "+board.getHextiles().size());
-
+		//System.out.println("+ "+plateau.getListeTuiles().size());
 
 		batch.begin();
 		// Affichage de la mer
-		batch.draw(board.getTextureMer(),0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-		// Affichage de chaque Tuile/Terrain
-		for (int i=0 ; i<board.getHextiles().size() ;i++) {
-			batch.draw(board.getHextiles().get(i).getTextureTerrain(),board.getHextiles().get(i).getBottomLeftCorner().x,board.getHextiles().get(i).getBottomLeftCorner().y);
-		}
-		// Affichage de chaque Jeton
-		for (int i=0 ; i<board.getHextiles().size() ;i++) {
-			Texture t = board.getHextiles().get(i).getJeton().getTextureJeton();
-			float lex = board.getHextiles().get(i).getBottomLeftCorner2().x;
-			float ley = board.getHextiles().get(i).getBottomLeftCorner2().y;
-			batch.draw(t,lex,ley);
+		batch.draw(plateau.getTextureMer(),0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 
+		// Affichage de chaque Tuile/Terrain
+		for (int i = 0; i< plateau.getListeTuiles().size() ; i++) {
+			batch.draw(plateau.getListeTuiles().get(i).getTextureTuile(),
+					plateau.getListeTuiles().get(i).getCoinInferieurGaucheTuile().x,
+					plateau.getListeTuiles().get(i).getCoinInferieurGaucheTuile().y,
+					(float)Math.sqrt(3)* plateau.TAILLE_TUILE,
+					(float)(plateau.TAILLE_TUILE *2));
+		}
+
+		// Affichage de chaque Jeton
+		for (int i = 0; i< plateau.getListeTuiles().size() ; i++) {
+			batch.draw(plateau.getListeTuiles().get(i).getJeton().getTextureJeton(),
+					plateau.getListeTuiles().get(i).getCoinInferieurGaucheJeton().x,
+					plateau.getListeTuiles().get(i).getCoinInferieurGaucheJeton().y);
 		}
 		batch.end();
 
 		// Affichage du squelette en surcouche
-		for (int i=0 ; i<board.getHextiles().size() ;i++) {
+		for (int i = 0; i< plateau.getListeTuiles().size() ; i++) {
 			sr.begin(ShapeRenderer.ShapeType.Line);
-			sr.polygon(board.getHextiles().get(i).getVertices());
+			sr.polygon(plateau.getListeTuiles().get(i).getVertices());
 			sr.setColor(0,0,0,1);
-			Gdx.gl.glLineWidth(10);
+			Gdx.gl.glLineWidth(5);
 			sr.end();
 
 		}
@@ -89,6 +95,4 @@ public class Draw extends ApplicationAdapter {
 //		batch.dispose();
 //		img.dispose();
 	}
-
-
 }

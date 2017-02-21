@@ -1,11 +1,8 @@
 package com.mygdx.game.desktop;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.controler.Draw;
-import com.mygdx.game.model.HexTile;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
