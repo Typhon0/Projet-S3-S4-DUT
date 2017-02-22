@@ -77,6 +77,16 @@ public class Draw extends ApplicationAdapter {
 					plateau.getListeTuiles().get(i).getCoinInferieurGaucheJeton().x,
 					plateau.getListeTuiles().get(i).getCoinInferieurGaucheJeton().y);
 		}
+
+		// Affichage de chaque Port
+		for (int i = 0; i< plateau.getListePorts().size() ; i++) {
+			batch.draw(plateau.getListePorts().get(i).getTexturePort(),
+					plateau.getListePorts().get(i).getCoinInferieurGauchePort().x,
+					plateau.getListePorts().get(i).getCoinInferieurGauchePort().y,
+					64,
+					64);
+		}
+
 		batch.end();
 
 		// Affichage du squelette en surcouche

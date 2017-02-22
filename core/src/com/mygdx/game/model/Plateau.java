@@ -3,6 +3,8 @@ package com.mygdx.game.model;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.autre.*;
+import com.mygdx.game.autre.StackNonRedimensionnable;
 
 import java.util.*;
 
@@ -13,10 +15,15 @@ import java.util.*;
 public class Plateau {
 
     public static final int TAILLE_TUILE = Gdx.graphics.getHeight()/10;
-    private static Texture JETON_2, JETON_3, JETON_4, JETON_5, JETON_6, JETON_8, JETON_9, JETON_10, JETON_11, JETON_12, FORET, PRE, CHAMP, COLLINE, MONTAGNE, DESERT, MER;
+    public static final float DELTA_X = (float) Math.sqrt(3)*TAILLE_TUILE/2;
+    public static final Vector2 CENTRE = new Vector2(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2);
+
+    private static Texture JETON_2, JETON_3, JETON_4, JETON_5, JETON_6, JETON_8, JETON_9, JETON_10, JETON_11, JETON_12, FORET, PRE, CHAMP, COLLINE, MONTAGNE, DESERT, MER, PORT;
     private ArrayList<Tuile> listeTuiles; // liste des tuiles
+    private ArrayList<Port> listePorts; // liste des ports
     private com.mygdx.game.autre.StackNonRedimensionnable<String> stackTerrains; // stack de type de tuile
     private com.mygdx.game.autre.StackNonRedimensionnable<Jeton> stackJetons; // stack de tokens
+    //private com.mygdx.game.autre.StackNonRedimensionnable<Port> stackPorts;
     private Texture textureMer;
 
 
@@ -24,10 +31,11 @@ public class Plateau {
     public Plateau() {
         chargerTextures();
         listeTuiles = new ArrayList<Tuile>();
+        listePorts = new ArrayList<Port>();
         stackTerrains = new com.mygdx.game.autre.StackNonRedimensionnable<String>(19);
         stackJetons = new com.mygdx.game.autre.StackNonRedimensionnable<Jeton>(18);
+        //stackPorts = new StackNonRedimensionnable<Port>(6);
         textureMer = MER;
-        //generer();
     }
 
     // Génère le plateau de jeu ainsi que ses composants
@@ -39,43 +47,40 @@ public class Plateau {
 
         genererStackJetons();
         affecterJetons();
+
+        genererPorts();
     }
 
     // Génère les tuiles
     private void genererTuiles() {
-        Vector2 center = new Vector2(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2);
-        //Vector2 activeCenter = new Vector2(center);
-        int taille = TAILLE_TUILE;
-        float deltaX = (float) ((Math.sqrt(3)*taille)/2);
-
         // Première ligne
-        listeTuiles.add(new Tuile(new Vector2(center.x-2*deltaX,center.y+3*taille),taille));
-        listeTuiles.add(new Tuile(new Vector2(center.x,center.y+3*taille),taille));
-        listeTuiles.add(new Tuile(new Vector2(center.x+2*deltaX,center.y+3*taille),taille));
+        listeTuiles.add(new Tuile(new Vector2(CENTRE.x-2*DELTA_X,CENTRE.y+3*TAILLE_TUILE),TAILLE_TUILE));
+        listeTuiles.add(new Tuile(new Vector2(CENTRE.x,CENTRE.y+3*TAILLE_TUILE),TAILLE_TUILE));
+        listeTuiles.add(new Tuile(new Vector2(CENTRE.x+2*DELTA_X,CENTRE.y+3*TAILLE_TUILE),TAILLE_TUILE));
 
         // Deuxième ligne
-        listeTuiles.add(new Tuile(new Vector2(center.x-3*deltaX,center.y+1.5f*taille),taille));
-        listeTuiles.add(new Tuile(new Vector2(center.x-1*deltaX,center.y+1.5f*taille),taille));
-        listeTuiles.add(new Tuile(new Vector2(center.x+1*deltaX,center.y+1.5f*taille),taille));
-        listeTuiles.add(new Tuile(new Vector2(center.x+3*deltaX,center.y+1.5f*taille),taille));
+        listeTuiles.add(new Tuile(new Vector2(CENTRE.x-3*DELTA_X,CENTRE.y+1.5f*TAILLE_TUILE),TAILLE_TUILE));
+        listeTuiles.add(new Tuile(new Vector2(CENTRE.x-1*DELTA_X,CENTRE.y+1.5f*TAILLE_TUILE),TAILLE_TUILE));
+        listeTuiles.add(new Tuile(new Vector2(CENTRE.x+1*DELTA_X,CENTRE.y+1.5f*TAILLE_TUILE),TAILLE_TUILE));
+        listeTuiles.add(new Tuile(new Vector2(CENTRE.x+3*DELTA_X,CENTRE.y+1.5f*TAILLE_TUILE),TAILLE_TUILE));
 
         // Troisième ligne
-        listeTuiles.add(new Tuile(new Vector2(center.x-4*deltaX,center.y),taille));
-        listeTuiles.add(new Tuile(new Vector2(center.x-2*deltaX,center.y),taille));
-        listeTuiles.add(new Tuile(new Vector2(center.x,center.y),taille));
-        listeTuiles.add(new Tuile(new Vector2(center.x+2*deltaX,center.y),taille));
-        listeTuiles.add(new Tuile(new Vector2(center.x+4*deltaX,center.y),taille));
+        listeTuiles.add(new Tuile(new Vector2(CENTRE.x-4*DELTA_X,CENTRE.y),TAILLE_TUILE));
+        listeTuiles.add(new Tuile(new Vector2(CENTRE.x-2*DELTA_X,CENTRE.y),TAILLE_TUILE));
+        listeTuiles.add(new Tuile(new Vector2(CENTRE.x,CENTRE.y),TAILLE_TUILE));
+        listeTuiles.add(new Tuile(new Vector2(CENTRE.x+2*DELTA_X,CENTRE.y),TAILLE_TUILE));
+        listeTuiles.add(new Tuile(new Vector2(CENTRE.x+4*DELTA_X,CENTRE.y),TAILLE_TUILE));
 
         // Quatrième ligne
-        listeTuiles.add(new Tuile(new Vector2(center.x-3*deltaX,center.y-1.5f*taille),taille));
-        listeTuiles.add(new Tuile(new Vector2(center.x-1*deltaX,center.y-1.5f*taille),taille));
-        listeTuiles.add(new Tuile(new Vector2(center.x+1*deltaX,center.y-1.5f*taille),taille));
-        listeTuiles.add(new Tuile(new Vector2(center.x+3*deltaX,center.y-1.5f*taille),taille));
+        listeTuiles.add(new Tuile(new Vector2(CENTRE.x-3*DELTA_X,CENTRE.y-1.5f*TAILLE_TUILE),TAILLE_TUILE));
+        listeTuiles.add(new Tuile(new Vector2(CENTRE.x-1*DELTA_X,CENTRE.y-1.5f*TAILLE_TUILE),TAILLE_TUILE));
+        listeTuiles.add(new Tuile(new Vector2(CENTRE.x+1*DELTA_X,CENTRE.y-1.5f*TAILLE_TUILE),TAILLE_TUILE));
+        listeTuiles.add(new Tuile(new Vector2(CENTRE.x+3*DELTA_X,CENTRE.y-1.5f*TAILLE_TUILE),TAILLE_TUILE));
 
         // Cinquième ligne
-        listeTuiles.add(new Tuile(new Vector2(center.x-2*deltaX,center.y-3*taille),taille));
-        listeTuiles.add(new Tuile(new Vector2(center.x,center.y-3*taille),taille));
-        listeTuiles.add(new Tuile(new Vector2(center.x+2*deltaX,center.y-3*taille),taille));
+        listeTuiles.add(new Tuile(new Vector2(CENTRE.x-2*DELTA_X,CENTRE.y-3*TAILLE_TUILE),TAILLE_TUILE));
+        listeTuiles.add(new Tuile(new Vector2(CENTRE.x,CENTRE.y-3*TAILLE_TUILE),TAILLE_TUILE));
+        listeTuiles.add(new Tuile(new Vector2(CENTRE.x+2*DELTA_X,CENTRE.y-3*TAILLE_TUILE),TAILLE_TUILE));
     }
 
     // Génère le paquet de type de terrain
@@ -127,6 +132,17 @@ public class Plateau {
             if (!h.getType().equals("desert"))
                 h.affecterJeton(stackJetons.pop());
         }
+    }
+
+    // Génère les 6 ports
+    private void genererPorts() {
+        listePorts.add(new Port(new Vector2(listeTuiles.get(2).getListeSommets().get(0).x + DELTA_X, listeTuiles.get(2).getListeSommets().get(0).y + 1.5f * TAILLE_TUILE),"aucun", 3,PORT));
+        listePorts.add(new Port(new Vector2(listeTuiles.get(11).getListeSommets().get(0).x + 2 * DELTA_X, listeTuiles.get(11).getListeSommets().get(0).y),"aucun", 3,PORT));
+        listePorts.add(new Port(new Vector2(listeTuiles.get(18).getListeSommets().get(0).x + DELTA_X, listeTuiles.get(18).getListeSommets().get(0).y - 1.5f * TAILLE_TUILE),"aucun", 3,PORT));
+        listePorts.add(new Port(new Vector2(listeTuiles.get(16).getListeSommets().get(0).x - DELTA_X, listeTuiles.get(16).getListeSommets().get(0).y - 1.5f * TAILLE_TUILE),"aucun", 3,PORT));
+        listePorts.add(new Port(new Vector2(listeTuiles.get(7).getListeSommets().get(0).x - 2 * DELTA_X, listeTuiles.get(7).getListeSommets().get(0).y),"aucun", 3,PORT));
+        listePorts.add(new Port(new Vector2(listeTuiles.get(0).getListeSommets().get(0).x - DELTA_X, listeTuiles.get(0).getListeSommets().get(0).y + 1.5f * TAILLE_TUILE),"aucun", 3,PORT));
+
     }
 
     // Charge toutes les textures pour le plateau de jeu
@@ -217,11 +233,20 @@ public class Plateau {
         } catch (Exception e) {
             messageErreur += "Erreur lors du chargement de la texture : "+"textures/texture_mer.jpg"+"\n";
         }
+        try {
+            PORT = new Texture(Gdx.files.internal("textures/texture_port2.png"));
+        } catch (Exception e) {
+            messageErreur += "Erreur lors du chargement de la texture : "+"textures/texture_port2.png"+"\n";
+        }
         System.err.println(messageErreur);
     }
 
     public ArrayList<Tuile> getListeTuiles() {
         return listeTuiles;
+    }
+
+    public ArrayList<Port> getListePorts() {
+        return listePorts;
     }
 
     public Texture getTextureMer() {
@@ -294,5 +319,9 @@ public class Plateau {
 
     public static Texture getMER() {
         return MER;
+    }
+
+    public static Texture getPORT() {
+        return PORT;
     }
 }
