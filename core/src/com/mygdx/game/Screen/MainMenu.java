@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -48,22 +50,29 @@ public class MainMenu implements Screen {
         table.setBackground(d);
         table.setFillParent(true);
 
+        //Text Button
         final TextButton startGame = new TextButton("Nouvelle partie", skin);
-        table.add(startGame).size(450, 100);
+        table.add(startGame).size(300, 110).padRight(-200);
         table.row();
+
         final TextButton loadgame = new TextButton("Charger partie", skin);
-        table.add(loadgame).size(450, 100).padTop(10);
+        table.add(loadgame).size(300, 110).padTop(10).padRight(-200);
         table.row();
 
-        final TextButton options = new TextButton("Options", skin);
-        table.add(options).size(300, 100).padTop(10).padBottom(3);
+        //Button
+        final Button quit = new Button(skin, "exit");
+        table.add(quit).size(100, 100).padTop(40).padRight(10);
+
+        final Button options = new Button(skin, "settings");
+        table.add(options).size(100, 100).padTop(40).padRight(10);
+
+        final Button help = new Button(skin, "help");
+        table.add(help).size(100, 100).padTop(40).padRight(10);
+
         table.row();
 
 
-        TextButton quit = new TextButton("Quitter", skin);
-        table.add(quit).size(300, 100).padTop(10);
-        table.row();
-        table.pack();
+        //  table.pack();
 
         stage.addActor(table);
 
@@ -94,6 +103,16 @@ public class MainMenu implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 loadgame.addAction(Actions.fadeOut(0.7f));
                 game.setScreen(new LoadGameScreen(game));
+
+            }
+        });
+
+        //Listener Bouton help
+        help.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                help.addAction(Actions.fadeOut(0.7f));
+                game.setScreen(new HelpScreen(game));
 
             }
         });

@@ -6,28 +6,22 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
-import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.mygdx.game.Catan;
-import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 
 
 /**
  * Created by typhon0 on 28/02/17.
  */
 
-public class OptionScreen implements Screen {
+public class HelpScreen implements Screen {
 
     private Skin skin;
     private Stage stage;
@@ -35,7 +29,7 @@ public class OptionScreen implements Screen {
 
 
     // constructor to keep a reference to the main Game class
-    public OptionScreen(Catan pgame) {
+    public HelpScreen(Catan pgame) {
         this.game = pgame;
 
         stage = new Stage(new ExtendViewport(800, 500));
@@ -43,8 +37,18 @@ public class OptionScreen implements Screen {
         Gdx.input.setInputProcessor(stage);
 
         skin = new Skin(Gdx.files.internal("ui/glassy-ui.json"));
+        Label regle = new Label(null, skin);
+        regle.setText("Repudiandae nam in nam quia omnis possimus. Rem et est est iste. Rerum enim et autem quo fugiat quibusdam sit. Doloribus voluptatem et id alias labore impedit quibusdam atque.\n" +
+                "Doloremque ut laborum dolorum et. Asperiores sint illo vel odit rerum reiciendis non accusamus. Architecto provident quae id velit est error autem.\n" +
+                "Est totam in deleniti assumenda rerum quia. Et quia quo maiores aut error. Tenetur voluptatibus provident qui et harum ut. Ducimus fugiat sit culpa nobis aspernatur saepe iusto omnis. Quia in explicabo officia eius. Aut velit dolorem animi et aliquid iure nam qui.\n" +
+                "Animi accusamus aliquid incidunt. Libero officiis doloribus debitis ullam voluptate expedita. Ex dolorum dolorum maiores tempore non harum. Quae dolores nobis tempore labore ipsum.\n" +
+                "Et repellendus id inventore ipsa quia ullam. Id dolorem voluptatibus incidunt quia officiis. Odit debitis vel ipsam. Aut praesentium doloribus omnis ducimus recusandae rem.sdfsqDGSDQGDSG" +
+                "SDQGSQGDSGSDGSDGSGDSQGSDQGKLSQDGJMSKQlkhjdjskqlhsdqghsdqghsdkqghsdjkghskqghkjdshgksqhgdjslghSLGHSDGhSKGDLJDSHGkjHGJKHgksqhgdkqshgkjdsqgkshqgkqshg sqdj gsdkjqg kjdsqhgjksdhg kjdsqhgjsqdjghsqdg hskjqgksqg sqghsdkjqgsjgdsqgks dqgsd qgsdkg sdjqgh ");
+        regle.setWrap(true);
+        ScrollPane sp = new ScrollPane(regle);
 
         Table table = new Table();
+
         table.setSize(800, 500);
 
         //Background
@@ -52,32 +56,13 @@ public class OptionScreen implements Screen {
         Drawable d = new TextureRegionDrawable(new TextureRegion(t));
         table.setBackground(d);
         table.setFillParent(true);
-
+/*
         CheckBox easyCB = new CheckBox("  Facile", skin);
         table.add(easyCB);
 
-        CheckBox mediumCB = new CheckBox("  Moyen", skin);
-        table.add(mediumCB).padLeft(2);
-
-        CheckBox hardCB = new CheckBox("  Difficile", skin);
-        table.add(hardCB).padLeft(10);
+        */
+        table.add(sp).width(700);
         table.row();
-
-        CheckBox musicCB = new CheckBox("    Musique", skin, "music");
-        table.add(musicCB).padTop(20).padLeft(40);
-        table.row();
-
-
-        CheckBox soundCB = new CheckBox("    Son", skin, "sound");
-        table.add(soundCB).padTop(20);
-        table.row();
-
-        ButtonGroup<CheckBox> bgTB = new ButtonGroup<CheckBox>();
-        bgTB.add(easyCB);
-        bgTB.add(mediumCB);
-        bgTB.add(hardCB);
-        bgTB.setMaxCheckCount(1);
-
 
         stage.addActor(table);
 
