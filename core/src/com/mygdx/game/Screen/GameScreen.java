@@ -11,9 +11,18 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.FloatArray;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.mygdx.game.Catan;
+import com.mygdx.game.model.HUD;
 import com.mygdx.game.model.State;
 
 import java.util.ArrayList;
@@ -38,6 +47,8 @@ public class GameScreen implements Screen {
     public ArrayList<PolygonRegion> listePolygonRegion;
     public Skin skin;
     public GDXDialogs dialogs;
+    public Stage stage;
+
 
     private State state = State.RUN; // status du jeu
 
@@ -48,6 +59,61 @@ public class GameScreen implements Screen {
         dialogs = GDXDialogsSystem.install();
         state = State.RUN;
 
+        stage = new Stage(new ExtendViewport(1920, 1080));
+
+        Gdx.input.setInputProcessor(stage); // Detection des inputs
+
+        skin = new Skin(Gdx.files.internal("ui/glassy-ui.json"));
+
+        Table table = new Table();
+        table.setSize(1920, 1080);
+
+        //Text Button
+        final Button piocher = new Button(skin, "round");
+        table.add(piocher).size(170, 170).padRight(1500);
+
+        final Button stat = new Button(skin, "round");
+        table.add(stat).size(170, 170);
+        table.row();
+
+        //Text Button
+        final Button echange = new Button(skin, "round");
+        table.add(echange).size(170, 170).padRight(1500);
+
+        final Button regle = new Button(skin, "help");
+        table.add(regle).size(170, 170);
+        table.row();
+
+        final Button lancedes = new Button(skin, "round");
+        table.add(lancedes).size(170, 170).padRight(1500);
+
+        final Button settings = new Button(skin, "settings");
+        table.add(settings).size(170, 170);
+
+        table.row();
+
+
+        final Button pions = new Button(skin, "round");
+        table.add(pions).size(170, 170).padRight(1500);
+        final Button quit = new Button(skin, "exit");
+        table.add(quit).size(170, 170);
+        table.row();
+
+        final Button passtour = new Button(skin, "round");
+        table.add(passtour).size(170, 170).padRight(1500);
+        table.row();
+
+
+
+
+        //  table.pack();
+
+
+        stage.addActor(table);
+
+
+
+
 
     }
 
@@ -55,6 +121,7 @@ public class GameScreen implements Screen {
     public void show() {
 
     }
+
 
     @Override
     public void render(float delta) {
@@ -65,53 +132,11 @@ public class GameScreen implements Screen {
                 Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
                 //System.out.println("+ "+plateau.getListeTuiles().size());
 
-                game.batch.begin();
-                // Affichage de la mer
-                game.batch.draw(game.plateau.getTextureMer(), 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+                drawBoard();
 
-                // Affichage de chaque Tuile/Terrain
-                for (int i = 0; i < game.plateau.getListeTuiles().size(); i++) {
-                    game.batch.draw(game.plateau.getListeTuiles().get(i).getTextureTuile(),
-                            game.plateau.getListeTuiles().get(i).getCoinInferieurGaucheTuile().x,
-                            game.plateau.getListeTuiles().get(i).getCoinInferieurGaucheTuile().y,
-                            (float) Math.sqrt(3) * game.plateau.TAILLE_TUILE,
-                            (float) (game.plateau.TAILLE_TUILE * 2));
-                }
+                stage.act(delta);
 
-                // Affichage de chaque Jeton
-                for (int i = 0; i < game.plateau.getListeTuiles().size(); i++) {
-                    game.batch.draw(game.plateau.getListeTuiles().get(i).getJeton().getTextureJeton(),
-                            game.plateau.getListeTuiles().get(i).getCoinInferieurGaucheJeton().x,
-                            game.plateau.getListeTuiles().get(i).getCoinInferieurGaucheJeton().y);
-                }
-
-                // Affichage de chaque Port
-                for (int i = 0; i < game.plateau.getListePorts().size(); i++) {
-                    game.batch.draw(game.plateau.getListePorts().get(i).getTexturePort(),
-                            game.plateau.getListePorts().get(i).getCoinInferieurGauchePort().x,
-                            game.plateau.getListePorts().get(i).getCoinInferieurGauchePort().y,
-                            64,
-                            64);
-                }
-
-                game.batch.end();
-
-                // Affichage du squelette en surcouche
-                for (int i = 0; i < game.plateau.getListeTuiles().size(); i++) {
-                    game.sr.begin(ShapeRenderer.ShapeType.Line);
-                    game.sr.polygon(game.plateau.getListeTuiles().get(i).getVertices());
-                    game.sr.setColor(0, 0, 0, 1);
-                    Gdx.gl.glLineWidth(5);
-                    game.sr.end();
-
-
-                }
-
-                if (Gdx.input.isKeyPressed(Input.Keys.BACK)) {
-                    this.state = State.PAUSE;
-                    quitGameConfirm();
-
-                }
+                stage.draw();
 
 
                 break;
@@ -127,6 +152,58 @@ public class GameScreen implements Screen {
                 break;
         }
 
+
+    }
+
+    public void drawBoard() {
+
+        game.batch.begin();
+        // Affichage de la mer
+        game.batch.draw(game.plateau.getTextureMer(), 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
+        // Affichage de chaque Tuile/Terrain
+        for (int i = 0; i < game.plateau.getListeTuiles().size(); i++) {
+            game.batch.draw(game.plateau.getListeTuiles().get(i).getTextureTuile(),
+                    game.plateau.getListeTuiles().get(i).getCoinInferieurGaucheTuile().x,
+                    game.plateau.getListeTuiles().get(i).getCoinInferieurGaucheTuile().y,
+                    (float) Math.sqrt(3) * game.plateau.TAILLE_TUILE,
+                    (float) (game.plateau.TAILLE_TUILE * 2));
+        }
+
+        // Affichage de chaque Jeton
+        for (int i = 0; i < game.plateau.getListeTuiles().size(); i++) {
+            game.batch.draw(game.plateau.getListeTuiles().get(i).getJeton().getTextureJeton(),
+                    game.plateau.getListeTuiles().get(i).getCoinInferieurGaucheJeton().x,
+                    game.plateau.getListeTuiles().get(i).getCoinInferieurGaucheJeton().y);
+        }
+
+        // Affichage de chaque Port
+        for (int i = 0; i < game.plateau.getListePorts().size(); i++) {
+            game.batch.draw(game.plateau.getListePorts().get(i).getTexturePort(),
+                    game.plateau.getListePorts().get(i).getCoinInferieurGauchePort().x,
+                    game.plateau.getListePorts().get(i).getCoinInferieurGauchePort().y,
+                    64,
+                    64);
+        }
+
+        game.batch.end();
+
+        // Affichage du squelette en surcouche
+        for (int i = 0; i < game.plateau.getListeTuiles().size(); i++) {
+            game.sr.begin(ShapeRenderer.ShapeType.Line);
+            game.sr.polygon(game.plateau.getListeTuiles().get(i).getVertices());
+            game.sr.setColor(0, 0, 0, 1);
+            Gdx.gl.glLineWidth(5);
+            game.sr.end();
+
+
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.BACK)) {
+            this.state = State.PAUSE;
+            quitGameConfirm();
+
+        }
 
     }
 

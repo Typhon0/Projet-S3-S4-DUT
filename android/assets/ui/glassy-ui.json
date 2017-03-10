@@ -18,6 +18,11 @@
 
 		}
 
+		round:{
+			up:checkbox
+			down:checkbox-down
+		}
+
         settings: {
             up:settings
             down:settings-down
