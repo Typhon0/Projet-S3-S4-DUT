@@ -12,7 +12,7 @@ import de.tomgrill.gdxdialogs.core.GDXDialogsSystem;
 
 public class Catan extends Game {
 
-    public SpriteBatch batch, batch2;
+    public SpriteBatch batch, batch2,batchHUD;
 
     public ShapeRenderer sr;
 

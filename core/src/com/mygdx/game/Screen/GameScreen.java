@@ -2,6 +2,8 @@ package com.mygdx.game.Screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -12,18 +14,17 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.FloatArray;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.mygdx.game.Catan;
-import com.mygdx.game.model.HUD;
 import com.mygdx.game.model.State;
+import com.mygdx.game.model.Tuile;
 
 import java.util.ArrayList;
 
@@ -36,7 +37,7 @@ import de.tomgrill.gdxdialogs.core.listener.ButtonClickListener;
  * Created by typhon0 on 01/03/17.
  */
 
-public class GameScreen implements Screen {
+public class GameScreen implements Screen ,InputProcessor {
     private Catan game;
     public Sprite sprite;
     public FloatArray vertices, v2, v3;
@@ -48,6 +49,7 @@ public class GameScreen implements Screen {
     public Skin skin;
     public GDXDialogs dialogs;
     public Stage stage;
+    private HUD hud;
 
 
     private State state = State.RUN; // status du jeu
@@ -55,64 +57,13 @@ public class GameScreen implements Screen {
 
     public GameScreen(Catan g) {
         this.game = g;
-        skin = new Skin(Gdx.files.internal("ui/glassy-ui.json"));
         dialogs = GDXDialogsSystem.install();
         state = State.RUN;
-
-        stage = new Stage(new ExtendViewport(1920, 1080));
-
-        Gdx.input.setInputProcessor(stage); // Detection des inputs
-
-        skin = new Skin(Gdx.files.internal("ui/glassy-ui.json"));
-
-        Table table = new Table();
-        table.setSize(1920, 1080);
-
-        //Text Button
-        final Button piocher = new Button(skin, "round");
-        table.add(piocher).size(170, 170).padRight(1500);
-
-        final Button stat = new Button(skin, "round");
-        table.add(stat).size(170, 170);
-        table.row();
-
-        //Text Button
-        final Button echange = new Button(skin, "round");
-        table.add(echange).size(170, 170).padRight(1500);
-
-        final Button regle = new Button(skin, "help");
-        table.add(regle).size(170, 170);
-        table.row();
-
-        final Button lancedes = new Button(skin, "round");
-        table.add(lancedes).size(170, 170).padRight(1500);
-
-        final Button settings = new Button(skin, "settings");
-        table.add(settings).size(170, 170);
-
-        table.row();
-
-
-        final Button pions = new Button(skin, "round");
-        table.add(pions).size(170, 170).padRight(1500);
-        final Button quit = new Button(skin, "exit");
-        table.add(quit).size(170, 170);
-        table.row();
-
-        final Button passtour = new Button(skin, "round");
-        table.add(passtour).size(170, 170).padRight(1500);
-        table.row();
-
-
-
-
-        //  table.pack();
-
-
-        stage.addActor(table);
-
-
-
+        hud = new HUD(game.batch);
+        InputMultiplexer inputMultiplexer = new InputMultiplexer();
+        inputMultiplexer.addProcessor(hud.stage);
+        inputMultiplexer.addProcessor(this);
+        Gdx.input.setInputProcessor(inputMultiplexer);
 
 
     }
@@ -130,14 +81,19 @@ public class GameScreen implements Screen {
             case RUN:
                 Gdx.gl.glClearColor(0, 130, 175, 1);
                 Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-                //System.out.println("+ "+plateau.getListeTuiles().size());
 
+                //Plateau
                 drawBoard();
+                //HUD
+                //game.batch2.setProjectionMatrix(hud.stage.getCamera().combined);
+                hud.stage.act();
+                hud.stage.draw();
 
+/*
                 stage.act(delta);
 
                 stage.draw();
-
+*/
 
                 break;
             case PAUSE:
@@ -198,6 +154,7 @@ public class GameScreen implements Screen {
 
 
         }
+
 
         if (Gdx.input.isKeyPressed(Input.Keys.BACK)) {
             this.state = State.PAUSE;
@@ -268,5 +225,47 @@ public class GameScreen implements Screen {
 
     public void setState(State t) {
         this.state = t;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        System.out.println(screenX+" "+screenY);
+        return false;
+    }
+    @Override
+    public boolean keyDown(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyTyped(char character) {
+        return false;
+    }
+
+
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(int amount) {
+        return false;
     }
 }

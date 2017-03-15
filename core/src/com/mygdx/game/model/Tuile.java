@@ -1,7 +1,12 @@
 package com.mygdx.game.model;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 
 import java.util.ArrayList;
 
@@ -10,6 +15,7 @@ import java.util.ArrayList;
  */
 
 public class Tuile {
+
     private Vector2 center;
     private Vector2 point1;
     private Vector2 point2;
@@ -29,14 +35,17 @@ public class Tuile {
         this.taille = taille;
         //this.type = "desert";
         this.jeton = new Jeton(3);
-        this.deltaX = (float) ((Math.sqrt(3)* taille)/2);
+        this.deltaX = (float) ((Math.sqrt(3) * taille) / 2);
         listeSommets = new ArrayList<Vector2>();
         ajouterSommet(this.center);
         genererSommets();
+
+
     }
 
+
     // Affecte à une tuile son type et sa texture
-    public void affecterType(String s){
+    public void affecterType(String s) {
         this.setType(s);
         if (s.equals("foret"))
             textureTuile = Plateau.getFORET();
@@ -64,13 +73,13 @@ public class Tuile {
 
     // Génère les points d'un hexagone sur pointe
     public void genererSommets() {
-        float deltaX = (float) ((Math.sqrt(3)* taille)/2);
-        Vector2 point1 = new Vector2(center.x,center.y+ taille);
-        Vector2 point2 = new Vector2(center.x+deltaX,center.y+ taille /2);
-        Vector2 point3 = new Vector2(center.x+deltaX,center.y- taille /2);
-        Vector2 point4 = new Vector2(center.x,center.y- taille);
-        Vector2 point5 = new Vector2(center.x-deltaX,center.y- taille /2);
-        Vector2 point6 = new Vector2(center.x-deltaX,center.y+ taille /2);
+        float deltaX = (float) ((Math.sqrt(3) * taille) / 2);
+        Vector2 point1 = new Vector2(center.x, center.y + taille);
+        Vector2 point2 = new Vector2(center.x + deltaX, center.y + taille / 2);
+        Vector2 point3 = new Vector2(center.x + deltaX, center.y - taille / 2);
+        Vector2 point4 = new Vector2(center.x, center.y - taille);
+        Vector2 point5 = new Vector2(center.x - deltaX, center.y - taille / 2);
+        Vector2 point6 = new Vector2(center.x - deltaX, center.y + taille / 2);
         ajouterSommet(point1);
         ajouterSommet(point2);
         ajouterSommet(point3);
@@ -87,7 +96,7 @@ public class Tuile {
     public boolean equals(Object o) {
         if (o instanceof Tuile) {
 //            System.out.println("dans instance of");
-            Tuile ht = (Tuile)o;
+            Tuile ht = (Tuile) o;
             System.out.println("nous sommes identiques");
             return true;//this.center.equals(ht.center); //&& this.taille==ht.taille; // deux tuiles sont identiques si elles ont le meme centre et meme rayon
         }
@@ -96,40 +105,48 @@ public class Tuile {
     }
 
     public String getCoordonnees() {
-        String s = "Centre : "+center.x+","+center.y+"\n";
-        for(int i=1; i<=6; i++) {
-            s += "Point"+i+" : "+(int) listeSommets.get(i).x+","+(int) listeSommets.get(i).y+"\n";
+        String s = "Centre : " + center.x + "," + center.y + "\n";
+        for (int i = 1; i <= 6; i++) {
+            s += "Point" + i + " : " + (int) listeSommets.get(i).x + "," + (int) listeSommets.get(i).y + "\n";
         }
         return s;
     }
 
     public float[] getVertices() {
         float[] tab = {
-            listeSommets.get(1).x, listeSommets.get(1).y,
-            listeSommets.get(2).x, listeSommets.get(2).y,
-            listeSommets.get(3).x, listeSommets.get(3).y,
-            listeSommets.get(4).x, listeSommets.get(4).y,
-            listeSommets.get(5).x, listeSommets.get(5).y,
-            listeSommets.get(6).x, listeSommets.get(6).y,
+                listeSommets.get(1).x, listeSommets.get(1).y,
+                listeSommets.get(2).x, listeSommets.get(2).y,
+                listeSommets.get(3).x, listeSommets.get(3).y,
+                listeSommets.get(4).x, listeSommets.get(4).y,
+                listeSommets.get(5).x, listeSommets.get(5).y,
+                listeSommets.get(6).x, listeSommets.get(6).y,
         };
         return tab;
     }
 
     // Renvoie le pixel du coin inférieur gauche de la tuile
     // Sert à dessiner la texture
-    public Vector2 getCoinInferieurGaucheTuile() { return new Vector2(center.x-deltaX,center.y-taille); }
+    public Vector2 getCoinInferieurGaucheTuile() {
+        return new Vector2(center.x - deltaX, center.y - taille);
+    }
 
     // Renvoie le pixel du coin supérieur droit de la tuile
     // Sert à dessiner la texture
-    public Vector2 getCoinSuperieurDroitTuile() { return new Vector2(center.x+deltaX,center.y+taille); }
+    public Vector2 getCoinSuperieurDroitTuile() {
+        return new Vector2(center.x + deltaX, center.y + taille);
+    }
 
     // Renvoie le pixel du coin inférieur gauche d'un carré intégré dans la tuile
     // Sert à dessiner le jeton
-    public Vector2 getCoinInferieurGaucheJeton() { return new Vector2(center.x-32,center.y-32); }
+    public Vector2 getCoinInferieurGaucheJeton() {
+        return new Vector2(center.x - 32, center.y - 32);
+    }
 
     // Renvoie le pixel du coin supérieur droit d'un carré intégré dans la tuile
     // Sert à dessiner le jeton
-    public Vector2 getCoinSuperieurDroitJeton() { return new Vector2(center.x+32,center.y+32); }
+    public Vector2 getCoinSuperieurDroitJeton() {
+        return new Vector2(center.x + 32, center.y + 32);
+    }
 
     // Getter & Setter
     public void setCentre(Vector2 centre) {
