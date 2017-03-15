@@ -24,25 +24,30 @@ public class Jeton {
     // Affecte une valeur au jeton
     public void affecterValeur(Integer valeur){
         this.setValeur(valeur);
-        if (valeur==2)
+        affecterTexture();
+    }
+
+    // Affecte la texture correspondante à la valeur du jeton
+    public void affecterTexture() {
+        if (valeur == 2)
             textureJeton = Plateau.getJeton2();
-        else if (valeur==3)
+        else if (valeur == 3)
             textureJeton = Plateau.getJeton3();
-        else if (valeur==4)
+        else if (valeur == 4)
             textureJeton = Plateau.getJeton4();
-        else if (valeur==5)
+        else if (valeur == 5)
             textureJeton = Plateau.getJeton5();
-        else if (valeur==6)
+        else if (valeur == 6)
             textureJeton = Plateau.getJeton6();
-        else if (valeur==8)
+        else if (valeur == 8)
             textureJeton = Plateau.getJeton8();
-        else if (valeur==9)
+        else if (valeur == 9)
             textureJeton = Plateau.getJeton9();
-        else if (valeur==10)
+        else if (valeur == 10)
             textureJeton = Plateau.getJeton10();
-        else if (valeur==11)
+        else if (valeur == 11)
             textureJeton = Plateau.getJeton11();
-        else if (valeur==12)
+        else if (valeur == 12)
             textureJeton = Plateau.getJeton12();
         else {
             textureJeton = null;
