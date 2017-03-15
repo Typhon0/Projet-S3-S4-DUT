@@ -1,18 +1,16 @@
 package com.mygdx.game.model;
 
-import org.omg.SendingContext.RunTime;
-
 /**
  * Created by XXIII on 15/03/2017.
  */
 
-public class RessourcePaquet {
+public class PaquetRessources {
 
     private int[] ressources; // on ne travaille pas avec l'indice 0
     private String proprietaire; // Nom du propriétaire : est le paquet d'un joueur ou du jeu (ressource globale)
 
-    public RessourcePaquet(String proprietaire) {
-        ressources = new int[RessourceConstantes.TAILLE_TABLEAU];
+    public PaquetRessources(String proprietaire) {
+        ressources = new int[Constantes.TAILLE_TABLEAU_RESSOURCE];
         this.proprietaire = proprietaire;
         for (int i=1 ; i<ressources.length ; i++) {
             ressources[i] = 0;
@@ -22,14 +20,15 @@ public class RessourcePaquet {
     // Remplir le paquet avec le montant maximum de chaque ressource
     // Sert au paquet de ressource du jeu
     public void remplir() {
-        for (int i=1 ; i<ressources.length ; i++) {
-            ressources[i] = RessourceConstantes.MONTANT_RESSOURCE_MAXIMUM;
+        for (int i=Constantes.NUMERO_RESSOURCE_MIN ; i<ressources.length ; i++) {
+            ressources[i] = Constantes.MONTANT_RESSOURCE_MAXIMUM;
         }
     }
 
     // Vérifie que la quantité de typeRessrouce est retirable
     public boolean estRetirable(int typeRessource,int quantite) {
-        //if (typeRessource >= RessourceConstantes.NUMERO_RESSOURCE_MIN && typeRessource <= RessourceConstantes.NUMERO_RESSOURCE_MAX)
+        //if (typeRessource >= Constantes.NUMERO_RESSOURCE_MIN && typeRessource <= Constantes.NUMERO_RESSOURCE_MAX)
+        System.out.println("Ressource en stock de "+Constantes.nomRessource(typeRessource)+" en stock = "+ressources[typeRessource]+" ,quantité demandée = "+quantite);
             return ressources[typeRessource] >= quantite;
         //return false;
     }
@@ -43,10 +42,11 @@ public class RessourcePaquet {
     public void ajouterRessource(int typeRessource,int quantite) {
         ressources[typeRessource] += quantite;
     }
+
     // le paquet 1 reçoit x quantité de ressources du type "ressource" du paquet 2
-    public static void echange(RessourcePaquet p1,RessourcePaquet p2,int typeRessource,int quantite) {
+    public static void echange(PaquetRessources p1, PaquetRessources p2, int typeRessource, int quantite) {
         // Vérification que le type de ressource est correcte
-        if (typeRessource >= RessourceConstantes.NUMERO_RESSOURCE_MIN && typeRessource <= RessourceConstantes.NUMERO_RESSOURCE_MAX) {
+        if (typeRessource >= Constantes.NUMERO_RESSOURCE_MIN && typeRessource <= Constantes.NUMERO_RESSOURCE_MAX) {
             if (p2.estRetirable(typeRessource,quantite)) {
                 p2.retirerRessource(typeRessource,quantite);
                 p1.ajouterRessource(typeRessource,quantite);
@@ -60,5 +60,11 @@ public class RessourcePaquet {
         }
     }
 
+    public int[] getRessources() {
+        return ressources;
+    }
 
+    public String getProprietaire() {
+        return proprietaire;
+    }
 }

@@ -25,6 +25,7 @@ public class Plateau {
     private com.mygdx.game.autre.StackNonRedimensionnable<Jeton> stackJetons; // stack de tokens
     //private com.mygdx.game.autre.StackNonRedimensionnable<Port> stackPorts;
     private Texture textureMer;
+    private static PaquetRessources ressources;
 
 
 
@@ -36,6 +37,8 @@ public class Plateau {
         stackJetons = new com.mygdx.game.autre.StackNonRedimensionnable<Jeton>(18);
         //stackPorts = new StackNonRedimensionnable<Port>(6);
         textureMer = MER;
+        ressources = new PaquetRessources("Jeu");
+        ressources.remplir();
     }
 
     // Génère le plateau de jeu ainsi que ses composants
@@ -239,6 +242,10 @@ public class Plateau {
             messageErreur += "Erreur lors du chargement de la texture : "+"textures/texture_port2.png"+"\n";
         }
         System.err.println(messageErreur);
+    }
+
+    public static PaquetRessources getRessources() {
+        return ressources;
     }
 
     public ArrayList<Tuile> getListeTuiles() {

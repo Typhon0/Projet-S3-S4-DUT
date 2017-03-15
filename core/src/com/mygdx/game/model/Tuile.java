@@ -39,10 +39,7 @@ public class Tuile {
         listeSommets = new ArrayList<Vector2>();
         ajouterSommet(this.center);
         genererSommets();
-
-
     }
-
 
     // Affecte à une tuile son type et sa texture
     public void affecterType(String s) {
