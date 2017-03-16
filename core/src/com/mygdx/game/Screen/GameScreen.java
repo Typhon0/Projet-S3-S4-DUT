@@ -236,6 +236,7 @@ public class GameScreen implements Screen ,InputProcessor {
                 if (game.plateau.getListeTuiles().get(i).getListeSitesConstruction().get(j).estToucheInt(screenX,screenY)) {
                     System.out.println("Site de construction : "+game.plateau.getListeTuiles().get(i).getListeSitesConstruction().get(j).getPosition().x+","+
                             game.plateau.getListeTuiles().get(i).getListeSitesConstruction().get(j).getPosition().y+" touché");
+                    //return false;
                 }
             }
         }

@@ -27,7 +27,11 @@ public class SiteConstruction {
     public boolean equals(Object o) {
         if (o instanceof SiteConstruction) {
             SiteConstruction sc = (SiteConstruction) o;
-            return this.position.equals(sc.position);
+            if ((int)this.position.x==(int)sc.position.x && (int)this.position.y==(int)sc.position.y) {
+                System.out.println("trouvé des sites identiques");
+                return true;
+            }
+
         }
         return false;
 
@@ -45,7 +49,7 @@ public class SiteConstruction {
     public boolean estToucheInt(int x,int y) {
         if (x >= position.x-Constantes.STRUCTURE_DELTA_X && x <= position.x+Constantes.STRUCTURE_DELTA_X &&
                 y >= position.y-Constantes.STRUCTURE_DELTA_Y && y <= position.y+Constantes.STRUCTURE_DELTA_Y) {
-            System.out.println("Le site de construction "+position.x+","+position.y+" a été touché");
+            System.out.println("Le site de construction "+this.toString()+" "+position.x+","+position.y+" a été touché");
             return true;
         }
         return false;

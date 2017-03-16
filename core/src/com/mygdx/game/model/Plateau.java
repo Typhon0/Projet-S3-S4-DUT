@@ -52,6 +52,8 @@ public class Plateau {
         affecterJetons();
 
         genererPorts();
+
+        //supprimerDoublonSiteConstruction();
     }
 
     // Génère les tuiles
@@ -146,6 +148,45 @@ public class Plateau {
         listePorts.add(new Port(new Vector2(listeTuiles.get(7).getListeSommets().get(0).x - 2 * DELTA_X, listeTuiles.get(7).getListeSommets().get(0).y),"aucun", 3,PORT));
         listePorts.add(new Port(new Vector2(listeTuiles.get(0).getListeSommets().get(0).x - DELTA_X, listeTuiles.get(0).getListeSommets().get(0).y + 1.5f * TAILLE_TUILE),"aucun", 3,PORT));
 
+    }
+
+    public void supprimerDoublonSiteConstruction() {
+        List<SiteConstruction>listeSiteConstruction = new ArrayList<SiteConstruction>();
+
+        for (Tuile t : listeTuiles) {
+            for (SiteConstruction sc : t.getListeSitesConstruction()) {
+                listeSiteConstruction.add(sc);
+            }
+        }
+        System.out.println("Taille du tableau avant : "+listeSiteConstruction.size());
+        /*
+        for (int i =0 ; i<listeSiteConstruction.size()-1 ; i++) {
+            for (int j=i+1 ; j<listeSiteConstruction.size() ; j++) {
+                if (listeSiteConstruction.get(i).equals(listeSiteConstruction.get(j))) {
+                    listeSiteConstruction.remove(j);
+                }
+            }
+        }
+        */
+        //System.out.println("Taille du tableau après : "+listeSiteConstruction.size());
+
+        for (int i=0 ; i<listeTuiles.size()-1 ;i++) {
+            Tuile t = listeTuiles.get(i);
+            for (int j=i+1 ; j<listeTuiles.size();j++) {
+                Tuile t2 = listeTuiles.get(j);
+                for (int k=0 ; k<t.getListeSitesConstruction().size(); k++) {
+                    SiteConstruction sc = t.getListeSitesConstruction().get(k);
+                    for (int l=0 ; l<t2.getListeSitesConstruction().size() ; l++) {
+                        SiteConstruction sc2 = t.getListeSitesConstruction().get(l);
+                        if (sc.equals(sc2)) {
+                            listeTuiles.get(j).getListeSitesConstruction().set(l,listeTuiles.get(i).getListeSitesConstruction().get(k));
+
+                        }
+                    }
+                }
+            }
+        }
+        System.out.println("Taille du tableau après : "+listeSiteConstruction.size());
     }
 
     // Charge toutes les textures pour le plateau de jeu
