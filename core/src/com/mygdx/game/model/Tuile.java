@@ -27,6 +27,7 @@ public class Tuile {
     private float deltaX;
     private Jeton jeton;
     private ArrayList<Vector2> listeSommets;
+    private ArrayList<SiteConstruction> listeSitesConstruction;
     private String type;
     private Texture textureTuile;
 
@@ -37,8 +38,10 @@ public class Tuile {
         this.jeton = new Jeton(3);
         this.deltaX = (float) ((Math.sqrt(3) * taille) / 2);
         listeSommets = new ArrayList<Vector2>();
+        listeSitesConstruction = new ArrayList<SiteConstruction>();
         ajouterSommet(this.center);
         genererSommets();
+        genererSitesConstruction();
     }
 
     // Affecte à une tuile son type et sa texture
@@ -89,6 +92,28 @@ public class Tuile {
         if (!listeSommets.contains(corner))
             listeSommets.add(corner);
     }
+
+    public void genererSitesConstruction() {
+        SiteConstruction sc1 = new SiteConstruction(new Vector2(center.x, center.y + taille));
+        SiteConstruction sc2 = new SiteConstruction(new Vector2(center.x + deltaX, center.y + taille / 2));
+        SiteConstruction sc3 = new SiteConstruction(new Vector2(center.x + deltaX, center.y - taille / 2));
+        SiteConstruction sc4 = new SiteConstruction(new Vector2(center.x, center.y - taille));
+        SiteConstruction sc5 = new SiteConstruction(new Vector2(center.x - deltaX, center.y - taille / 2));
+        SiteConstruction sc6 = new SiteConstruction(new Vector2(center.x - deltaX, center.y + taille / 2));
+        ajouterSiteConstruction(sc1);
+        ajouterSiteConstruction(sc2);
+        ajouterSiteConstruction(sc3);
+        ajouterSiteConstruction(sc4);
+        ajouterSiteConstruction(sc5);
+        ajouterSiteConstruction(sc6);
+    }
+
+    public void ajouterSiteConstruction(SiteConstruction sc) {
+        if (!listeSitesConstruction.contains(sc))
+            listeSitesConstruction.add(sc);
+    }
+
+
 
     public boolean equals(Object o) {
         if (o instanceof Tuile) {
@@ -146,6 +171,12 @@ public class Tuile {
     }
 
     // Getter & Setter
+
+
+    public ArrayList<SiteConstruction> getListeSitesConstruction() {
+        return listeSitesConstruction;
+    }
+
     public void setCentre(Vector2 centre) {
         this.center = centre;
     }

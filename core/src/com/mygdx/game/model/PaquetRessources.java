@@ -44,7 +44,7 @@ public class PaquetRessources {
     }
 
     // le paquet 1 reçoit x quantité de ressources du type "ressource" du paquet 2
-    public static void echange(PaquetRessources p1, PaquetRessources p2, int typeRessource, int quantite) {
+    public static void recevoirRessource(PaquetRessources p1, PaquetRessources p2, int typeRessource, int quantite) {
         // Vérification que le type de ressource est correcte
         if (typeRessource >= Constantes.NUMERO_RESSOURCE_MIN && typeRessource <= Constantes.NUMERO_RESSOURCE_MAX) {
             if (p2.estRetirable(typeRessource,quantite)) {

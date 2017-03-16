@@ -11,12 +11,12 @@ import java.util.List;
 
 public class Joueur {
 
-    private int points;
-    private int[] paquetStructures;
-    private PaquetRessources ressources;
-    private List<Structure> listeStructures;
-    private String nom;
-    private Color couleur;
+    private int points; // Points victoiress
+    private int[] paquetStructures; // Tableau contenant le nombre de structures restantes
+    private PaquetRessources ressources; // paquet de ressources
+    private List<Structure> listeStructures; // liste des structures placées
+    private String nom; // nom du joueur
+    private Color couleur; // couleur du joueur
 
     public Joueur(String nom) {
         this.nom = nom;
@@ -45,7 +45,9 @@ public class Joueur {
             if (estAchetable(cout)) {
                 paquetStructures[Constantes.VILLE]--; // décrémente de 1 le nombre de villes restantes
                 acheter(cout); // achète le cout de la ville
-                listeStructures.add(new Structure()); // crée la ville et l'ajoute à la liste des structures
+                //Structure s = new Structure(this,)
+               // listeStructures.add(new Structure()); // crée la ville et l'ajoute à la liste des structures
+
                 // A COMPLETER
             }
             else
@@ -90,7 +92,7 @@ public class Joueur {
     public void acheter(int[]cout) {
         for (int i=Constantes.NUMERO_RESSOURCE_MIN ; i<=Constantes.NUMERO_RESSOURCE_MAX ; i++) {
             // ajoute les ressources au plateau, retire les ressources du joueur, la ressource i,pour un cout de cout[i]
-            PaquetRessources.echange(Plateau.getRessources(),ressources,i,cout[i]);
+            PaquetRessources.recevoirRessource(Plateau.getRessources(),ressources,i,cout[i]);
         }
     }
 

@@ -23,6 +23,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.FloatArray;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.mygdx.game.Catan;
+import com.mygdx.game.model.SiteConstruction;
 import com.mygdx.game.model.State;
 import com.mygdx.game.model.Tuile;
 
@@ -229,7 +230,15 @@ public class GameScreen implements Screen ,InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        System.out.println(screenX+" "+screenY);
+        System.out.println("Le pixel "+screenX+" "+screenY+" a été touché");
+        for (int i=0 ; i<game.plateau.getListeTuiles().size() ; i++) {
+            for (int j=0 ; j<game.plateau.getListeTuiles().get(i).getListeSitesConstruction().size() ; j++) {
+                if (game.plateau.getListeTuiles().get(i).getListeSitesConstruction().get(j).estToucheInt(screenX,screenY)) {
+                    System.out.println("Site de construction : "+game.plateau.getListeTuiles().get(i).getListeSitesConstruction().get(j).getPosition().x+","+
+                            game.plateau.getListeTuiles().get(i).getListeSitesConstruction().get(j).getPosition().y+" touché");
+                }
+            }
+        }
         return false;
     }
     @Override

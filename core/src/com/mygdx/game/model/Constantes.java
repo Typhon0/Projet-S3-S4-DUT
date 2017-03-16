@@ -42,6 +42,9 @@ public class Constantes {
     /*
         Constantes pour les structures
      */
+    public static final float STRUCTURE_DELTA_X = 16.0f; // largeur d'un SiteConstruction /2
+    public static final float STRUCTURE_DELTA_Y = 16.0f; // hauteur d'un SiteConstruction /2
+
     public static final int MONTANT_VILLE_MAXIMUM = 4;
     public static final int MONTANT_COLONIE_MAXIMUM = 5;
     public static final int MONTANT_ROUTE_MAXIMUM = 15;
@@ -49,6 +52,10 @@ public class Constantes {
     public static final int VILLE = 1;
     public static final int COLONIE = 2;
     public static final int ROUTE = 3;
+
+    public static final int POINTS_VICTOIRE_VILLE = 2;
+    public static final int POINTS_VICTOIRE_COLONIE = 1;
+    public static final int POINTS_VICTOIRE_ROUTE = 0;
 
     public static final int NUMERO_STRUCTURE_MIN = 1;
     public static final int NUMERO_STRUCTURE_MAX = 3;
@@ -68,6 +75,14 @@ public class Constantes {
         }
         return nom;
     }
+
+    public static final int ROUTE_ORIENTATION_MIN = 1;
+    public static final int ROUTE_ORIENTATION_MAX = 4;
+    public static final int ROUTE_ORIENTATION_AUCUNE = 0; // n'est pas une route
+    public static final int ROUTE_ORIENTATION_HORIZONTALE = 1;
+    public static final int ROUTE_ORIENTATION_VERTICALE = 2;
+    public static final int ROUTE_ORIENTATION_CROISSANTE = 3;
+    public static final int ROUTE_ORIENTATION_DECROISSANTE = 4;
 
     /*
         Constantes des coûts de construction
@@ -112,5 +127,6 @@ public class Constantes {
         tableauCoutCarteDeveloppement[MINERAI] = 1;
         return tableauCoutCarteDeveloppement;
     }
+
 
 }

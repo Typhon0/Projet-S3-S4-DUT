@@ -37,11 +37,12 @@ public class Catan extends Game {
 
         this.setScreen(new MainMenu(this));
 
+        /*
         System.out.println(plateau.getListeTuiles().get(0).getListeSommets().get(2).toString());
         System.out.println(plateau.getListeTuiles().get(1).getListeSommets().get(6).toString());
 
         System.out.println(plateau.getListeTuiles().get(0).getListeSommets().get(2).equals(plateau.getListeTuiles().get(1).getListeSommets().get(6)));
-
+        */
     }
 
     @Override
