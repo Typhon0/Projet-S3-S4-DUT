@@ -113,7 +113,8 @@ public class Tuile {
             listeSitesConstruction.add(sc);
     }
 
-    public void supprimerDoublonSiteConstruction(SiteConstruction sc) {
+    // Si deux SiteConstruction ont le même sommet, ils pointent vers le même objet
+    public void fusionnerSiteConstruction(SiteConstruction sc) {
         if (listeSitesConstruction.contains(sc)) {
             int i = listeSitesConstruction.indexOf(sc);
             listeSitesConstruction.set(i,sc);

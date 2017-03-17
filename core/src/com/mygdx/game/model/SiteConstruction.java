@@ -1,8 +1,6 @@
 package com.mygdx.game.model;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.ui.List;
-
 import java.util.ArrayList;
 
 /**
@@ -15,39 +13,26 @@ public class SiteConstruction {
     private ArrayList<Tuile> listeTuilesAdjacentes;
     private Structure structure;
     private boolean estConstruit;
+    private boolean estBatiment; // true s'il s'agit d'une ville/colonie, false pour une route
 
     public SiteConstruction(Vector2 position) {
+        this.estBatiment = false;
         this.position = position;
         this.estConstruit = false;
         this.structure = null;
         listeTuilesAdjacentes = new ArrayList<Tuile>();
     }
 
-    // Deux sites de construction sont identiques s'il la
+    public SiteConstruction(Vector2 position,boolean estBatiment) {
+        new SiteConstruction(position);
+        this.estBatiment = true;
+    }
+
+    // Deux sites de construction sont identiques s'il la distance entre eux est inférieur à 3 pixel en x et y
     public boolean equals(Object o) {
         if (o instanceof SiteConstruction) {
             SiteConstruction sc = (SiteConstruction) o;
             return ( Math.abs(this.position.x - sc.position.x) <= 3.0 && Math.abs(this.position.y - sc.position.y) <= 3.0);
-                    /*
-            if ((int)this.position.x==(int)sc.position.x && (int)this.position.y==(int)sc.position.y) {
-                //System.out.println("trouvé des sites identiques");
-                return true;
-            }
-            */
-        }
-        return false;
-
-    }
-
-    public void supprimerDoublon(SiteConstruction sc) {
-        //this = sc;
-    }
-
-    public boolean estToucheVector2(Vector2 pixel) {
-        if (pixel.x >= position.x-Constantes.STRUCTURE_DELTA_X && pixel.x <= position.x+Constantes.STRUCTURE_DELTA_X &&
-                pixel.y >= position.y-Constantes.STRUCTURE_DELTA_Y && pixel.y <= position.y+Constantes.STRUCTURE_DELTA_Y) {
-            System.out.println("Le site de construction "+position.x+","+position.y+" a été touché");
-            return true;
         }
         return false;
     }
@@ -90,5 +75,9 @@ public class SiteConstruction {
 
     public void setEstConstruit(boolean estConstruit) {
         this.estConstruit = estConstruit;
+    }
+
+    public boolean isEstBatiment() {
+        return estBatiment;
     }
 }

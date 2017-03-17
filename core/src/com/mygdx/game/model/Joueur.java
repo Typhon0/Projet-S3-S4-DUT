@@ -39,22 +39,30 @@ public class Joueur {
         this.points += points;
     }
 
-    public void construireVille(){
-        if (paquetStructures[Constantes.VILLE] >0) {
-            int[]cout = Constantes.getCoutConstructionVille();
-            if (estAchetable(cout)) {
-                paquetStructures[Constantes.VILLE]--; // décrémente de 1 le nombre de villes restantes
-                acheter(cout); // achète le cout de la ville
-                //Structure s = new Structure(this,)
-               // listeStructures.add(new Structure()); // crée la ville et l'ajoute à la liste des structures
+    public void construireVille(SiteConstruction sc){
+        if (!sc.isEstConstruit()) {
+            if (sc.isEstBatiment()) {
+                if (paquetStructures[Constantes.VILLE] >0) {
+                    int[]cout = Constantes.getCoutConstructionVille();
+                    if (estAchetable(cout)) {
+                        paquetStructures[Constantes.VILLE]--; // décrémente de 1 le nombre de villes restantes
+                        acheter(cout); // achète le cout de la ville
+                        //Structure s = new Structure(this,)
+                        // listeStructures.add(new Structure()); // crée la ville et l'ajoute à la liste des structures
 
-                // A COMPLETER
+                        // A COMPLETER
+                    }
+                    else
+                        throw new RuntimeException("Erreur : Vous n'avez pas assez de ressource pour construire une ville");
+                }
+                else
+                    throw new RuntimeException("Erreur : Vous n'avez plus de ville à construire");
             }
             else
-                throw new RuntimeException("Erreur : Vous n'avez pas assez de ressource pour construire une ville");
+                throw new RuntimeException("Erreur : Vous ne pouvez pas construire une ville à cet emplacement");
         }
         else
-            throw new RuntimeException("Erreur : Vous n'avez plus de ville à construire");
+            throw new RuntimeException("Erreur : il y a déjà une structure construite à cet emplacement");
     }
 
     public void construireColonie(){
