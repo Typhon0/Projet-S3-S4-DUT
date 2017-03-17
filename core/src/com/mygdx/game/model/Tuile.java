@@ -113,7 +113,13 @@ public class Tuile {
             listeSitesConstruction.add(sc);
     }
 
-
+    public void supprimerDoublonSiteConstruction(SiteConstruction sc) {
+        if (listeSitesConstruction.contains(sc)) {
+            int i = listeSitesConstruction.indexOf(sc);
+            listeSitesConstruction.set(i,sc);
+            //listeSitesConstruction.remove(sc);
+        }
+    }
 
     public boolean equals(Object o) {
         if (o instanceof Tuile) {

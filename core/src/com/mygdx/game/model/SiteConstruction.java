@@ -23,18 +23,24 @@ public class SiteConstruction {
         listeTuilesAdjacentes = new ArrayList<Tuile>();
     }
 
-    // Deux sites de construction sont identiques s'ils ont la même position
+    // Deux sites de construction sont identiques s'il la
     public boolean equals(Object o) {
         if (o instanceof SiteConstruction) {
             SiteConstruction sc = (SiteConstruction) o;
+            return ( Math.abs(this.position.x - sc.position.x) <= 3.0 && Math.abs(this.position.y - sc.position.y) <= 3.0);
+                    /*
             if ((int)this.position.x==(int)sc.position.x && (int)this.position.y==(int)sc.position.y) {
-                System.out.println("trouvé des sites identiques");
+                //System.out.println("trouvé des sites identiques");
                 return true;
             }
-
+            */
         }
         return false;
 
+    }
+
+    public void supprimerDoublon(SiteConstruction sc) {
+        //this = sc;
     }
 
     public boolean estToucheVector2(Vector2 pixel) {
