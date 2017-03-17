@@ -124,13 +124,10 @@ public class Tuile {
 
     public boolean equals(Object o) {
         if (o instanceof Tuile) {
-//            System.out.println("dans instance of");
-            Tuile ht = (Tuile) o;
-            System.out.println("nous sommes identiques");
-            return true;//this.center.equals(ht.center); //&& this.taille==ht.taille; // deux tuiles sont identiques si elles ont le meme centre et meme rayon
+            Tuile t = (Tuile) o;
+            return ( Math.abs(this.center.x - t.center.x) <= 3.0 && Math.abs(this.center.y - t.center.y) <= 3.0);
         }
         return false;
-
     }
 
     public String getCoordonnees() {
