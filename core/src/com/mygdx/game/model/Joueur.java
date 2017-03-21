@@ -18,13 +18,13 @@ public class Joueur {
     private String nom; // nom du joueur
     private Color couleur; // couleur du joueur
 
-    public Joueur(String nom) {
+    public Joueur(String nom,Color couleur) {
         this.nom = nom;
         this.points = 0;
         this.paquetStructures = new int[Constantes.TAILLE_TABLEAU_STRUCTURE];
         this.listeStructures = new ArrayList<Structure>();
         this.ressources = new PaquetRessources(nom);
-
+        this.couleur = couleur;
         remplirPaquetStructures();
     }
 
