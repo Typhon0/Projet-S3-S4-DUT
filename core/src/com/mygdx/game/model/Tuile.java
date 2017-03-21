@@ -213,13 +213,13 @@ public class Tuile {
     // Renvoie le pixel du coin inférieur gauche d'un carré intégré dans la tuile
     // Sert à dessiner le jeton
     public Vector2 getCoinInferieurGaucheJeton() {
-        return new Vector2(center.x - 32, center.y - 32);
+        return new Vector2(center.x - Constantes.DISTANCE_TUILE_X, center.y - Constantes.DISTANCE_TUILE_X);
     }
 
     // Renvoie le pixel du coin supérieur droit d'un carré intégré dans la tuile
     // Sert à dessiner le jeton
     public Vector2 getCoinSuperieurDroitJeton() {
-        return new Vector2(center.x + 32, center.y + 32);
+        return new Vector2(center.x + Constantes.DISTANCE_TUILE_X, center.y + Constantes.DISTANCE_TUILE_X);
     }
 
     // Getter & Setter

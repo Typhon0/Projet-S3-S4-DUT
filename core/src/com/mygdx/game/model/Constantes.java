@@ -139,4 +139,6 @@ public class Constantes {
     public static final String CHEMIN_ACCES_TUILES = "textures/tuiles/";
     public static final String CHEMIN_ACCES_UI = "ui/";
 
+    public static final int DISTANCE_TUILE_X = 32;
+    public static final int DISTANCE_SITE_CONSTRUCTION_X = 16;
 }

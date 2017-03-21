@@ -23,6 +23,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.FloatArray;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.mygdx.game.Catan;
+import com.mygdx.game.model.Constantes;
 import com.mygdx.game.model.Plateau;
 import com.mygdx.game.model.SiteConstruction;
 import com.mygdx.game.model.State;
@@ -34,6 +35,8 @@ import de.tomgrill.gdxdialogs.core.GDXDialogs;
 import de.tomgrill.gdxdialogs.core.GDXDialogsSystem;
 import de.tomgrill.gdxdialogs.core.dialogs.GDXButtonDialog;
 import de.tomgrill.gdxdialogs.core.listener.ButtonClickListener;
+
+import static com.mygdx.game.model.Plateau.*;
 
 /**
  * Created by typhon0 on 01/03/17.
@@ -162,6 +165,27 @@ public class GameScreen implements Screen, InputProcessor {
 
         }
 
+        game.batch.begin();
+
+        // Affichage de chaque Site de construction et de route du plateau et non des joueurs
+        for (int i = 0; i < game.getPartie().getPlateau().getListeTuiles().size(); i++) {
+            for (int j = 0; j < game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstruction().size(); j++) {
+                game.batch.draw( game.getPartie().getPlateau().getBatimentRed(),
+                        game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstruction().get(j).getCoinInferieurGaucheSiteConstruction().x,
+                        game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstruction().get(j).getCoinInferieurGaucheSiteConstruction().y,
+                        Constantes.DISTANCE_SITE_CONSTRUCTION_X,
+                        Constantes.DISTANCE_SITE_CONSTRUCTION_X);
+            }
+            for (int j = 0; j < game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstructionRoute().size(); j++) {
+                game.batch.draw( game.getPartie().getPlateau().getRouteRed(),
+                        game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstructionRoute().get(j).getCoinInferieurGaucheSiteConstruction().x,
+                        game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstructionRoute().get(j).getCoinInferieurGaucheSiteConstruction().y,
+                        Constantes.DISTANCE_SITE_CONSTRUCTION_X,
+                        Constantes.DISTANCE_SITE_CONSTRUCTION_X);
+            }
+        }
+
+        game.batch.end();
 
         if (Gdx.input.isKeyPressed(Input.Keys.BACK)) {
             this.state = State.PAUSE;

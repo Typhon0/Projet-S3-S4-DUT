@@ -3,6 +3,8 @@ package com.mygdx.game.model;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.autre.*;
+import com.mygdx.game.autre.StackNonRedimensionnable;
 
 import java.util.*;
 
@@ -17,6 +19,7 @@ public class Plateau {
     public static final Vector2 CENTRE_PLATEAU = new Vector2(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2);
 
     private static Texture JETON_2, JETON_3, JETON_4, JETON_5, JETON_6, JETON_8, JETON_9, JETON_10, JETON_11, JETON_12, FORET, PRE, CHAMP, COLLINE, MONTAGNE, DESERT, MER, PORT;
+    private Texture BATIMENT_RED,ROUTE_RED;
     private ArrayList<Tuile> listeTuiles; // liste des tuiles
     private ArrayList<Port> listePorts; // liste des ports
     private com.mygdx.game.autre.StackNonRedimensionnable<String> stackTerrains; // stack de type de tuile
@@ -263,6 +266,16 @@ public class Plateau {
         } catch (Exception e) {
             messageErreur += "Erreur lors du chargement de la texture : "+Constantes.CHEMIN_ACCES_PORTS+"texture_port2.png"+"\n";
         }
+        try {
+            PORT = new Texture(Gdx.files.internal("textures/pions/ville/Ville_rouge.png"));
+        } catch (Exception e) {
+            messageErreur += "Erreur lors du chargement de la texture : "+"textures/pions/ville/Ville_rouge.png"+"\n";
+        }
+        try {
+            PORT = new Texture(Gdx.files.internal("textures/pions/route/Route_rouge.png"));
+        } catch (Exception e) {
+            messageErreur += "Erreur lors du chargement de la texture : "+"textures/pions/route/Route_rouge.png"+"\n";
+        }
         System.err.println(messageErreur);
     }
 
@@ -352,5 +365,33 @@ public class Plateau {
 
     public static Texture getPORT() {
         return PORT;
+    }
+
+    public static int getTailleTuile() {
+        return TAILLE_TUILE;
+    }
+
+    public static float getDeltaX() {
+        return DELTA_X;
+    }
+
+    public static Vector2 getCentrePlateau() {
+        return CENTRE_PLATEAU;
+    }
+
+    public Texture getBatimentRed() {
+        return BATIMENT_RED;
+    }
+
+    public Texture getRouteRed() {
+        return ROUTE_RED;
+    }
+
+    public com.mygdx.game.autre.StackNonRedimensionnable<String> getStackTerrains() {
+        return stackTerrains;
+    }
+
+    public StackNonRedimensionnable<Jeton> getStackJetons() {
+        return stackJetons;
     }
 }

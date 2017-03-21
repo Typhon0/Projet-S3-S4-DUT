@@ -72,6 +72,15 @@ public class SiteConstruction {
         return "erreur";
     }
 
+    public Vector2 getCoinInferieurGaucheSiteConstruction() {
+        return new Vector2(position.x - Constantes.DISTANCE_SITE_CONSTRUCTION_X, position.y - Constantes.DISTANCE_SITE_CONSTRUCTION_X);
+    }
+
+    // Renvoie le pixel du coin supérieur droit d'un carré intégré dans la tuile
+    // Sert à dessiner le jeton
+    public Vector2 getCoinSuperieurDroitSiteConstruction() {
+        return new Vector2(position.x + Constantes.DISTANCE_SITE_CONSTRUCTION_X, position.y + Constantes.DISTANCE_SITE_CONSTRUCTION_X);
+    }
     /*
         TO DO
         - listeTuilesAdjacentes
