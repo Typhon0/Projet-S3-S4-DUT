@@ -267,12 +267,12 @@ public class Plateau {
             messageErreur += "Erreur lors du chargement de la texture : "+Constantes.CHEMIN_ACCES_PORTS+"texture_port2.png"+"\n";
         }
         try {
-            PORT = new Texture(Gdx.files.internal("textures/pions/ville/Ville_rouge.png"));
+            BATIMENT_RED = new Texture(Gdx.files.internal("textures/pions/ville/Ville_rouge.png"));
         } catch (Exception e) {
             messageErreur += "Erreur lors du chargement de la texture : "+"textures/pions/ville/Ville_rouge.png"+"\n";
         }
         try {
-            PORT = new Texture(Gdx.files.internal("textures/pions/route/Route_rouge.png"));
+            ROUTE_RED = new Texture(Gdx.files.internal("textures/pions/route/Route_rouge.png"));
         } catch (Exception e) {
             messageErreur += "Erreur lors du chargement de la texture : "+"textures/pions/route/Route_rouge.png"+"\n";
         }
