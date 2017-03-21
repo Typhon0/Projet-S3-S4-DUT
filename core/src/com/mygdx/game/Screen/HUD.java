@@ -10,7 +10,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -40,11 +42,10 @@ public class HUD {
         this.game = game;
         skin = new Skin(Gdx.files.internal("ui/glassy-ui.json"));
         try {
-            //dialogs = GDXDialogsSystem.install();
+            dialogs = GDXDialogsSystem.install();
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
-
 
 
         stage = new Stage(new ExtendViewport(1920, 1080));
@@ -52,22 +53,22 @@ public class HUD {
         Table table = new Table();
         table.setSize(1920, 1080);
         //Text Button
-        final Button piocher = new Button(skin, "round");
+        final Button piocher = new Button(skin, "round");//TODO Changer image button
         table.add(piocher).size(170, 170).padRight(1500);
 
-        final Button stat = new Button(skin, "round");
+        final Button stat = new Button(skin, "round");//TODO Changer image button
         table.add(stat).size(170, 170);
         table.row();
 
         //Text Button
-        final Button echange = new Button(skin, "round");
+        final Button echange = new Button(skin, "round");//TODO Changer image button
         table.add(echange).size(170, 170).padRight(1500);
 
         final Button regle = new Button(skin, "help");
         table.add(regle).size(170, 170);
         table.row();
 
-        final Button lancedes = new Button(skin, "round");
+        final Button lancedes = new Button(skin, "round");//TODO Changer image button
         table.add(lancedes).size(170, 170).padRight(1500);
 
         final Button settings = new Button(skin, "settings");
@@ -75,9 +76,16 @@ public class HUD {
 
         table.row();
 
+        Stack stackPion = new Stack();
 
-        final Button pions = new Button(skin, "round");
-        table.add(pions).size(170, 170).padRight(1500);
+        final Button pions = new Button(skin, "round"); //TODO Changer image button
+        final Button pionsCancel = new Button(skin, "deny");
+        pionsCancel.setVisible(false);
+        stackPion.add(pions);
+        stackPion.add(pionsCancel);
+
+        table.add(stackPion).size(170, 170).padRight(1500);
+
 
         final Button quit = new Button(skin, "exit");
         table.add(quit).size(170, 170);
@@ -107,23 +115,23 @@ public class HUD {
         table2.row();
 
         //image bois
-        Texture texture_img_wood = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_RESSOURCES+"bois.png"));
+        Texture texture_img_wood = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_RESSOURCES + "bois.png"));
         Image image_wood = new Image(texture_img_wood);
 
         //image foin
-        Texture texture_img_hay = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_RESSOURCES+"argile.png"));
+        Texture texture_img_hay = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_RESSOURCES + "argile.png"));
         Image image_hay = new Image(texture_img_hay);
 
         //image pierre
-        Texture texture_img_rock = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_RESSOURCES+"minerai.png"));
+        Texture texture_img_rock = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_RESSOURCES + "minerai.png"));
         Image image_rock = new Image(texture_img_rock);
 
         //image mouton
-        Texture texture_img_sheep = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_RESSOURCES+"laine.png"));
+        Texture texture_img_sheep = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_RESSOURCES + "laine.png"));
         Image image_sheep = new Image(texture_img_sheep);
 
         //image brique
-        Texture texture_img_brick = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_RESSOURCES+"argile.png"));
+        Texture texture_img_brick = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_RESSOURCES + "argile.png"));
         Image image_brick = new Image(texture_img_brick);
 
         table2.add(image_wood);
@@ -182,7 +190,7 @@ public class HUD {
         pions.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                windowsPion();
+                windowsPion(pions, pionsCancel);
             }
         });
 
@@ -205,6 +213,17 @@ public class HUD {
                 passerTourDialog(); // Affiche le dialogue pour passer le tour
             }
         });
+
+        //Listener Bouton cancel placement des pions
+        pionsCancel.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+                pionsCancel.setVisible(false);
+                pions.setVisible(true);
+            }
+        });
+
 
     }
 
@@ -268,56 +287,70 @@ public class HUD {
 
     }
 
-    public void windowsPion() {
-        Button ok = new Button(skin, "confirm");
+    public void windowsPion(final Button pions, final Button pionsCancel) {
         Button deny = new Button(skin, "deny");
+        TextButton route_button = new TextButton("Route", skin);
+        TextButton colonie_button = new TextButton("Colonie", skin);
+        TextButton ville_button = new TextButton("Ville", skin);
 
         final Window pionWindows = new Window("Piocher", skin);
 
 
-        //Pion
-
-        Texture texture_img_route = new Texture(Gdx.files.internal("textures/pions/colonie/Colonie_rouge.png"));
-        Image image_route = new Image(texture_img_route);
-
-        Texture texture_img_colonie = new Texture(Gdx.files.internal("textures/pions/colonie/Colonie_bleue.png"));
-        Image image_colonie = new Image(texture_img_colonie);
-
-        Texture texture_img_ville = new Texture(Gdx.files.internal("textures/pions/ville/Ville_bleue.png"));
-        Image image_ville = new Image(texture_img_ville);
-        pionWindows.add(image_colonie);
-        pionWindows.add(image_route);
-        pionWindows.add(image_ville);
+        pionWindows.add(route_button);
+        pionWindows.add(colonie_button).padRight(50);
+        pionWindows.add(ville_button);
 
 
         pionWindows.row();
         //button
-        pionWindows.add(deny);
-        pionWindows.add(ok);
+        pionWindows.add(deny).padTop(50).padRight(250);
         pionWindows.setSize(1000, 500);
         pionWindows.setPosition(450, stage.getHeight() / 2 - pionWindows.getHeight() / 2);
 
         stage.addActor(pionWindows);
 
         //Touch listener route
-        image_route.addListener(new ClickListener() {
+        route_button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+
+                pionWindows.setVisible(false);
+                pions.setVisible(false);
+                pionsCancel.setVisible(true);
+                //TODO Afficher emplacement disponible et placer pion
+
+
             }
         });
 
         //Touch listener colonie
-        image_colonie.addListener(new ClickListener() {
+        colonie_button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                pionWindows.setVisible(false);
+                pions.setVisible(false);
+                pionsCancel.setVisible(true);
+                //TODO Afficher emplacement disponible et placer pion
+            }
+        });
+
+        //Touch listener bouton ville
+        ville_button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                pionWindows.setVisible(false);
+                pions.setVisible(false);
+                pionsCancel.setVisible(true);
+                //TODO Afficher emplacement disponible et placer pion
 
             }
         });
 
-        //Touch listener ville
-        image_ville.addListener(new ClickListener() {
+        //Touch listener bouton cancel
+        deny.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                pionWindows.setVisible(false);
 
             }
         });

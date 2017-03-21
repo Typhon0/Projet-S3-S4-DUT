@@ -63,7 +63,7 @@ public class GameScreen implements Screen, InputProcessor {
     public GameScreen(Catan g) {
         this.game = g;
         try {
-            //dialogs = GDXDialogsSystem.install();
+            dialogs = GDXDialogsSystem.install();
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
