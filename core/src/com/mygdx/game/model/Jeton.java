@@ -63,7 +63,6 @@ public class Jeton {
         return valeur.toString();
     }
 
-
     // Getters & Setters
 
     public void setTuile(Tuile tuile) {

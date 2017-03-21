@@ -162,94 +162,94 @@ public class Plateau {
     private void chargerTextures() {
         String messageErreur = "";
         try {
-            JETON_2 = new Texture(Gdx.files.internal("textures/jeton_2.png"));
+            JETON_2 = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_JETONS+"jeton_2.png"));
         } catch (Exception e) {
-            messageErreur += "Erreur lors du chargement de la texture : "+"textures/jeton_2.png"+"\n";
+            messageErreur += "Erreur lors du chargement de la texture : "+Constantes.CHEMIN_ACCES_JETONS+"jeton_2.png"+"\n";
         }
         try {
-            JETON_3 = new Texture(Gdx.files.internal("textures/jeton_3.png"));
+            JETON_3 = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_JETONS+"jeton_3.png"));
         } catch (Exception e) {
-            messageErreur += "Erreur lors du chargement de la texture : "+"textures/jeton_3.png"+"\n";
+            messageErreur += "Erreur lors du chargement de la texture : "+Constantes.CHEMIN_ACCES_JETONS+"jeton_3.png"+"\n";
         }
         try {
-            JETON_4 = new Texture(Gdx.files.internal("textures/jeton_4.png"));
+            JETON_4 = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_JETONS+"jeton_4.png"));
         } catch (Exception e) {
-            messageErreur += "Erreur lors du chargement de la texture : "+"textures/jeton_4.png"+"\n";
+            messageErreur += "Erreur lors du chargement de la texture : "+Constantes.CHEMIN_ACCES_JETONS+"jeton_4.png"+"\n";
         }
         try {
-            JETON_5 = new Texture(Gdx.files.internal("textures/jeton_5.png"));
+            JETON_5 = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_JETONS+"jeton_5.png"));
         } catch (Exception e) {
-            messageErreur += "Erreur lors du chargement de la texture : "+"textures/jeton_5.png"+"\n";
+            messageErreur += "Erreur lors du chargement de la texture : "+Constantes.CHEMIN_ACCES_JETONS+"jeton_5.png"+"\n";
         }
         try {
-            JETON_6 = new Texture(Gdx.files.internal("textures/jeton_6.png"));
+            JETON_6 = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_JETONS+"jeton_6.png"));
         } catch (Exception e) {
-            messageErreur += "Erreur lors du chargement de la texture : "+"textures/jeton_6.png"+"\n";
+            messageErreur += "Erreur lors du chargement de la texture : "+Constantes.CHEMIN_ACCES_JETONS+"jeton_6.png"+"\n";
         }
         try {
-            JETON_8 = new Texture(Gdx.files.internal("textures/jeton_8.png"));
+            JETON_8 = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_JETONS+"jeton_8.png"));
         } catch (Exception e) {
-            messageErreur += "Erreur lors du chargement de la texture : "+"textures/jeton_8.png"+"\n";
+            messageErreur += "Erreur lors du chargement de la texture : "+Constantes.CHEMIN_ACCES_JETONS+"jeton_8.png"+"\n";
         }
         try {
-            JETON_9 = new Texture(Gdx.files.internal("textures/jeton_9.png"));
+            JETON_9 = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_JETONS+"jeton_9.png"));
         } catch (Exception e) {
-            messageErreur += "Erreur lors du chargement de la texture : "+"textures/jeton_9.png"+"\n";
+            messageErreur += "Erreur lors du chargement de la texture : "+Constantes.CHEMIN_ACCES_JETONS+"jeton_9.png"+"\n";
         }
         try {
-            JETON_10 = new Texture(Gdx.files.internal("textures/jeton_10.png"));
+            JETON_10 = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_JETONS+"jeton_10.png"));
         } catch (Exception e) {
-            messageErreur += "Erreur lors du chargement de la texture : "+"textures/jeton_10.png"+"\n";
+            messageErreur += "Erreur lors du chargement de la texture : "+Constantes.CHEMIN_ACCES_JETONS+"jeton_10.png"+"\n";
         }
         try {
-            JETON_11 = new Texture(Gdx.files.internal("textures/jeton_11.png"));
+            JETON_11 = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_JETONS+"jeton_11.png"));
         } catch (Exception e) {
-            messageErreur += "Erreur lors du chargement de la texture : "+"textures/jeton_11.png"+"\n";
+            messageErreur += "Erreur lors du chargement de la texture : "+Constantes.CHEMIN_ACCES_JETONS+"jeton_11.png"+"\n";
         }
         try {
-            JETON_12 = new Texture(Gdx.files.internal("textures/jeton_12.png"));
+            JETON_12 = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_JETONS+"jeton_12.png"));
         } catch (Exception e) {
-            messageErreur += "Erreur lors du chargement de la texture : "+"textures/jeton_12.png"+"\n";
+            messageErreur += "Erreur lors du chargement de la texture : "+Constantes.CHEMIN_ACCES_JETONS+"jeton_12.png"+"\n";
         }
         try {
-            FORET = new Texture(Gdx.files.internal("textures/texture_foret.png"));
+            FORET = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_TUILES+"texture_foret.png"));
         } catch (Exception e) {
-            messageErreur += "Erreur lors du chargement de la texture : "+"textures/texture_foret.png"+"\n";
+            messageErreur += "Erreur lors du chargement de la texture : "+Constantes.CHEMIN_ACCES_TUILES+"texture_foret.png"+"\n";
         }
         try {
-            PRE = new Texture(Gdx.files.internal("textures/texture_pre.png"));
+            PRE = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_TUILES+"texture_pre.png"));
         } catch (Exception e) {
-            messageErreur += "Erreur lors du chargement de la texture : "+"textures/texture_pre.png"+"\n";
+            messageErreur += "Erreur lors du chargement de la texture : "+Constantes.CHEMIN_ACCES_TUILES+"texture_pre.png"+"\n";
         }
         try {
-            CHAMP = new Texture(Gdx.files.internal("textures/texture_champ.png"));
+            CHAMP = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_TUILES+"texture_champ.png"));
         } catch (Exception e) {
-            messageErreur += "Erreur lors du chargement de la texture : "+"textures/texture_champ.png"+"\n";
+            messageErreur += "Erreur lors du chargement de la texture : "+Constantes.CHEMIN_ACCES_TUILES+"texture_champ.png"+"\n";
         }
         try {
-            COLLINE = new Texture(Gdx.files.internal("textures/texture_colline.png"));
+            COLLINE = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_TUILES+"texture_colline.png"));
         } catch (Exception e) {
-            messageErreur += "Erreur lors du chargement de la texture : "+"textures/texture_colline.png"+"\n";
+            messageErreur += "Erreur lors du chargement de la texture : "+Constantes.CHEMIN_ACCES_TUILES+"texture_colline.png"+"\n";
         }
         try {
-            MONTAGNE = new Texture(Gdx.files.internal("textures/texture_montagne.png"));
+            MONTAGNE = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_TUILES+"texture_montagne.png"));
         } catch (Exception e) {
-            messageErreur += "Erreur lors du chargement de la texture : "+"textures/texture_montagne.png"+"\n";
+            messageErreur += "Erreur lors du chargement de la texture : "+Constantes.CHEMIN_ACCES_TUILES+"texture_montagne.png"+"\n";
         }
         try {
-            DESERT = new Texture(Gdx.files.internal("textures/texture_desert.png"));
+            DESERT = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_TUILES+"texture_desert.png"));
         } catch (Exception e) {
-            messageErreur += "Erreur lors du chargement de la texture : "+"textures/texture_desert.png"+"\n";
+            messageErreur += "Erreur lors du chargement de la texture : "+Constantes.CHEMIN_ACCES_TUILES+"texture_desert.png"+"\n";
         }
         try {
-            MER = new Texture(Gdx.files.internal("textures/texture_mer.jpg"));
+            MER = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_MER+"texture_mer.jpg"));
         } catch (Exception e) {
-            messageErreur += "Erreur lors du chargement de la texture : "+"textures/texture_mer.jpg"+"\n";
+            messageErreur += "Erreur lors du chargement de la texture : "+Constantes.CHEMIN_ACCES_MER+"texture_mer.jpg"+"\n";
         }
         try {
-            PORT = new Texture(Gdx.files.internal("textures/texture_port2.png"));
+            PORT = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_PORTS+"texture_port2.png"));
         } catch (Exception e) {
-            messageErreur += "Erreur lors du chargement de la texture : "+"textures/texture_port2.png"+"\n";
+            messageErreur += "Erreur lors du chargement de la texture : "+Constantes.CHEMIN_ACCES_PORTS+"texture_port2.png"+"\n";
         }
         System.err.println(messageErreur);
     }

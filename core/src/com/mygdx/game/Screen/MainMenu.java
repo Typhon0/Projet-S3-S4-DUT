@@ -19,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.mygdx.game.Catan;
+import com.mygdx.game.model.Constantes;
 
 /**
  * Created by typhon0 on 28/02/17.
@@ -45,7 +46,7 @@ public class MainMenu implements Screen {
         table.setSize(800, 510);
 
         //Background
-        Texture t = new Texture("background_menu.jpg");
+        Texture t = new Texture(Constantes.CHEMIN_ACCES_UI+"background_menu.jpg");
         Drawable d = new TextureRegionDrawable(new TextureRegion(t));
         table.setBackground(d);
         table.setFillParent(true);

@@ -128,5 +128,15 @@ public class Constantes {
         return tableauCoutCarteDeveloppement;
     }
 
+    /*
+        Chemin d'accès des images
+     */
+    public static final String CHEMIN_ACCES_JETONS = "textures/jetons/";
+    public static final String CHEMIN_ACCES_MER = "textures/mer/";
+    public static final String CHEMIN_ACCES_PIONS = "textures/pions/";
+    public static final String CHEMIN_ACCES_PORTS = "textures/ports/";
+    public static final String CHEMIN_ACCES_RESSOURCES = "textures/ressources/";
+    public static final String CHEMIN_ACCES_TUILES = "textures/tuiles/";
+    public static final String CHEMIN_ACCES_UI = "ui/";
 
 }

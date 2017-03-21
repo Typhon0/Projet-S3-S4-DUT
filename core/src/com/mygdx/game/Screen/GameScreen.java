@@ -58,7 +58,12 @@ public class GameScreen implements Screen, InputProcessor {
 
     public GameScreen(Catan g) {
         this.game = g;
-        dialogs = GDXDialogsSystem.install();
+        try {
+            //dialogs = GDXDialogsSystem.install();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+
         state = State.RUN;
         hud = new HUD(game.batch, g);
         InputMultiplexer inputMultiplexer = new InputMultiplexer();

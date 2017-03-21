@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Catan;
+import com.mygdx.game.model.Constantes;
 import com.mygdx.game.model.State;
 
 import de.tomgrill.gdxdialogs.core.GDXDialogs;
@@ -38,7 +39,12 @@ public class HUD {
     public HUD(SpriteBatch sb, final Catan game) {
         this.game = game;
         skin = new Skin(Gdx.files.internal("ui/glassy-ui.json"));
-        dialogs = GDXDialogsSystem.install();
+        try {
+            //dialogs = GDXDialogsSystem.install();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+
 
 
         stage = new Stage(new ExtendViewport(1920, 1080));
@@ -101,24 +107,23 @@ public class HUD {
         table2.row();
 
         //image bois
-        Texture texture_img_wood = new Texture(Gdx.files.internal("textures/wood.png"));
+        Texture texture_img_wood = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_RESSOURCES+"bois.png"));
         Image image_wood = new Image(texture_img_wood);
 
-
         //image foin
-        Texture texture_img_hay = new Texture(Gdx.files.internal("textures/hay.png"));
+        Texture texture_img_hay = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_RESSOURCES+"argile.png"));
         Image image_hay = new Image(texture_img_hay);
 
         //image pierre
-        Texture texture_img_rock = new Texture(Gdx.files.internal("textures/rock.png"));
+        Texture texture_img_rock = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_RESSOURCES+"minerai.png"));
         Image image_rock = new Image(texture_img_rock);
 
         //image mouton
-        Texture texture_img_sheep = new Texture(Gdx.files.internal("textures/sheep.png"));
+        Texture texture_img_sheep = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_RESSOURCES+"laine.png"));
         Image image_sheep = new Image(texture_img_sheep);
 
         //image brique
-        Texture texture_img_brick = new Texture(Gdx.files.internal("textures/brick.png"));
+        Texture texture_img_brick = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_RESSOURCES+"argile.png"));
         Image image_brick = new Image(texture_img_brick);
 
         table2.add(image_wood);
