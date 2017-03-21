@@ -23,6 +23,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.FloatArray;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.mygdx.game.Catan;
+import com.mygdx.game.model.Plateau;
 import com.mygdx.game.model.SiteConstruction;
 import com.mygdx.game.model.State;
 import com.mygdx.game.model.Tuile;
@@ -121,29 +122,29 @@ public class GameScreen implements Screen, InputProcessor {
 
         game.batch.begin();
         // Affichage de la mer
-        game.batch.draw(game.plateau.getTextureMer(), 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        game.batch.draw(game.getPartie().getPlateau().getTextureMer(), 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         // Affichage de chaque Tuile/Terrain
-        for (int i = 0; i < game.plateau.getListeTuiles().size(); i++) {
-            game.batch.draw(game.plateau.getListeTuiles().get(i).getTextureTuile(),
-                    game.plateau.getListeTuiles().get(i).getCoinInferieurGaucheTuile().x,
-                    game.plateau.getListeTuiles().get(i).getCoinInferieurGaucheTuile().y,
-                    (float) Math.sqrt(3) * game.plateau.TAILLE_TUILE,
-                    (float) (game.plateau.TAILLE_TUILE * 2));
+        for (int i = 0; i < game.getPartie().getPlateau().getListeTuiles().size(); i++) {
+            game.batch.draw(game.getPartie().getPlateau().getListeTuiles().get(i).getTextureTuile(),
+                    game.getPartie().getPlateau().getListeTuiles().get(i).getCoinInferieurGaucheTuile().x,
+                    game.getPartie().getPlateau().getListeTuiles().get(i).getCoinInferieurGaucheTuile().y,
+                    (float) Math.sqrt(3) * game.getPartie().getPlateau().TAILLE_TUILE,
+                    (float) (game.getPartie().getPlateau().TAILLE_TUILE * 2));
         }
 
         // Affichage de chaque Jeton
-        for (int i = 0; i < game.plateau.getListeTuiles().size(); i++) {
-            game.batch.draw(game.plateau.getListeTuiles().get(i).getJeton().getTextureJeton(),
-                    game.plateau.getListeTuiles().get(i).getCoinInferieurGaucheJeton().x,
-                    game.plateau.getListeTuiles().get(i).getCoinInferieurGaucheJeton().y);
+        for (int i = 0; i < game.getPartie().getPlateau().getListeTuiles().size(); i++) {
+            game.batch.draw(game.getPartie().getPlateau().getListeTuiles().get(i).getJeton().getTextureJeton(),
+                    game.getPartie().getPlateau().getListeTuiles().get(i).getCoinInferieurGaucheJeton().x,
+                    game.getPartie().getPlateau().getListeTuiles().get(i).getCoinInferieurGaucheJeton().y);
         }
 
         // Affichage de chaque Port
-        for (int i = 0; i < game.plateau.getListePorts().size(); i++) {
-            game.batch.draw(game.plateau.getListePorts().get(i).getTexturePort(),
-                    game.plateau.getListePorts().get(i).getCoinInferieurGauchePort().x,
-                    game.plateau.getListePorts().get(i).getCoinInferieurGauchePort().y,
+        for (int i = 0; i < game.getPartie().getPlateau().getListePorts().size(); i++) {
+            game.batch.draw(game.getPartie().getPlateau().getListePorts().get(i).getTexturePort(),
+                    game.getPartie().getPlateau().getListePorts().get(i).getCoinInferieurGauchePort().x,
+                    game.getPartie().getPlateau().getListePorts().get(i).getCoinInferieurGauchePort().y,
                     64,
                     64);
         }
@@ -151,9 +152,9 @@ public class GameScreen implements Screen, InputProcessor {
         game.batch.end();
 
         // Affichage du squelette en surcouche
-        for (int i = 0; i < game.plateau.getListeTuiles().size(); i++) {
+        for (int i = 0; i < game.getPartie().getPlateau().getListeTuiles().size(); i++) {
             game.sr.begin(ShapeRenderer.ShapeType.Line);
-            game.sr.polygon(game.plateau.getListeTuiles().get(i).getVertices());
+            game.sr.polygon(game.getPartie().getPlateau().getListeTuiles().get(i).getVertices());
             game.sr.setColor(0, 0, 0, 1);
             Gdx.gl.glLineWidth(5);
             game.sr.end();
@@ -236,10 +237,10 @@ public class GameScreen implements Screen, InputProcessor {
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         System.out.println("Le pixel " + screenX + " " + screenY + " a été touché");
-        for (int i = 0; i < game.plateau.getListeTuiles().size(); i++) {
-            for (int j = 0; j < game.plateau.getListeTuiles().get(i).getListeSitesConstruction().size(); j++) {
+        for (int i = 0; i < game.getPartie().getPlateau().getListeTuiles().size(); i++) {
+            for (int j = 0; j < game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstruction().size(); j++) {
 
-                if (game.plateau.getListeTuiles().get(i).getListeSitesConstruction().get(j).estToucheInt(screenX, screenY)) {
+                if (game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstruction().get(j).estToucheInt(screenX, screenY)) {
                     //System.out.println("Site de construction : " + game.plateau.getListeTuiles().get(i).getListeSitesConstruction().get(j).getPosition().x + "," +
                             //game.plateau.getListeTuiles().get(i).getListeSitesConstruction().get(j).getPosition().y + " touché");
                     System.out.println("trouvé batiment");
@@ -247,7 +248,7 @@ public class GameScreen implements Screen, InputProcessor {
                 }
 
 
-                if (game.plateau.getListeTuiles().get(i).getListeSitesConstructionRoute().get(j).estToucheInt(screenX, screenY)) {
+                if (game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstructionRoute().get(j).estToucheInt(screenX, screenY)) {
                     System.out.println("trouvé route");
                     return false;
                 }

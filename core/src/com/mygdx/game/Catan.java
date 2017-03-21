@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.mygdx.game.Screen.MainMenu;
+import com.mygdx.game.model.Partie;
 import com.mygdx.game.model.Plateau;
 
 import de.tomgrill.gdxdialogs.core.GDXDialogs;
@@ -20,6 +21,7 @@ public class Catan extends Game {
 
     public Plateau plateau;
 
+    private Partie partie;
 
 
     //private SpriteBatch batch;
@@ -29,9 +31,11 @@ public class Catan extends Game {
         sr = new ShapeRenderer();
         polyBatch = new PolygonSpriteBatch();
 
+        partie = new Partie();
+        /*
         plateau = new Plateau();
         plateau.generer();
-
+        */
         batch = new SpriteBatch();
         batch2 = new SpriteBatch();
 
@@ -55,5 +59,9 @@ public class Catan extends Game {
 		//batch.dispose();
        // batch2.dispose();
 //		img.dispose();
+    }
+
+    public Partie getPartie() {
+        return partie;
     }
 }
