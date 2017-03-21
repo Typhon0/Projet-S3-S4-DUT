@@ -38,7 +38,7 @@ import de.tomgrill.gdxdialogs.core.listener.ButtonClickListener;
  * Created by typhon0 on 01/03/17.
  */
 
-public class GameScreen implements Screen ,InputProcessor {
+public class GameScreen implements Screen, InputProcessor {
     private Catan game;
     public Sprite sprite;
     public FloatArray vertices, v2, v3;
@@ -60,7 +60,7 @@ public class GameScreen implements Screen ,InputProcessor {
         this.game = g;
         dialogs = GDXDialogsSystem.install();
         state = State.RUN;
-        hud = new HUD(game.batch);
+        hud = new HUD(game.batch, g);
         InputMultiplexer inputMultiplexer = new InputMultiplexer();
         inputMultiplexer.addProcessor(hud.stage);
         inputMultiplexer.addProcessor(this);
@@ -230,18 +230,19 @@ public class GameScreen implements Screen ,InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        System.out.println("Le pixel "+screenX+" "+screenY+" a été touché");
-        for (int i=0 ; i<game.plateau.getListeTuiles().size() ; i++) {
-            for (int j=0 ; j<game.plateau.getListeTuiles().get(i).getListeSitesConstruction().size() ; j++) {
-                if (game.plateau.getListeTuiles().get(i).getListeSitesConstruction().get(j).estToucheInt(screenX,screenY)) {
-                    System.out.println("Site de construction : "+game.plateau.getListeTuiles().get(i).getListeSitesConstruction().get(j).getPosition().x+","+
-                            game.plateau.getListeTuiles().get(i).getListeSitesConstruction().get(j).getPosition().y+" touché");
+        System.out.println("Le pixel " + screenX + " " + screenY + " a été touché");
+        for (int i = 0; i < game.plateau.getListeTuiles().size(); i++) {
+            for (int j = 0; j < game.plateau.getListeTuiles().get(i).getListeSitesConstruction().size(); j++) {
+                if (game.plateau.getListeTuiles().get(i).getListeSitesConstruction().get(j).estToucheInt(screenX, screenY)) {
+                    System.out.println("Site de construction : " + game.plateau.getListeTuiles().get(i).getListeSitesConstruction().get(j).getPosition().x + "," +
+                            game.plateau.getListeTuiles().get(i).getListeSitesConstruction().get(j).getPosition().y + " touché");
                     //return false;
                 }
             }
         }
         return false;
     }
+
     @Override
     public boolean keyDown(int keycode) {
         return false;
@@ -256,7 +257,6 @@ public class GameScreen implements Screen ,InputProcessor {
     public boolean keyTyped(char character) {
         return false;
     }
-
 
 
     @Override

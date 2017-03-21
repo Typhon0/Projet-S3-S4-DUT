@@ -81,7 +81,7 @@ public class MainMenu implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 options.addAction(Actions.fadeOut(0.7f));
-                game.setScreen(new OptionScreen(game));
+                game.setScreen(new OptionScreen(game,false));
 
             }
         });
