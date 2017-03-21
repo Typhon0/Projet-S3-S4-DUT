@@ -18,7 +18,6 @@ public class Structure {
     //private float largeur; // largeur de l'image qu'il faut afficher pour la structure
     //private float hauteur; // hauteur de l'image qu'il faut afficher pour la structure
     private int typeStructure ; // type de la structure
-    private int orientation; // orientation de la route
     private int valeurPointVictoire; // Valeur en point victoire de la structure
     private Texture texture;
 
@@ -29,7 +28,7 @@ public class Structure {
         //this.texture = texture; charger la textrure par après
 
         affecterValeurPointVictoire();
-        //ajouterPointVictoire(joueur);
+        ajouterPointVictoire();
     }
 
     // Affecte une valeur de point victoire selon le type de structure
@@ -45,20 +44,52 @@ public class Structure {
             }
         }
     }
-/*
-    // Ajoute les points de victoire au joueur
-    public void ajouterPointVictoire(Joueur j) {
-        try {
-            if (j != null)
-                j.ajouterPointVictoire(valeurPointVictoire);
-        }
-        catch (Exception e) {
-            throw new RuntimeException("Erreur : ajouterPointVictoire(), le joueur est nul");
-        }
-    }
-*/
-    public void ajouterStructure(Joueur j) {
 
+    //
+    public void ajouterPointVictoire() {
+        joueur.ajouterPointVictoire( valeurPointVictoire );
     }
 
+
+    // Getters & Setters
+
+    public Joueur getJoueur() {
+        return joueur;
+    }
+
+    public void setJoueur(Joueur joueur) {
+        this.joueur = joueur;
+    }
+
+    public Vector2 getPosition() {
+        return position;
+    }
+
+    public void setPosition(Vector2 position) {
+        this.position = position;
+    }
+
+    public int getTypeStructure() {
+        return typeStructure;
+    }
+
+    public void setTypeStructure(int typeStructure) {
+        this.typeStructure = typeStructure;
+    }
+
+    public int getValeurPointVictoire() {
+        return valeurPointVictoire;
+    }
+
+    public void setValeurPointVictoire(int valeurPointVictoire) {
+        this.valeurPointVictoire = valeurPointVictoire;
+    }
+
+    public Texture getTexture() {
+        return texture;
+    }
+
+    public void setTexture(Texture texture) {
+        this.texture = texture;
+    }
 }

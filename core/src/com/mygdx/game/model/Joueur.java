@@ -1,6 +1,7 @@
 package com.mygdx.game.model;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,14 +40,19 @@ public class Joueur {
         this.points += points;
     }
 
-    public void construireVille(SiteConstruction sc){
+    public void construireVille(Joueur j,SiteConstruction sc){
         if (!sc.isEstConstruit()) {
             if (sc.isEstBatiment()) {
                 if (paquetStructures[Constantes.VILLE] >0) {
                     int[]cout = Constantes.getCoutConstructionVille();
                     if (estAchetable(cout)) {
                         paquetStructures[Constantes.VILLE]--; // décrémente de 1 le nombre de villes restantes
-                        acheter(cout); // achète le cout de la ville
+                        acheter( cout ); // achète le cout de la ville
+                        Structure s = new Structure( this, new Vector2( sc.getPosition().x, sc.getPosition().y), Constantes.VILLE ); // Création de la structure
+                        ajouterStructure( s );
+                        sc.setEstConstruit( true );
+                        sc.setStructure( s );
+
                         //Structure s = new Structure(this,)
                         // listeStructures.add(new Structure()); // crée la ville et l'ajoute à la liste des structures
 
@@ -101,6 +107,12 @@ public class Joueur {
         for (int i=Constantes.NUMERO_RESSOURCE_MIN ; i<=Constantes.NUMERO_RESSOURCE_MAX ; i++) {
             // ajoute les ressources au plateau, retire les ressources du joueur, la ressource i,pour un cout de cout[i]
             PaquetRessources.recevoirRessource(Plateau.getRessources(),ressources,i,cout[i]);
+        }
+    }
+
+    public void ajouterStructure(Structure s) {
+        if (!listeStructures.contains( s )) {
+            listeStructures.add( s );
         }
     }
 

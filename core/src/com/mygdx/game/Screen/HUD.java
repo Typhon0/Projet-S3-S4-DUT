@@ -32,13 +32,16 @@ import de.tomgrill.gdxdialogs.core.listener.ButtonClickListener;
 
 
 public class HUD {
-    public Catan game;
+    private static Catan game;
     public Stage stage;
     private Skin skin;
     private GDXDialogs dialogs;
 
+    public static Catan getGame() {
+        return game;
+    }
 
-    public HUD(SpriteBatch sb, final Catan game) {
+    public HUD(SpriteBatch sb, Catan game) {
         this.game = game;
         skin = new Skin(Gdx.files.internal("ui/glassy-ui.json"));
         try {
@@ -174,7 +177,7 @@ public class HUD {
             @Override
             public void clicked(InputEvent event, float x, float y) {
 
-                game.setScreen(new HelpScreen(game));
+                getGame().setScreen(new HelpScreen(getGame()));
             }
         });
 
@@ -182,7 +185,7 @@ public class HUD {
         settings.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new OptionScreen(game, true));
+                getGame().setScreen(new OptionScreen(getGame(), true));
             }
         });
 
