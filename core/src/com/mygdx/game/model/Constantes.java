@@ -42,8 +42,8 @@ public class Constantes {
     /*
         Constantes pour les structures
      */
-    public static final float STRUCTURE_DELTA_X = 24.0f; // largeur d'un SiteConstruction /2
-    public static final float STRUCTURE_DELTA_Y = 24.0f; // hauteur d'un SiteConstruction /2
+    public static final float STRUCTURE_DELTA_X = 16.0f; // largeur d'un SiteConstruction /2
+    public static final float STRUCTURE_DELTA_Y = 16.0f; // hauteur d'un SiteConstruction /2
 
     public static final int MONTANT_VILLE_MAXIMUM = 4;
     public static final int MONTANT_COLONIE_MAXIMUM = 5;

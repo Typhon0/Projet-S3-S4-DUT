@@ -238,11 +238,20 @@ public class GameScreen implements Screen, InputProcessor {
         System.out.println("Le pixel " + screenX + " " + screenY + " a été touché");
         for (int i = 0; i < game.plateau.getListeTuiles().size(); i++) {
             for (int j = 0; j < game.plateau.getListeTuiles().get(i).getListeSitesConstruction().size(); j++) {
+
                 if (game.plateau.getListeTuiles().get(i).getListeSitesConstruction().get(j).estToucheInt(screenX, screenY)) {
-                    System.out.println("Site de construction : " + game.plateau.getListeTuiles().get(i).getListeSitesConstruction().get(j).getPosition().x + "," +
-                            game.plateau.getListeTuiles().get(i).getListeSitesConstruction().get(j).getPosition().y + " touché");
-                    //return false;
+                    //System.out.println("Site de construction : " + game.plateau.getListeTuiles().get(i).getListeSitesConstruction().get(j).getPosition().x + "," +
+                            //game.plateau.getListeTuiles().get(i).getListeSitesConstruction().get(j).getPosition().y + " touché");
+                    System.out.println("trouvé batiment");
+                    return false;
                 }
+
+
+                if (game.plateau.getListeTuiles().get(i).getListeSitesConstructionRoute().get(j).estToucheInt(screenX, screenY)) {
+                    System.out.println("trouvé route");
+                    return false;
+                }
+
             }
         }
         return false;

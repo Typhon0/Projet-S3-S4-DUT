@@ -52,6 +52,7 @@ public class Plateau {
         genererPorts();
 
         fusionnerSiteConstruction();
+        fusionnerSiteConstructionRoute();
     }
 
     // Génère les tuiles
@@ -157,6 +158,17 @@ public class Plateau {
             }
         }
     }
+
+    public void fusionnerSiteConstructionRoute() {
+        for (int i=0 ; i<listeTuiles.size()-1 ; i++) {
+            for (int j=i+1 ; j<listeTuiles.size() ; j++) {
+                for (int k=0 ; k<listeTuiles.get(j).getListeSitesConstructionRoute().size() ; k++) {
+                    listeTuiles.get(i).fusionnerSiteConstructionRoute(listeTuiles.get(j).getListeSitesConstructionRoute().get((k)));
+                }
+            }
+        }
+    }
+
 
     // Charge toutes les textures pour le plateau de jeu
     private void chargerTextures() {

@@ -28,6 +28,7 @@ public class Tuile {
     private Jeton jeton;
     private ArrayList<Vector2> listeSommets;
     private ArrayList<SiteConstruction> listeSitesConstruction;
+    private ArrayList<SiteConstruction> listeSitesConstructionRoute;
     private String type;
     private Texture textureTuile;
 
@@ -39,9 +40,11 @@ public class Tuile {
         this.deltaX = (float) ((Math.sqrt(3) * taille) / 2);
         listeSommets = new ArrayList<Vector2>();
         listeSitesConstruction = new ArrayList<SiteConstruction>();
+        listeSitesConstructionRoute = new ArrayList<SiteConstruction>();
         ajouterSommet(this.center);
         genererSommets();
         genererSitesConstruction();
+        genererSitesConstructionRoute();
     }
 
     // Affecte à une tuile son type et sa texture
@@ -93,13 +96,14 @@ public class Tuile {
             listeSommets.add(corner);
     }
 
+
     public void genererSitesConstruction() {
-        SiteConstruction sc1 = new SiteConstruction(new Vector2(center.x, center.y + taille));
-        SiteConstruction sc2 = new SiteConstruction(new Vector2(center.x + deltaX, center.y + taille / 2));
-        SiteConstruction sc3 = new SiteConstruction(new Vector2(center.x + deltaX, center.y - taille / 2));
-        SiteConstruction sc4 = new SiteConstruction(new Vector2(center.x, center.y - taille));
-        SiteConstruction sc5 = new SiteConstruction(new Vector2(center.x - deltaX, center.y - taille / 2));
-        SiteConstruction sc6 = new SiteConstruction(new Vector2(center.x - deltaX, center.y + taille / 2));
+        SiteConstruction sc1 = new SiteConstruction(new Vector2(center.x, center.y + taille),true);//sc1.setEstBatiment(true);
+        SiteConstruction sc2 = new SiteConstruction(new Vector2(center.x + deltaX, center.y + taille / 2),true);//sc2.setEstBatiment(true);
+        SiteConstruction sc3 = new SiteConstruction(new Vector2(center.x + deltaX, center.y - taille / 2),true);//sc3.setEstBatiment(true);
+        SiteConstruction sc4 = new SiteConstruction(new Vector2(center.x, center.y - taille),true);//sc4.setEstBatiment(true);
+        SiteConstruction sc5 = new SiteConstruction(new Vector2(center.x - deltaX, center.y - taille / 2),true);//sc5.setEstBatiment(true);
+        SiteConstruction sc6 = new SiteConstruction(new Vector2(center.x - deltaX, center.y + taille / 2),true);//sc6.setEstBatiment(true);
         ajouterSiteConstruction(sc1);
         ajouterSiteConstruction(sc2);
         ajouterSiteConstruction(sc3);
@@ -118,6 +122,50 @@ public class Tuile {
         if (listeSitesConstruction.contains(sc)) {
             int i = listeSitesConstruction.indexOf(sc);
             listeSitesConstruction.set(i,sc);
+            //listeSitesConstruction.remove(sc);
+        }
+    }
+
+
+    public void genererSitesConstructionRoute() {
+        float deltaXDemi = deltaX/2.0f;
+        SiteConstruction sc1 = new SiteConstruction(new Vector2(center.x + deltaXDemi, center.y + 3*taille/4),false);
+        SiteConstruction sc2 = new SiteConstruction(new Vector2(center.x + deltaX, center.y),false);
+        SiteConstruction sc3 = new SiteConstruction(new Vector2(center.x + deltaXDemi, center.y - 3*taille/4),false);
+        SiteConstruction sc4 = new SiteConstruction(new Vector2(center.x - deltaXDemi, center.y - 3*taille/4),false);
+        SiteConstruction sc5 = new SiteConstruction(new Vector2(center.x - deltaX, center.y),false);
+        SiteConstruction sc6 = new SiteConstruction(new Vector2(center.x - deltaXDemi, center.y + 3*taille/4),false);
+        listeSitesConstructionRoute.add(sc1);
+        listeSitesConstructionRoute.add(sc2);
+        listeSitesConstructionRoute.add(sc3);
+        listeSitesConstructionRoute.add(sc4);
+        listeSitesConstructionRoute.add(sc5);
+        listeSitesConstructionRoute.add(sc6);
+        /*
+        System.out.println(listeSitesConstructionRoute.size());
+        System.out.println(listeSitesConstructionRoute.get(0).toString());
+        */
+        /*
+        ajouterSiteConstructionRoute(sc1);
+        ajouterSiteConstructionRoute(sc2);
+        ajouterSiteConstructionRoute(sc3);
+        ajouterSiteConstructionRoute(sc4);
+        ajouterSiteConstructionRoute(sc5);
+        ajouterSiteConstructionRoute(sc6);
+        */
+    }
+
+    public void ajouterSiteConstructionRoute(SiteConstruction sc) {
+        if (!listeSitesConstructionRoute.contains(sc))
+            System.out.println("entre");
+            listeSitesConstructionRoute.add(sc);
+    }
+
+    // Si deux SiteConstructionRoute ont la même position, ils pointent vers le même objet
+    public void fusionnerSiteConstructionRoute(SiteConstruction sc) {
+        if (listeSitesConstructionRoute.contains(sc)) {
+            int i = listeSitesConstructionRoute.indexOf(sc);
+            listeSitesConstructionRoute.set(i,sc);
             //listeSitesConstruction.remove(sc);
         }
     }
@@ -177,8 +225,20 @@ public class Tuile {
     // Getter & Setter
 
 
+    public void setListeSitesConstruction(ArrayList<SiteConstruction> listeSitesConstruction) {
+        this.listeSitesConstruction = listeSitesConstruction;
+    }
+
+    public void setListeSitesConstructionRoute(ArrayList<SiteConstruction> listeSitesConstructionRoute) {
+        this.listeSitesConstructionRoute = listeSitesConstructionRoute;
+    }
+
     public ArrayList<SiteConstruction> getListeSitesConstruction() {
         return listeSitesConstruction;
+    }
+
+    public ArrayList<SiteConstruction> getListeSitesConstructionRoute() {
+        return listeSitesConstructionRoute;
     }
 
     public void setCentre(Vector2 centre) {
