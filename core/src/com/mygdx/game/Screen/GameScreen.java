@@ -173,15 +173,15 @@ public class GameScreen implements Screen, InputProcessor {
                 game.batch.draw( game.getPartie().getPlateau().getBatimentRed(),
                         game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstruction().get(j).getCoinInferieurGaucheSiteConstruction().x,
                         game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstruction().get(j).getCoinInferieurGaucheSiteConstruction().y,
-                        Constantes.DISTANCE_SITE_CONSTRUCTION_X,
-                        Constantes.DISTANCE_SITE_CONSTRUCTION_X);
+                        Constantes.DISTANCE_SITE_CONSTRUCTION_X*2,
+                        Constantes.DISTANCE_SITE_CONSTRUCTION_X*2);
             }
             for (int j = 0; j < game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstructionRoute().size(); j++) {
                 game.batch.draw( game.getPartie().getPlateau().getRouteRed(),
                         game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstructionRoute().get(j).getCoinInferieurGaucheSiteConstruction().x,
                         game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstructionRoute().get(j).getCoinInferieurGaucheSiteConstruction().y,
-                        Constantes.DISTANCE_SITE_CONSTRUCTION_X,
-                        Constantes.DISTANCE_SITE_CONSTRUCTION_X);
+                        Constantes.DISTANCE_SITE_CONSTRUCTION_X*2,
+                        Constantes.DISTANCE_SITE_CONSTRUCTION_X*2);
             }
         }
 
