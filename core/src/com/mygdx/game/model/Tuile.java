@@ -6,43 +6,101 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.ArrayList;
 
 /**
- * Created by XXIII on 24/01/2017.
+ * <b> Tuile est la classe représentant la tuile/hexagone sur pointe qui sert à définir un terrain qui produit un certain type de ressource selon le type de terrain</b>
+ * <p>
+ *     une Tuile est caractérisée par les informations suivantes :
+ *     <ul>
+ *         <li>Le centre de la tuile </li>
+ *         <li>la taille de la tuile qui est là distance entre le centre et le sommet</li>
+ *         <li>la distance entre le centre de la tuile et le centre des aretes des côtés</li>
+ *         <li>La valeur maximale possible du dé</li>
+ *     </ul>
+ * </p>
+ * <p>Chaque terrain possède 6 sites de constructions de batiment (ville ou colonie) qui correspondent aux sommets.
+ * Il possède également 6 sites de constructions de route qui correspondent au centre des arêtes de la tuile</p>
+ * @see Jeton
+ * @see Vector2
+ * @see SiteConstruction
+ * @see Texture
+ * @author Geris Nicolas
+ * @version 1.0
  */
 
 public class Tuile {
 
+    /**
+     * Centre de la tuile
+     */
     private Vector2 center;
-    private Vector2 point1;
-    private Vector2 point2;
-    private Vector2 point3;
-    private Vector2 point4;
-    private Vector2 point5;
-    private Vector2 point6;
+
+    /**
+     * Taille de la tuile. Distance entre le centre et le sommet
+     */
     private float taille;
+
+    /**
+     * Distance entre le centre de la tuile et le centre d'une arete
+     */
     private float deltaX;
+
+    /**
+     * Jeton assigné à la tuile
+     */
     private Jeton jeton;
+
+    /**
+     * Liste des sommets de la tuile. Sert à construire graphiquement les tuiles
+     */
     private ArrayList<Vector2> listeSommets;
+
+    /**
+     * Liste des sites de constructions (aux sommets) de la tuile
+     */
     private ArrayList<SiteConstruction> listeSitesConstruction;
+
+    /**
+     * Liste des sites de constructions de route (aux centre des aretes) de la tuile
+     */
     private ArrayList<SiteConstruction> listeSitesConstructionRoute;
+
+    /**
+     * Type de terrain de la tuile
+     */
     private int type;
+
+    /**
+     * Texture de la tuile
+     */
     private Texture textureTuile;
 
+    /**
+     * Constructeur de la classe Tuile qui prend le un pixel (Vector2) et une distance en argument
+     * @param center Centre de la tuile
+     * @param taille Taille de la tuile
+     * @see Tuile#center
+     * @see Tuile#taille
+     */
     public Tuile(Vector2 center, float taille) {
         this.center = center;
         this.taille = taille;
-        //this.type = "desert";
         this.jeton = new Jeton(3);
         this.deltaX = (float) ((Math.sqrt(3) * taille) / 2);
+
         listeSommets = new ArrayList<Vector2>();
         listeSitesConstruction = new ArrayList<SiteConstruction>();
         listeSitesConstructionRoute = new ArrayList<SiteConstruction>();
+
         ajouterSommet(this.center);
         genererSommets();
+
         genererSitesConstruction();
         genererSitesConstructionRoute();
     }
 
-    // Affecte à une tuile son type et sa texture
+    /**
+     * Affecte le type de la tuile et la texture correspondante au type de terrain
+     * @param s valeur entière qui représente le type de terrain
+     */
     public void affecterType(int s) {
         this.setType(s);
         if (s==Constantes.FORET)
@@ -59,112 +117,119 @@ public class Tuile {
             textureTuile = Plateau.getDESERT();
         else {
             textureTuile = Plateau.getDESERT();
-            System.out.println("Type incorrect");
+            System.err.println("Type incorrect");
         }
     }
 
-    // Affect à la tuile un jeton et inversément
+    /**
+     * Affecte à la tuile le jeton passé en argument
+     * Affecte aussi au jeton la tuile (this)
+     * @param t Jeton passé en argument
+     */
     public void affecterJeton(Jeton t) {
         this.setJeton(t);
         t.affecterTuile(this);
     }
 
-    // Génère les points d'un hexagone sur pointe
+    /**
+     * Génère les 6 sommets de chaque tuile autour du centre et ajoute ces sommets à la liste des sommets.
+     * Cette liste de sommets sert à dessiner le squelette (contour) de la tuile.
+     * deltaX correspond à la distance entre le centre de la tuile et le centre d'une arete
+     */
     public void genererSommets() {
         float deltaX = (float) ((Math.sqrt(3) * taille) / 2);
-        Vector2 point1 = new Vector2(center.x, center.y + taille);
-        Vector2 point2 = new Vector2(center.x + deltaX, center.y + taille / 2);
-        Vector2 point3 = new Vector2(center.x + deltaX, center.y - taille / 2);
-        Vector2 point4 = new Vector2(center.x, center.y - taille);
-        Vector2 point5 = new Vector2(center.x - deltaX, center.y - taille / 2);
-        Vector2 point6 = new Vector2(center.x - deltaX, center.y + taille / 2);
-        ajouterSommet(point1);
-        ajouterSommet(point2);
-        ajouterSommet(point3);
-        ajouterSommet(point4);
-        ajouterSommet(point5);
-        ajouterSommet(point6);
+        ajouterSommet(new Vector2(center.x, center.y + taille));
+        ajouterSommet(new Vector2(center.x + deltaX, center.y + taille / 2));
+        ajouterSommet(new Vector2(center.x + deltaX, center.y - taille / 2));
+        ajouterSommet(new Vector2(center.x, center.y - taille));
+        ajouterSommet(new Vector2(center.x - deltaX, center.y - taille / 2));
+        ajouterSommet(new Vector2(center.x - deltaX, center.y + taille / 2));
     }
 
+    /**
+     * Ajoute à la liste de sommet le pixel(Vector2) passé en argument.
+     * Avant l'ajout, on vérifie que la liste ne contient pas déjà le sommet
+     * @param corner Corner correspond à un sommet ajouté à la liste des sommets de la tuile
+     */
     public void ajouterSommet(Vector2 corner) {
         if (!listeSommets.contains(corner))
             listeSommets.add(corner);
     }
 
-
+    /**
+     * Génère les sites de constructions (aux sommets) de la tuile et ajoute ces sites "vides" à la liste des sites de construction (batiment) de la tuile
+     */
     public void genererSitesConstruction() {
-        SiteConstruction sc1 = new SiteConstruction(new Vector2(center.x, center.y + taille),true);//sc1.setEstBatiment(true);
-        SiteConstruction sc2 = new SiteConstruction(new Vector2(center.x + deltaX, center.y + taille / 2),true);//sc2.setEstBatiment(true);
-        SiteConstruction sc3 = new SiteConstruction(new Vector2(center.x + deltaX, center.y - taille / 2),true);//sc3.setEstBatiment(true);
-        SiteConstruction sc4 = new SiteConstruction(new Vector2(center.x, center.y - taille),true);//sc4.setEstBatiment(true);
-        SiteConstruction sc5 = new SiteConstruction(new Vector2(center.x - deltaX, center.y - taille / 2),true);//sc5.setEstBatiment(true);
-        SiteConstruction sc6 = new SiteConstruction(new Vector2(center.x - deltaX, center.y + taille / 2),true);//sc6.setEstBatiment(true);
-        ajouterSiteConstruction(sc1);
-        ajouterSiteConstruction(sc2);
-        ajouterSiteConstruction(sc3);
-        ajouterSiteConstruction(sc4);
-        ajouterSiteConstruction(sc5);
-        ajouterSiteConstruction(sc6);
+        ajouterSiteConstruction(new SiteConstruction(new Vector2(center.x, center.y + taille),true));
+        ajouterSiteConstruction(new SiteConstruction(new Vector2(center.x + deltaX, center.y + taille / 2),true));
+        ajouterSiteConstruction( new SiteConstruction(new Vector2(center.x + deltaX, center.y - taille / 2),true));
+        ajouterSiteConstruction(new SiteConstruction(new Vector2(center.x, center.y - taille),true));
+        ajouterSiteConstruction(new SiteConstruction(new Vector2(center.x - deltaX, center.y - taille / 2),true));
+        ajouterSiteConstruction(new SiteConstruction(new Vector2(center.x - deltaX, center.y + taille / 2),true));
     }
 
+    /**
+     * Ajoute le site de construction à la liste des sites de constructions en vérifiant qu'il n'est pas déjà présent
+     * @param sc SiteConstruction que l'on ajoute à la liste des sites de constructions (batiment)
+     */
     public void ajouterSiteConstruction(SiteConstruction sc) {
         if (!listeSitesConstruction.contains(sc))
             listeSitesConstruction.add(sc);
     }
 
-    // Si deux SiteConstruction ont le même sommet, ils pointent vers le même objet
+    /**
+     * Comme chauque Tuile génère ses sommets et ses routes, il existe des routes et sommets qui sont communs à plusieurs tuiles.
+     * Cette méthode fait en sorte que deux sites de construction qui sont sur à la même position pointent vers le même et unique site de construction
+     * Renvoie l'indice du premier SiteConstruction identique à celui passé en argument et remplace le SiteConstruction à l'indice i par celui passé en argument
+     * @param sc Site de construction que l'on veut rendre unique
+     */
     public void fusionnerSiteConstruction(SiteConstruction sc) {
         if (listeSitesConstruction.contains(sc)) {
             int i = listeSitesConstruction.indexOf(sc);
             listeSitesConstruction.set(i,sc);
-            //listeSitesConstruction.remove(sc);
         }
     }
 
-
+    /**
+     * Génère les sites de constructions (route) de la tuile et les ajoute à la liste des sites de construction (route)
+     */
     public void genererSitesConstructionRoute() {
         float deltaXDemi = deltaX/2.0f;
-        SiteConstruction sc1 = new SiteConstruction(new Vector2(center.x + deltaXDemi, center.y + 3*taille/4),false);
-        SiteConstruction sc2 = new SiteConstruction(new Vector2(center.x + deltaX, center.y),false);
-        SiteConstruction sc3 = new SiteConstruction(new Vector2(center.x + deltaXDemi, center.y - 3*taille/4),false);
-        SiteConstruction sc4 = new SiteConstruction(new Vector2(center.x - deltaXDemi, center.y - 3*taille/4),false);
-        SiteConstruction sc5 = new SiteConstruction(new Vector2(center.x - deltaX, center.y),false);
-        SiteConstruction sc6 = new SiteConstruction(new Vector2(center.x - deltaXDemi, center.y + 3*taille/4),false);
-        listeSitesConstructionRoute.add(sc1);
-        listeSitesConstructionRoute.add(sc2);
-        listeSitesConstructionRoute.add(sc3);
-        listeSitesConstructionRoute.add(sc4);
-        listeSitesConstructionRoute.add(sc5);
-        listeSitesConstructionRoute.add(sc6);
-        /*
-        System.out.println(listeSitesConstructionRoute.size());
-        System.out.println(listeSitesConstructionRoute.get(0).toString());
-        */
-        /*
-        ajouterSiteConstructionRoute(sc1);
-        ajouterSiteConstructionRoute(sc2);
-        ajouterSiteConstructionRoute(sc3);
-        ajouterSiteConstructionRoute(sc4);
-        ajouterSiteConstructionRoute(sc5);
-        ajouterSiteConstructionRoute(sc6);
-        */
+        ajouterSiteConstructionRoute(new SiteConstruction(new Vector2(center.x + deltaXDemi, center.y + 3*taille/4),false));
+        ajouterSiteConstructionRoute(new SiteConstruction(new Vector2(center.x + deltaX, center.y),false));
+        ajouterSiteConstructionRoute(new SiteConstruction(new Vector2(center.x + deltaXDemi, center.y - 3*taille/4),false));
+        ajouterSiteConstructionRoute(new SiteConstruction(new Vector2(center.x - deltaXDemi, center.y - 3*taille/4),false));
+        ajouterSiteConstructionRoute(new SiteConstruction(new Vector2(center.x - deltaX, center.y),false));
+        ajouterSiteConstructionRoute(new SiteConstruction(new Vector2(center.x - deltaXDemi, center.y + 3*taille/4),false));
     }
 
+    /**
+     * Ajoute le site de construction à la liste des sites de constructions (route) en vérifiant qu'il n'est pas déjà présent
+     * @param sc SiteConstruction que l'on ajoute à la liste des sites de constructions (route)
+     */
     public void ajouterSiteConstructionRoute(SiteConstruction sc) {
         if (!listeSitesConstructionRoute.contains(sc))
-            System.out.println("entre");
-        listeSitesConstructionRoute.add(sc);
+            listeSitesConstructionRoute.add(sc);
     }
 
-    // Si deux SiteConstructionRoute ont la même position, ils pointent vers le même objet
+    /**
+     * Comme chauque Tuile génère ses sommets et ses routes, il existe des routes et sommets qui sont communs à plusieurs tuiles.
+     * Cette méthode fait en sorte que deux sites de construction qui sont sur à la même position pointent vers le même et unique site de construction
+     * Renvoie l'indice du premier SiteConstruction identique à celui passé en argument et remplace le SiteConstruction à l'indice i par celui passé en argument
+     * @param sc Site de construction (route) que l'on veut rendre unique
+     */
     public void fusionnerSiteConstructionRoute(SiteConstruction sc) {
         if (listeSitesConstructionRoute.contains(sc)) {
-            int i = listeSitesConstructionRoute.indexOf(sc);
+            int i = listeSitesConstructionRoute.indexOf(sc); // récupère l'indice
             listeSitesConstructionRoute.set(i,sc);
-            //listeSitesConstruction.remove(sc);
         }
     }
 
+    /**
+     * Deux tuiles sont identiques la valeur absolue de la distance entre leur x et y est inférieur ou égal à 3 pixel
+     * @param o Object o
+     * @return boolean s'ils sont identiques
+     */
     public boolean equals(Object o) {
         if (o instanceof Tuile) {
             Tuile t = (Tuile) o;
@@ -173,14 +238,10 @@ public class Tuile {
         return false;
     }
 
-    public String getCoordonnees() {
-        String s = "Centre : " + center.x + "," + center.y + "\n";
-        for (int i = 1; i <= 6; i++) {
-            s += "Point" + i + " : " + (int) listeSommets.get(i).x + "," + (int) listeSommets.get(i).y + "\n";
-        }
-        return s;
-    }
-
+    /**
+     * Sert à dessiner le squelette de la tuile grâce aux coordonnées de ses sommets
+     * @return tableau contenant les couples x,y des sommets de la tuile à dessiner dans le render du batch (affichage)
+     */
     public float[] getVertices() {
         float[] tab = {
                 listeSommets.get(1).x, listeSommets.get(1).y,
@@ -193,32 +254,24 @@ public class Tuile {
         return tab;
     }
 
-    // Renvoie le pixel du coin inférieur gauche de la tuile
-    // Sert à dessiner la texture
+    /**
+     * Sert à obtenir le pixel (l'origine) de départ pour dessiner la texture de la tuile
+     * @return Pixel se trouver au coin inférieur gauche de la tuile
+     */
     public Vector2 getCoinInferieurGaucheTuile() {
         return new Vector2(center.x - deltaX, center.y - taille);
     }
 
-    // Renvoie le pixel du coin supérieur droit de la tuile
-    // Sert à dessiner la texture
-    public Vector2 getCoinSuperieurDroitTuile() {
-        return new Vector2(center.x + deltaX, center.y + taille);
-    }
-
-    // Renvoie le pixel du coin inférieur gauche d'un carré intégré dans la tuile
-    // Sert à dessiner le jeton
+    /**
+     * Sert à obtenir le pixel (l'origine) de départ pour dessiner le jeton sur la tuile
+     * @return Pixel se trouver au coin inférieur gauche du jeton
+     */
     public Vector2 getCoinInferieurGaucheJeton() {
         return new Vector2(center.x - Constantes.DISTANCE_TUILE_X, center.y - Constantes.DISTANCE_TUILE_X);
     }
 
-    // Renvoie le pixel du coin supérieur droit d'un carré intégré dans la tuile
-    // Sert à dessiner le jeton
-    public Vector2 getCoinSuperieurDroitJeton() {
-        return new Vector2(center.x + Constantes.DISTANCE_TUILE_X, center.y + Constantes.DISTANCE_TUILE_X);
-    }
 
     // Getter & Setter
-
 
     public void setListeSitesConstruction(ArrayList<SiteConstruction> listeSitesConstruction) {
         this.listeSitesConstruction = listeSitesConstruction;
@@ -240,60 +293,12 @@ public class Tuile {
         this.center = centre;
     }
 
-    public void setPoint1(Vector2 point1) {
-        this.point1 = point1;
-    }
-
-    public void setPoint2(Vector2 point2) {
-        this.point2 = point2;
-    }
-
-    public void setPoint3(Vector2 point3) {
-        this.point3 = point3;
-    }
-
-    public void setPoint4(Vector2 point4) {
-        this.point4 = point4;
-    }
-
-    public void setPoint5(Vector2 point5) {
-        this.point5 = point5;
-    }
-
-    public void setPoint6(Vector2 point6) {
-        this.point6 = point6;
-    }
-
     public void setJeton(Jeton jeton) {
         this.jeton = jeton;
     }
 
     public Vector2 getCentre() {
         return center;
-    }
-
-    public Vector2 getPoint1() {
-        return point1;
-    }
-
-    public Vector2 getPoint2() {
-        return point2;
-    }
-
-    public Vector2 getPoint3() {
-        return point3;
-    }
-
-    public Vector2 getPoint4() {
-        return point4;
-    }
-
-    public Vector2 getPoint5() {
-        return point5;
-    }
-
-    public Vector2 getPoint6() {
-        return point6;
     }
 
     public Jeton getJeton() {
