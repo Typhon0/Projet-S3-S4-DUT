@@ -53,10 +53,10 @@ public class PaquetRessources {
                 System.out.println("Echange effectué avec succès");
             }
             else
-                throw new RuntimeException("Erreur : le paquet 2 n'a pas assez de ressources");
+                System.err.println("Erreur : le paquet 2 n'a pas assez de ressources");
         }
         else {
-            throw new RuntimeException("Erreur de type de ressource lors de l'échange");
+            System.err.println("Erreur de type de ressource lors de l'échange");
         }
     }
 

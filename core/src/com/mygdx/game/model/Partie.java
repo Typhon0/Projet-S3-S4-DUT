@@ -52,8 +52,16 @@ public class Partie {
 
     }
 
-
-
+    public void afficherPointsVictoire() {
+        for (int i=0 ; i<joueurs.length ; i++) {
+            System.out.println("Joueur "+i+" "+joueurs[i].getPoints());
+        }
+    }
+/*
+    public static void majPoints() {
+        afficherPointsVictoire();
+    }
+*/
     // Getters & Setters
 
     public int getIndiceJoueurActif() {

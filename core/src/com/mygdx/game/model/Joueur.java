@@ -41,58 +41,91 @@ public class Joueur {
         this.points += points;
     }
 
-    public void construireVille(Joueur j,SiteConstruction sc){
-        System.out.println("entré");
+    public void construireVille(SiteConstruction sc){
         if (!sc.isEstConstruit()) {
-            //if (sc.isEstBatiment()) {
+            if (sc.isEstBatiment()) {
                 if (paquetStructures[Constantes.VILLE] >0) {
                     int[]cout = Constantes.getCoutConstructionVille();
                     if (estAchetable(cout)) {
                         paquetStructures[Constantes.VILLE]--; // décrémente de 1 le nombre de villes restantes
                         acheter( cout ); // achète le cout de la ville
-                        System.out.println("Coordonnées de la strucure : "+new Vector2( sc.getPosition().x, sc.getPosition().y ).toString());
+                        //System.out.println("Coordonnées de la strucure : "+new Vector2( sc.getPosition().x, sc.getPosition().y ).toString());
                         Structure s = new Structure( this,sc, new Vector2( sc.getPosition().x, sc.getPosition().y), Constantes.VILLE ); // Création de la structure
-
                         s.affecterTexture(); // affecte la texture à la structure selon son type de structure
                         ajouterStructure( s ); // ajoute la structure à la liste de structures du joueur
                         sc.setEstConstruit( true ); //
                         sc.setStructure( s );
-
-
-                        //Structure s = new Structure(this,)
-                        // listeStructures.add(new Structure()); // crée la ville et l'ajoute à la liste des structures
-
-                        // A COMPLETER
+                        System.out.println("Points : "+points);
                     }
                     else
-                        throw new RuntimeException("Erreur : Vous n'avez pas assez de ressource pour construire une ville");
+                        System.err.println("Erreur : Vous n'avez pas assez de ressource pour construire une ville");
                 }
                 else
-                    throw new RuntimeException("Erreur : Vous n'avez plus de ville à construire");
-            /*}
+                    System.err.println("Erreur : Vous n'avez plus de ville à construire");
+            }
             else
-                throw new RuntimeException("Erreur : Vous ne pouvez pas construire une ville à cet emplacement");*/
+                System.err.println("Erreur : Vous ne pouvez pas construire une ville à cet emplacement");
         }
         else
-            throw new RuntimeException("Erreur : il y a déjà une structure construite à cet emplacement");
+            System.err.println("Erreur : il y a déjà une structure construite à cet emplacement");
     }
 
-    public void construireColonie(){
-        if (paquetStructures[Constantes.COLONIE] >0) {
-            paquetStructures[Constantes.COLONIE]--;
-            // Créer l'objet et le placer dans "ListeStructures"
-        } else {
-            throw new RuntimeException("Erreur : Vous n'avez plus de colonie à construire");
+    public void construireColonie(SiteConstruction sc){
+        if (!sc.isEstConstruit()) {
+            if (sc.isEstBatiment()) {
+                if (paquetStructures[Constantes.COLONIE] >0) {
+                    int[]cout = Constantes.getCoutConstructionColonie();
+                    if (estAchetable(cout)) {
+                        paquetStructures[Constantes.COLONIE]--; // décrémente de 1 le nombre de villes restantes
+                        acheter( cout ); // achète le cout de la ville
+                        //System.out.println("Coordonnées de la strucure : "+new Vector2( sc.getPosition().x, sc.getPosition().y ).toString());
+                        Structure s = new Structure( this,sc, new Vector2( sc.getPosition().x, sc.getPosition().y), Constantes.COLONIE ); // Création de la structure
+                        s.affecterTexture(); // affecte la texture à la structure selon son type de structure
+                        ajouterStructure( s ); // ajoute la structure à la liste de structures du joueur
+                        sc.setEstConstruit( true ); //
+                        sc.setStructure( s );
+                        System.out.println("Points : "+points);
+                    }
+                    else
+                        System.err.println("Erreur : Vous n'avez pas assez de ressource pour construire une colonie");
+                }
+                else
+                    System.err.println("Erreur : Vous n'avez plus de colonie à construire");
+            }
+            else
+                System.err.println("Erreur : Vous ne pouvez pas construire une colonie à cet emplacement");
         }
+        else
+            System.err.println("Erreur : il y a déjà une structure construite à cet emplacement");
     }
 
-    public void construireRoute(){
-        if (paquetStructures[Constantes.ROUTE] >0) {
-            paquetStructures[Constantes.ROUTE]--;
-            // Créer l'objet et le placer dans "ListeStructures"
-        } else {
-            throw new RuntimeException("Erreur : Vous n'avez plus de colonie à construire");
+    public void construireRoute(SiteConstruction sc){
+        if (!sc.isEstConstruit()) {
+            if (!sc.isEstBatiment()) {
+                if (paquetStructures[Constantes.ROUTE] >0) {
+                    int[]cout = Constantes.getCoutConstructionRoute();
+                    if (estAchetable(cout)) {
+                        paquetStructures[Constantes.ROUTE]--; // décrémente de 1 le nombre de villes restantes
+                        acheter( cout ); // achète le cout de la ville
+                        //System.out.println("Coordonnées de la strucure : "+new Vector2( sc.getPosition().x, sc.getPosition().y ).toString());
+                        Structure s = new Structure( this,sc, new Vector2( sc.getPosition().x, sc.getPosition().y), Constantes.ROUTE ); // Création de la structure
+                        s.affecterTexture(); // affecte la texture à la structure selon son type de structure
+                        ajouterStructure( s ); // ajoute la structure à la liste de structures du joueur
+                        sc.setEstConstruit( true ); //
+                        sc.setStructure( s );
+                        System.out.println("Points : "+points);
+                    }
+                    else
+                        System.err.println("Erreur : Vous n'avez pas assez de ressource pour construire une route");
+                }
+                else
+                    System.err.println("Erreur : Vous n'avez plus de route à construire");
+            }
+            else
+                System.err.println("Erreur : Vous ne pouvez pas construire une route à cet emplacement");
         }
+        else
+            System.err.println("Erreur : il y a déjà une structure construite à cet emplacement");
     }
 
     public boolean estAchetable(int[] cout) {
