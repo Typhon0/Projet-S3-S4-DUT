@@ -8,7 +8,7 @@ public class Constantes {
     /*
         Constantes pour les types de ressources
      */
-    public static final int MONTANT_RESSOURCE_MAXIMUM = 19; // montant maximum de ressources par type
+    public static final int MONTANT_RESSOURCE_MAXIMUM = 100; // montant maximum de ressources par type
 
     public static final int BOIS = 1;
     public static final int LAINE = 2;

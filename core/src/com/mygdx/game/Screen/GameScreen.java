@@ -237,10 +237,11 @@ public class GameScreen implements Screen, InputProcessor {
                             // Colonie
                             if (game.getPartie().getTypeStructure() == Constantes.COLONIE) {
                                 //joueur.construireColonie(sc);
-                                System.out.println("Ressources avant construction : " + joueur.getRessourcesString());
+                                //System.out.println("Ressources avant construction : " + joueur.getRessourcesString());
                                 //System.out.println("Je vais construire une ville");
                                 joueur.construireColonie( sc );
                                 //System.out.println("J'ai construit une ville");
+                                /*
                                 System.out.println("Ressources apres construction : " + joueur.getRessourcesString());
                                 De d1 = game.getPartie().getDe1();
                                 d1.lancer();
@@ -250,13 +251,15 @@ public class GameScreen implements Screen, InputProcessor {
                                 //game.getPartie().donnerRessourcesAuxJoueurs(d1.getValeur()+d2.getValeur());
                                 game.getPartie().donnerRessourcesAuxJoueurs(4);
                                 System.out.println("Apres ajout : " + joueur.getRessourcesString());
+                                */
                             }
                             // Ville
                             else {
-                                System.out.println("Ressources avant construction : " + joueur.getRessourcesString());
+                                //System.out.println("Ressources avant construction : " + joueur.getRessourcesString());
                                 //System.out.println("Je vais construire une ville");
                                 joueur.construireVille( sc );
                                 //System.out.println("J'ai construit une ville");
+                                /*
                                 System.out.println("Ressources apres construction : " + joueur.getRessourcesString());
                                 De d1 = game.getPartie().getDe1();
                                 d1.lancer();
@@ -266,6 +269,7 @@ public class GameScreen implements Screen, InputProcessor {
                                 //game.getPartie().donnerRessourcesAuxJoueurs(d1.getValeur()+d2.getValeur());
                                 game.getPartie().donnerRessourcesAuxJoueurs(4);
                                 System.out.println("Apres ajout : " + joueur.getRessourcesString());
+                                */
 
                             }
                             return false;

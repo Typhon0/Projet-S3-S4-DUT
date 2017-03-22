@@ -280,6 +280,9 @@ public class HUD {
 
                 } else if (button == 0) { //Oui
                     //TODO passer le tour
+                    System.out.println("passe tour");
+                    game.getPartie().finDeTour();
+
                 }
             }
         });

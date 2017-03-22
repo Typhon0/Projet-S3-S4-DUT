@@ -42,18 +42,41 @@ public class Partie {
         plateau.generer();
     }
 
-    public void donnerRessourcesDepart() {
-        /*
-        for (int i=0 ; i<joueurs.length ; i++) {
-            PaquetRessources.recevoirRessource( plateau.getRessources(),joueurs[i].getRessources(), );
-        }
-        */
-        PaquetRessources.recevoirRessource( joueurs[0].getRessources(),plateau.getRessources(),Constantes.ARGILE,10 );
-        PaquetRessources.recevoirRessource( joueurs[0].getRessources(),plateau.getRessources(),Constantes.BLE,10 );
-        PaquetRessources.recevoirRessource( joueurs[0].getRessources(),plateau.getRessources(),Constantes.MINERAI,10 );
-        PaquetRessources.recevoirRessource( joueurs[0].getRessources(),plateau.getRessources(),Constantes.BOIS,10 );
-        PaquetRessources.recevoirRessource( joueurs[0].getRessources(),plateau.getRessources(),Constantes.LAINE,10 );
+    public void finDeTour() {
+        joueurSuivant();
+        typeStructure = 0;
+    }
 
+    public void joueurSuivant() {
+        for (int i=0 ; i<joueurs.length ; i++) {
+            if (joueurActif.equals( joueurs[i] )) {
+                if (i != joueurs.length-1) {
+                    joueurActif = joueurs[i+1];
+                    System.out.println("suivant");
+                    break;
+                }
+                else {
+                    joueurActif = joueurs[0];
+                    break;
+                }
+            }
+        }
+    }
+
+    public void nouveauTour(){
+        de1.lancer();
+        de2.lancer();
+        donnerRessourcesAuxJoueurs( de1.getValeur() + de2.getValeur());
+    }
+
+    public void donnerRessourcesDepart() {
+        for (int i=0 ; i<joueurs.length ; i++) {
+            PaquetRessources.recevoirRessource( joueurs[i].getRessources(),plateau.getRessources(),Constantes.ARGILE,10 );
+            PaquetRessources.recevoirRessource( joueurs[i].getRessources(),plateau.getRessources(),Constantes.BLE,10 );
+            PaquetRessources.recevoirRessource( joueurs[i].getRessources(),plateau.getRessources(),Constantes.MINERAI,10 );
+            PaquetRessources.recevoirRessource( joueurs[i].getRessources(),plateau.getRessources(),Constantes.BOIS,10 );
+            PaquetRessources.recevoirRessource( joueurs[i].getRessources(),plateau.getRessources(),Constantes.LAINE,10 );
+        }
     }
 
     public void afficherPointsVictoire() {
@@ -69,27 +92,18 @@ public class Partie {
     // Ajout Robin
 
     // Donne les ressources aux joueurs selon la somme des des
-    public void donnerRessourcesAuxJoueurs(int sommeDes)
-    {
+    public void donnerRessourcesAuxJoueurs(int sommeDes) {
         ArrayList<Tuile> liste = getListeTuileJeton(sommeDes);
-
-        for(int i=0; i<liste.size(); i++)
-        {
+        for(int i=0; i<liste.size(); i++) {
             Tuile t = liste.get(i);
-
-            for(int j=0; j<liste.get(i).getListeSitesConstruction().size(); j++)
-            {
+            for(int j=0; j<liste.get(i).getListeSitesConstruction().size(); j++)      {
                 SiteConstruction sc = liste.get(i).getListeSitesConstruction().get(j);
-
-                if(sc.isEstConstruit())
-                {
+                if(sc.isEstConstruit())                {
                     Structure s = sc.getStructure();
                     Joueur joueur = s.getJoueur();
                     int valeur = 0;
                     valeur = (s.getTypeStructure()== Constantes.VILLE)?2:1;
-
-                    switch(t.getType())
-                    {
+                    switch(t.getType())                    {
                         case Constantes.FORET : PaquetRessources.recevoirRessource(joueur.getRessources(), plateau.getRessources(), Constantes.BOIS, valeur); break;
                         case Constantes.PRE : PaquetRessources.recevoirRessource(joueur.getRessources(), plateau.getRessources(), Constantes.LAINE, valeur); break;
                         case Constantes.MONTAGNE : PaquetRessources.recevoirRessource(joueur.getRessources(), plateau.getRessources(), Constantes.MINERAI, valeur); break;
@@ -100,22 +114,16 @@ public class Partie {
                 }
             }
         }
-
     }
 
     // Renvoie la liste des tuiles dont le jeton est egal a la somme des des
-    public ArrayList<Tuile> getListeTuileJeton(int sommeDes)
-    {
+    public ArrayList<Tuile> getListeTuileJeton(int sommeDes) {
         ArrayList<Tuile> liste = new ArrayList<Tuile>();
-
-        for(int i=0; i<plateau.getListeTuiles().size(); i++)
-        {
-            if(plateau.getListeTuiles().get(i).getJeton().getValeur() == sommeDes)
-            {
+        for(int i=0; i<plateau.getListeTuiles().size(); i++)        {
+            if(plateau.getListeTuiles().get(i).getJeton().getValeur() == sommeDes)            {
                 liste.add(plateau.getListeTuiles().get(i));
             }
         }
-
         return liste;
     }
 
