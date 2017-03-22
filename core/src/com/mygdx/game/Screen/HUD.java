@@ -43,6 +43,7 @@ public class HUD {
 
     public HUD(SpriteBatch sb, Catan game) {
         this.game = game;
+        this.game.getPartie().setHud( this );
         skin = new Skin(Gdx.files.internal("ui/glassy-ui.json"));
         try {
             dialogs = GDXDialogsSystem.install();

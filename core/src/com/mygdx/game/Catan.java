@@ -19,7 +19,7 @@ public class Catan extends Game {
 
     public PolygonSpriteBatch polyBatch;
 
-    public Plateau plateau;
+    //public Plateau plateau;
 
     private Partie partie;
 
@@ -32,21 +32,11 @@ public class Catan extends Game {
         polyBatch = new PolygonSpriteBatch();
 
         partie = new Partie();
-        /*
-        plateau = new Plateau();
-        plateau.generer();
-        */
+
         batch = new SpriteBatch();
         batch2 = new SpriteBatch();
 
         this.setScreen(new MainMenu(this));
-
-        /*
-        System.out.println(plateau.getListeTuiles().get(0).getListeSommets().get(2).toString());
-        System.out.println(plateau.getListeTuiles().get(1).getListeSommets().get(6).toString());
-
-        System.out.println(plateau.getListeTuiles().get(0).getListeSommets().get(2).equals(plateau.getListeTuiles().get(1).getListeSommets().get(6)));
-        */
     }
 
     @Override

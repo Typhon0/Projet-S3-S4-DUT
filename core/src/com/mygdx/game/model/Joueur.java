@@ -58,16 +58,20 @@ public class Joueur {
                         System.out.println("Points : "+points);
                     }
                     else
-                        System.err.println("Erreur : Vous n'avez pas assez de ressource pour construire une ville");
+                        Partie.getHud().afficherMessage( "Erreur de construction de ville","Vous n'avez pas assez de ressources pour construire une ville" );
+                    //System.err.println("Erreur : Vous n'avez pas assez de ressource pour construire une route");
                 }
                 else
-                    System.err.println("Erreur : Vous n'avez plus de ville à construire");
+                    Partie.getHud().afficherMessage( "Erreur de construction de ville","Vous n'avez plus de pion de type Ville en stock" );
+                //System.err.println("Erreur : Vous n'avez plus de route à construire");
             }
             else
-                System.err.println("Erreur : Vous ne pouvez pas construire une ville à cet emplacement");
+                Partie.getHud().afficherMessage( "Erreur de construction de ville","Vous ne pouvez pas construire une ville sur un site de construction de route" );
+            //System.err.println("Erreur : Vous ne pouvez pas construire une route à cet emplacement");
         }
         else
-            System.err.println("Erreur : il y a déjà une structure construite à cet emplacement");
+            Partie.getHud().afficherMessage( "Erreur de construction de ville","Il y a déjà une structure construite à cet emplacement" );
+        //System.err.println("Erreur de construction de route"+"Erreur : il y a déjà une structure construite à cet emplacement");
     }
 
     public void construireColonie(SiteConstruction sc){
@@ -87,16 +91,20 @@ public class Joueur {
                         System.out.println("Points : "+points);
                     }
                     else
-                        System.err.println("Erreur : Vous n'avez pas assez de ressource pour construire une colonie");
+                        Partie.getHud().afficherMessage( "Erreur de construction de colonie","Vous n'avez pas assez de ressources pour construire une colonie" );
+                    //System.err.println("Erreur : Vous n'avez pas assez de ressource pour construire une route");
                 }
                 else
-                    System.err.println("Erreur : Vous n'avez plus de colonie à construire");
+                    Partie.getHud().afficherMessage( "Erreur de construction de colonie","Vous n'avez plus de pion de type Colonie en stock" );
+                //System.err.println("Erreur : Vous n'avez plus de route à construire");
             }
             else
-                System.err.println("Erreur : Vous ne pouvez pas construire une colonie à cet emplacement");
+                Partie.getHud().afficherMessage( "Erreur de construction de colonie","Vous ne pouvez pas construire une colonie sur un site de construction de route" );
+            //System.err.println("Erreur : Vous ne pouvez pas construire une route à cet emplacement");
         }
         else
-            System.err.println("Erreur : il y a déjà une structure construite à cet emplacement");
+            Partie.getHud().afficherMessage( "Erreur de construction de colonie","Il y a déjà une structure construite à cet emplacement" );
+        //System.err.println("Erreur de construction de route"+"Erreur : il y a déjà une structure construite à cet emplacement");
     }
 
     public void construireRoute(SiteConstruction sc){
@@ -116,16 +124,20 @@ public class Joueur {
                         System.out.println("Points : "+points);
                     }
                     else
-                        System.err.println("Erreur : Vous n'avez pas assez de ressource pour construire une route");
+                        Partie.getHud().afficherMessage( "Erreur de construction de route","Vous n'avez pas assez de ressources pour construire une route" );
+                        //System.err.println("Erreur : Vous n'avez pas assez de ressource pour construire une route");
                 }
                 else
-                    System.err.println("Erreur : Vous n'avez plus de route à construire");
+                    Partie.getHud().afficherMessage( "Erreur de construction de route","Vous n'avez plus de pion de type Route en stock" );
+                    //System.err.println("Erreur : Vous n'avez plus de route à construire");
             }
             else
-                System.err.println("Erreur : Vous ne pouvez pas construire une route à cet emplacement");
+                Partie.getHud().afficherMessage( "Erreur de construction de route","Vous ne pouvez pas construire une route sur un site de construction de batiment" );
+                //System.err.println("Erreur : Vous ne pouvez pas construire une route à cet emplacement");
         }
         else
-            System.err.println("Erreur : il y a déjà une structure construite à cet emplacement");
+            Partie.getHud().afficherMessage( "Erreur de construction de route","Il y a déjà une structure construite à cet emplacement" );
+            //System.err.println("Erreur de construction de route"+"Erreur : il y a déjà une structure construite à cet emplacement");
     }
 
     public boolean estAchetable(int[] cout) {

@@ -8,7 +8,12 @@ public class Constantes {
     /*
         Constantes pour les types de ressources
      */
-    public static final int MONTANT_RESSOURCE_MAXIMUM = 100; // montant maximum de ressources par type
+    public static final int MONTANT_RESSOURCE_MAXIMUM = 1000; // montant maximum de ressources par type
+    public static final int MONTANT_RESSOURCE_DEPART_BOIS = 100;
+    public static final int MONTANT_RESSOURCE_DEPART_LAINE = 100;
+    public static final int MONTANT_RESSOURCE_DEPART_BLE = 100;
+    public static final int MONTANT_RESSOURCE_DEPART_ARGILE = 100;
+    public static final int MONTANT_RESSOURCE_DEPART_MINERAI = 100;
 
     public static final int BOIS = 1;
     public static final int LAINE = 2;
@@ -155,6 +160,23 @@ public class Constantes {
     public static final int COULEUR_BLEU = 1;
     public static final int COULEUR_VERT = 2;
     public static final int COULEUR_JAUNE = 3;
+
+    public static String couleurJoueur(int couleur) {
+        String nom;
+        switch (couleur) {
+            case COULEUR_ROUGE:
+                nom = "Rouge";  break;
+            case COULEUR_BLEU:
+                nom = "Bleu";   break;
+            case COULEUR_VERT:
+                nom = "Vert"; break;
+            case COULEUR_JAUNE:
+                nom = "Jaune"; break;
+            default :
+                nom = null; // ne doit pas se produire
+        }
+        return nom;
+    }
 
     public static final int POINTS_VICTOIRE_MAX = 10;
 }

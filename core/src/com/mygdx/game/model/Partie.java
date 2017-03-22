@@ -1,6 +1,8 @@
 package com.mygdx.game.model;
 
 
+import com.mygdx.game.Screen.HUD;
+
 import java.util.ArrayList;
 
 
@@ -9,6 +11,7 @@ import java.util.ArrayList;
  */
 
 public class Partie {
+    private static HUD hud;
     private int indiceJoueurActif;
     private Joueur[] joueurs;
     private Joueur joueurActif;
@@ -53,7 +56,7 @@ public class Partie {
             if (joueurActif.equals( joueurs[i] )) {
                 if (i != joueurs.length-1) {
                     joueurActif = joueurs[i+1];
-                    System.out.println("suivant");
+                    //System.out.println("suivant");
                     break;
                 }
                 else {
@@ -65,6 +68,7 @@ public class Partie {
     }
 
     public void nouveauTour(){
+        hud.afficherMessage( "Nouveau tour","C'est au tour du joueur : "+Constantes.couleurJoueur( joueurActif.getCouleur() ));
         de1.lancer();
         de2.lancer();
         donnerRessourcesAuxJoueurs( de1.getValeur() + de2.getValeur());
@@ -73,6 +77,7 @@ public class Partie {
     public void verifierPointsVictoire() {
         if (joueurActif.getPoints() >= Constantes.POINTS_VICTOIRE_MAX) {
             System.out.println("Le joueur "+joueurActif.toString()+" a gagné");
+            hud.afficherMessage( "Vainqueur de la partie : joueur "+Constantes.couleurJoueur( joueurActif.getCouleur() ),"Vous avez gagné !" );
         }
         else {
             System.out.println("Le joueur "+joueurActif.toString()+"n'a pas atteint 10 PV");
@@ -81,11 +86,11 @@ public class Partie {
 
     public void donnerRessourcesDepart() {
         for (int i=0 ; i<joueurs.length ; i++) {
-            PaquetRessources.recevoirRessource( joueurs[i].getRessources(),plateau.getRessources(),Constantes.ARGILE,20 );
-            PaquetRessources.recevoirRessource( joueurs[i].getRessources(),plateau.getRessources(),Constantes.BLE,20 );
-            PaquetRessources.recevoirRessource( joueurs[i].getRessources(),plateau.getRessources(),Constantes.MINERAI,20 );
-            PaquetRessources.recevoirRessource( joueurs[i].getRessources(),plateau.getRessources(),Constantes.BOIS,20 );
-            PaquetRessources.recevoirRessource( joueurs[i].getRessources(),plateau.getRessources(),Constantes.LAINE,20 );
+            PaquetRessources.recevoirRessource( joueurs[i].getRessources(),plateau.getRessources(),Constantes.ARGILE,Constantes.MONTANT_RESSOURCE_DEPART_ARGILE );
+            PaquetRessources.recevoirRessource( joueurs[i].getRessources(),plateau.getRessources(),Constantes.BLE,Constantes.MONTANT_RESSOURCE_DEPART_BLE );
+            PaquetRessources.recevoirRessource( joueurs[i].getRessources(),plateau.getRessources(),Constantes.MINERAI,Constantes.MONTANT_RESSOURCE_DEPART_MINERAI );
+            PaquetRessources.recevoirRessource( joueurs[i].getRessources(),plateau.getRessources(),Constantes.BOIS,Constantes.MONTANT_RESSOURCE_DEPART_BOIS );
+            PaquetRessources.recevoirRessource( joueurs[i].getRessources(),plateau.getRessources(),Constantes.LAINE,Constantes.MONTANT_RESSOURCE_DEPART_LAINE );
         }
     }
 
@@ -196,5 +201,14 @@ public class Partie {
 
     public void setTypeStructure(int typeStructure) {
         this.typeStructure = typeStructure;
+    }
+
+    public void setHud(HUD hud) {
+        this.hud = hud;
+    }
+
+    public static HUD getHud() {
+
+        return hud;
     }
 }
