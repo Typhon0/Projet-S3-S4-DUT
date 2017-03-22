@@ -23,6 +23,16 @@
 			down:checkbox-down
 		}
 
+		plus:{
+			up:plus
+			down:plus-down
+		}
+
+		minus:{
+			up:minus
+			down:minus-down
+		}
+
         settings: {
             up:settings
             down:settings-down

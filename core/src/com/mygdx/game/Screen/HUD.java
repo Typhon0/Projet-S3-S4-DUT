@@ -159,7 +159,8 @@ public class HUD {
             @Override
             public void clicked(InputEvent event, float x, float y) {
 
-//TODO
+                //TODO
+                afficherMessage("test", "test");
             }
         });
 
@@ -167,7 +168,7 @@ public class HUD {
         echange.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-//TODO
+                windowsEchange();
 
             }
         });
@@ -263,6 +264,31 @@ public class HUD {
 
     }
 
+    /**
+     * Permet d'afficher une boite de dialogue style android
+     * avec un titre et un message personnalisé
+     *
+     * @param title
+     * @param message
+     */
+    public void afficherMessage(String title, String message) {
+
+        GDXButtonDialog bDialog = dialogs.newDialog(GDXButtonDialog.class);
+        bDialog.setTitle(title);
+        bDialog.setMessage(message);
+
+
+        bDialog.setClickListener(new ButtonClickListener() {
+
+            @Override
+            public void click(int button) {
+            }
+        });
+        bDialog.addButton(" Ok ");
+
+        bDialog.build().show();
+    }
+
     public void passerTourDialog() {
 
         GDXButtonDialog bDialog = dialogs.newDialog(GDXButtonDialog.class);
@@ -293,6 +319,131 @@ public class HUD {
 
     }
 
+    public void windowsEchange() {
+        Button deny = new Button(skin, "deny");
+        TextButton Jbleu_button = new TextButton("Bleu", skin);
+        TextButton Jrouge_button = new TextButton("Rouge", skin);
+        TextButton Jvert_button = new TextButton("Vert", skin);
+        TextButton Jjaune_button = new TextButton("Jaune", skin);
+
+
+        final Window echangeWindows = new Window("Choisir joueur avec qui echanger", skin);
+
+
+        echangeWindows.add(Jbleu_button).padRight(-100);
+        echangeWindows.add(Jrouge_button);
+        echangeWindows.add(Jvert_button);
+        echangeWindows.add(Jjaune_button);
+
+
+        echangeWindows.row();
+        //button
+        echangeWindows.add(deny).padTop(50).padRight(200);
+        echangeWindows.setSize(1000, 500);
+        echangeWindows.setPosition(450, stage.getHeight() / 2 - echangeWindows.getHeight() / 2);
+
+        stage.addActor(echangeWindows);
+
+        //Touch listener bouton bleu
+        Jbleu_button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                echangeWindows.setVisible(false);
+                windowEchange2();
+            }
+        });
+
+        //Touch listener bouton rouge
+        Jrouge_button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+            }
+        });
+
+        //Touch listener bouton vert
+        Jvert_button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+            }
+        });
+
+        //Touch listener bouton jaune
+        Jjaune_button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+            }
+        });
+
+        //Touch listener bouton cancel
+        deny.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                echangeWindows.setVisible(false);
+
+            }
+        });
+    }
+
+    public void windowEchange2() {
+        Button deny = new Button(skin, "deny");
+        Label bois_label = new Label("Bois", skin);
+        Label argile_label = new Label("Argile", skin);
+        Label laine_label = new Label("Laine", skin);
+        Label pierre_label = new Label("Pierre", skin);
+        Label ble_label = new Label("Blé", skin);
+
+        Label label_boisJ1 = new Label("0",skin,"font-big");
+
+        Button plus = new Button(skin,"plus");
+        Button minus = new Button(skin,"minus");
+
+
+        final Window echange2Windows = new Window("Echange", skin);
+
+
+        echange2Windows.add(bois_label);
+        echange2Windows.add(plus);
+        echange2Windows.add(label_boisJ1);
+        echange2Windows.add(minus);
+        echange2Windows.row();
+        echange2Windows.add(argile_label);
+        echange2Windows.row();
+        echange2Windows.add(laine_label);
+        echange2Windows.row();
+        echange2Windows.add(pierre_label);
+        echange2Windows.row();
+        echange2Windows.add(ble_label);
+
+
+        echange2Windows.row();
+        //button
+        echange2Windows.add(deny).padTop(50).padRight(200);
+        echange2Windows.setSize(1500, 1000);
+        echange2Windows.setPosition(450, stage.getHeight() / 2 - echange2Windows.getHeight() / 2);
+
+        stage.addActor(echange2Windows);
+
+
+        //Touch listener bouton cancel
+        deny.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                echange2Windows.setVisible(false);
+
+            }
+        });
+    }
+
+
+    /**
+     * Affiche la fenêtre pour poser un pion
+     *
+     * @param pions
+     * @param pionsCancel
+     */
     public void windowsPion(final Button pions, final Button pionsCancel) {
         Button deny = new Button(skin, "deny");
         TextButton route_button = new TextButton("Route", skin);
@@ -323,7 +474,7 @@ public class HUD {
                 pions.setVisible(false);
                 pionsCancel.setVisible(true);
                 //TODO Afficher emplacement disponible et placer pion
-                game.getPartie().setTypeStructure( Constantes.ROUTE );
+                game.getPartie().setTypeStructure(Constantes.ROUTE);
 
             }
         });
@@ -336,7 +487,7 @@ public class HUD {
                 pions.setVisible(false);
                 pionsCancel.setVisible(true);
                 //TODO Afficher emplacement disponible et placer pion
-                game.getPartie().setTypeStructure( Constantes.COLONIE );
+                game.getPartie().setTypeStructure(Constantes.COLONIE);
             }
         });
 
@@ -348,7 +499,7 @@ public class HUD {
                 pions.setVisible(false);
                 pionsCancel.setVisible(true);
                 //TODO Afficher emplacement disponible et placer pion
-                game.getPartie().setTypeStructure( Constantes.VILLE );
+                game.getPartie().setTypeStructure(Constantes.VILLE);
 
             }
         });
