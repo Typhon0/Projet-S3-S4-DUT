@@ -155,4 +155,6 @@ public class Constantes {
     public static final int COULEUR_BLEU = 1;
     public static final int COULEUR_VERT = 2;
     public static final int COULEUR_JAUNE = 3;
+
+    public static final int POINTS_VICTOIRE_MAX = 10;
 }

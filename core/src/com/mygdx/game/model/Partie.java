@@ -45,6 +45,7 @@ public class Partie {
     public void finDeTour() {
         joueurSuivant();
         typeStructure = 0;
+        nouveauTour();
     }
 
     public void joueurSuivant() {
@@ -67,6 +68,15 @@ public class Partie {
         de1.lancer();
         de2.lancer();
         donnerRessourcesAuxJoueurs( de1.getValeur() + de2.getValeur());
+    }
+
+    public void verifierPointsVictoire() {
+        if (joueurActif.getPoints() >= Constantes.POINTS_VICTOIRE_MAX) {
+            System.out.println("Le joueur "+joueurActif.toString()+" a gagné");
+        }
+        else {
+            System.out.println("Le joueur "+joueurActif.toString()+"n'a pas atteint 10 PV");
+        }
     }
 
     public void donnerRessourcesDepart() {
