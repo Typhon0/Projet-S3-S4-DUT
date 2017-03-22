@@ -81,11 +81,11 @@ public class Partie {
 
     public void donnerRessourcesDepart() {
         for (int i=0 ; i<joueurs.length ; i++) {
-            PaquetRessources.recevoirRessource( joueurs[i].getRessources(),plateau.getRessources(),Constantes.ARGILE,10 );
-            PaquetRessources.recevoirRessource( joueurs[i].getRessources(),plateau.getRessources(),Constantes.BLE,10 );
-            PaquetRessources.recevoirRessource( joueurs[i].getRessources(),plateau.getRessources(),Constantes.MINERAI,10 );
-            PaquetRessources.recevoirRessource( joueurs[i].getRessources(),plateau.getRessources(),Constantes.BOIS,10 );
-            PaquetRessources.recevoirRessource( joueurs[i].getRessources(),plateau.getRessources(),Constantes.LAINE,10 );
+            PaquetRessources.recevoirRessource( joueurs[i].getRessources(),plateau.getRessources(),Constantes.ARGILE,20 );
+            PaquetRessources.recevoirRessource( joueurs[i].getRessources(),plateau.getRessources(),Constantes.BLE,20 );
+            PaquetRessources.recevoirRessource( joueurs[i].getRessources(),plateau.getRessources(),Constantes.MINERAI,20 );
+            PaquetRessources.recevoirRessource( joueurs[i].getRessources(),plateau.getRessources(),Constantes.BOIS,20 );
+            PaquetRessources.recevoirRessource( joueurs[i].getRessources(),plateau.getRessources(),Constantes.LAINE,20 );
         }
     }
 

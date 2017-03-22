@@ -240,6 +240,7 @@ public class GameScreen implements Screen, InputProcessor {
                                 //System.out.println("Ressources avant construction : " + joueur.getRessourcesString());
                                 //System.out.println("Je vais construire une ville");
                                 joueur.construireColonie( sc );
+                                game.getPartie().verifierPointsVictoire();
                                 //System.out.println("J'ai construit une ville");
                                 /*
                                 System.out.println("Ressources apres construction : " + joueur.getRessourcesString());
@@ -258,6 +259,7 @@ public class GameScreen implements Screen, InputProcessor {
                                 //System.out.println("Ressources avant construction : " + joueur.getRessourcesString());
                                 //System.out.println("Je vais construire une ville");
                                 joueur.construireVille( sc );
+                                game.getPartie().verifierPointsVictoire();
                                 //System.out.println("J'ai construit une ville");
                                 /*
                                 System.out.println("Ressources apres construction : " + joueur.getRessourcesString());
