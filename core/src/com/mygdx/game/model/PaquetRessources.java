@@ -1,64 +1,105 @@
 package com.mygdx.game.model;
 
 /**
- * Created by XXIII on 15/03/2017.
+ * <b> PaquetRessources est la classe représentant le paquet de ressources que possède chaque acteur du jeu (les joueurs et le plateau de jeu)</b>
+ * <p>
+ *     Un PaquetRessources  est caractérisé par les informations suivantes :
+ *     <ul>
+ *         <li>un tableau de ressources</li>
+ *         <li>un proprietaire </li>
+ *     </ul>
+ * </p>
+ * @see Constantes
+ * @author Geris Nicolas
+ * @version 1.0
  */
 
 public class PaquetRessources {
+    /**
+     * Tableau de ressources. On ne travaille pas avec l'indice 0
+     */
+    private int[] ressources;
 
-    private int[] ressources; // on ne travaille pas avec l'indice 0
-    private String proprietaire; // Nom du propriétaire : est le paquet d'un joueur ou du jeu (ressource globale)
+    /**
+     * Nom du propriétaire : est le paquet d'un joueur ou du plateau jeu (=ressource globale)
+     */
+    private String proprietaire;
 
+    /**
+     * Constructeur qui crée le tableau de ressource et initialise le montant de chaque ressource à 0
+     * @param proprietaire nom du proprietaire du paquet de ressources
+     */
     public PaquetRessources(String proprietaire) {
         ressources = new int[Constantes.TAILLE_TABLEAU_RESSOURCE];
         this.proprietaire = proprietaire;
-        for (int i=1 ; i<ressources.length ; i++) {
+        for (int i=Constantes.NUMERO_RESSOURCE_MIN ; i<ressources.length ; i++) {
             ressources[i] = 0;
         }
     }
 
-    // Remplir le paquet avec le montant maximum de chaque ressource
-    // Sert au paquet de ressource du jeu
+    /**
+     * Permet de remplir le paquet de ressources avec le montant maximum de chaque ressource.
+     * Cette méthode sert à remplir le paquet de ressource du plateau de jeu au début, avant de commencer la partie.
+     * Les joueurs recevront des ressources du paquet de ressources du plateau de jeu
+     */
     public void remplir() {
         for (int i=Constantes.NUMERO_RESSOURCE_MIN ; i<ressources.length ; i++) {
             ressources[i] = Constantes.MONTANT_RESSOURCE_MAXIMUM;
         }
     }
 
-    // Vérifie que la quantité de typeRessrouce est retirable
+    /**
+     * @param typeRessource Constantes qui représente l'indice de la ressource
+     * @param quantite quantité de la ressource à retirer
+     * @return boolean s'il est possible de retirer autant de ressources
+     */
     public boolean estRetirable(int typeRessource,int quantite) {
-        //if (typeRessource >= Constantes.NUMERO_RESSOURCE_MIN && typeRessource <= Constantes.NUMERO_RESSOURCE_MAX)
-        //System.out.println("Ressource en stock de "+Constantes.nomRessource(typeRessource)+" en stock = "+ressources[typeRessource]+" ,quantité demandée = "+quantite);
             return ressources[typeRessource] >= quantite;
-        //return false;
     }
 
-    // Ajoute la quantité "quantite" à la ressource "typeRessource" du paquet
+    /**
+     * Soustrait la ressource reçue en argument de la quantité reçue en argument
+     * @param typeRessource Type de la ressource
+     * @param quantite quantité de la ressource
+     */
     public void retirerRessource(int typeRessource,int quantite) {
         ressources[typeRessource] -= quantite;
     }
 
-    // Retire la quantité "quantite" à la ressource "typeRessource" du paquet
+    /**
+     * Ajoute la ressource reçue en argument de la quantité reçue en argument
+     * @param typeRessource Type de la ressource
+     * @param quantite quantité de la ressource
+     */
     public void ajouterRessource(int typeRessource,int quantite) {
         ressources[typeRessource] += quantite;
     }
 
-    // le paquet 1 reçoit x quantité de ressources du type "ressource" du paquet 2
+    /**
+     * Permet d'échanger des ressources entre deux acteurs, le paquet 1 reçoit x quantité de ressources du type "ressource" du paquet 2
+     * @param p1 Paquet de ressources de l'acteur qui reçoit les ressources
+     * @param p2 Paquet de ressources de l'acteur qui
+     * @param typeRessource type de la ressource qui va être échangée
+     * @param quantite quantité de la ressource qui va être échangée
+     */
     public static void recevoirRessource(PaquetRessources p1, PaquetRessources p2, int typeRessource, int quantite) {
         // Vérification que le type de ressource est correcte
         if (typeRessource >= Constantes.NUMERO_RESSOURCE_MIN && typeRessource <= Constantes.NUMERO_RESSOURCE_MAX) {
+            // Vérifiie si la quantité à retirer est retirable pour l'acteur qui va perdre des ressources
             if (p2.estRetirable(typeRessource,quantite)) {
                 p2.retirerRessource(typeRessource,quantite);
                 p1.ajouterRessource(typeRessource,quantite);
-                System.out.println("Echange effectué avec succès");
             }
             else
-                System.err.println("Erreur : le paquet 2 n'a pas assez de ressources");
+                Partie.getHud().afficherMessage( "Erreur lors de l'échange","Pas suffisamment de ressources disponibles à donner" );
         }
         else {
-            System.err.println("Erreur de type de ressource lors de l'échange");
+            // Ne doit jamais se produire
+            Partie.getHud().afficherMessage( "Erreur lors de l'échange" ,"Type de ressource incorrect" );
         }
     }
+
+    // Getter
 
     public int[] getRessources() {
         return ressources;

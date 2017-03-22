@@ -40,7 +40,7 @@ public class Plateau {
         //stackPorts = new StackNonRedimensionnable<Port>(6);
         textureMer = MER;
 
-        ressources = new PaquetRessources("Jeu");
+        ressources = new PaquetRessources("jeu");
         ressources.remplir();
     }
 
@@ -335,13 +335,6 @@ public class Plateau {
             messageErreur += "Erreur lors du chargement de la texture : "+Constantes.CHEMIN_ACCES_PIONS+"route_jaune.png"+"\n";
         }
         System.err.println(messageErreur);
-
-        /*
-        private Texture VILLE_ROUGE,COLONIE_ROUGE,ROUTE_ROUGE;
-    private Texture VILLE_BLEU,COLONIE_BLEU,ROUTE_BLEU;
-    private Texture VILLE_VERT,COLONIE_VERT,ROUTE_VERT;
-    private Texture VILLE_JAUNE,COLONIE_JAUNE,ROUTE_JAUNE;
-         */
     }
 
     public static PaquetRessources getRessources() {

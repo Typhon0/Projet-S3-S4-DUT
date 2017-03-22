@@ -1,12 +1,13 @@
 package com.mygdx.game.model;
 
 /**
- * Created by XXIII on 15/03/2017.
+ * Cette classe sert à définir toutes les constantes qui sont utilisées dans le programme ainsi que des méthodes utilitaires.
+ * Pour faire varier des données du jeu, il suffit de modifier les valeurs de ces constantes
  */
 
 public class Constantes {
     /*
-        Constantes pour les types de ressources
+
      */
     public static final int MONTANT_RESSOURCE_MAXIMUM = 1000; // montant maximum de ressources par type
     public static final int MONTANT_RESSOURCE_DEPART_BOIS = 100;
@@ -179,4 +180,15 @@ public class Constantes {
     }
 
     public static final int POINTS_VICTOIRE_MAX = 10;
+
+    public static final int JETON_2 = 2;
+    public static final int JETON_3 = 3;
+    public static final int JETON_4 = 4;
+    public static final int JETON_5 = 5;
+    public static final int JETON_6 = 6;
+    public static final int JETON_8 = 8;
+    public static final int JETON_9 = 9;
+    public static final int JETON_10 = 10;
+    public static final int JETON_11 = 11;
+    public static final int JETON_12 = 12;
 }
