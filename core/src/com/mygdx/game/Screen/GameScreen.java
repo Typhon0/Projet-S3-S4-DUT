@@ -24,6 +24,7 @@ import com.badlogic.gdx.utils.FloatArray;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.mygdx.game.Catan;
 import com.mygdx.game.model.Constantes;
+import com.mygdx.game.model.De;
 import com.mygdx.game.model.Joueur;
 import com.mygdx.game.model.Plateau;
 import com.mygdx.game.model.SiteConstruction;
@@ -235,13 +236,37 @@ public class GameScreen implements Screen, InputProcessor {
                             SiteConstruction sc = game.getPartie().getPlateau().getListeTuiles().get( i ).getListeSitesConstruction().get( j );
                             // Colonie
                             if (game.getPartie().getTypeStructure() == Constantes.COLONIE) {
-                                joueur.construireColonie(sc);
+                                //joueur.construireColonie(sc);
+                                System.out.println("Ressources avant construction : " + joueur.getRessourcesString());
+                                //System.out.println("Je vais construire une ville");
+                                joueur.construireColonie( sc );
+                                //System.out.println("J'ai construit une ville");
+                                System.out.println("Ressources apres construction : " + joueur.getRessourcesString());
+                                De d1 = game.getPartie().getDe1();
+                                d1.lancer();
+                                De d2 = game.getPartie().getDe1();
+                                d2.lancer();
+
+                                //game.getPartie().donnerRessourcesAuxJoueurs(d1.getValeur()+d2.getValeur());
+                                game.getPartie().donnerRessourcesAuxJoueurs(4);
+                                System.out.println("Apres ajout : " + joueur.getRessourcesString());
                             }
                             // Ville
                             else {
+                                System.out.println("Ressources avant construction : " + joueur.getRessourcesString());
                                 //System.out.println("Je vais construire une ville");
                                 joueur.construireVille( sc );
                                 //System.out.println("J'ai construit une ville");
+                                System.out.println("Ressources apres construction : " + joueur.getRessourcesString());
+                                De d1 = game.getPartie().getDe1();
+                                d1.lancer();
+                                De d2 = game.getPartie().getDe1();
+                                d2.lancer();
+
+                                //game.getPartie().donnerRessourcesAuxJoueurs(d1.getValeur()+d2.getValeur());
+                                game.getPartie().donnerRessourcesAuxJoueurs(4);
+                                System.out.println("Apres ajout : " + joueur.getRessourcesString());
+
                             }
                             return false;
                         }

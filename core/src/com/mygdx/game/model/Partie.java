@@ -1,5 +1,9 @@
 package com.mygdx.game.model;
 
+
+import java.util.ArrayList;
+
+
 /**
  * Created by XXIII on 21/03/2017.
  */
@@ -62,6 +66,62 @@ public class Partie {
         afficherPointsVictoire();
     }
 */
+    // Ajout Robin
+
+    // Donne les ressources aux joueurs selon la somme des des
+    public void donnerRessourcesAuxJoueurs(int sommeDes)
+    {
+        ArrayList<Tuile> liste = getListeTuileJeton(sommeDes);
+
+        for(int i=0; i<liste.size(); i++)
+        {
+            Tuile t = liste.get(i);
+
+            for(int j=0; j<liste.get(i).getListeSitesConstruction().size(); j++)
+            {
+                SiteConstruction sc = liste.get(i).getListeSitesConstruction().get(j);
+
+                if(sc.isEstConstruit())
+                {
+                    Structure s = sc.getStructure();
+                    Joueur joueur = s.getJoueur();
+                    int valeur = 0;
+                    valeur = (s.getTypeStructure()== Constantes.VILLE)?2:1;
+
+                    switch(t.getType())
+                    {
+                        case Constantes.FORET : PaquetRessources.recevoirRessource(joueur.getRessources(), plateau.getRessources(), Constantes.BOIS, valeur); break;
+                        case Constantes.PRE : PaquetRessources.recevoirRessource(joueur.getRessources(), plateau.getRessources(), Constantes.LAINE, valeur); break;
+                        case Constantes.MONTAGNE : PaquetRessources.recevoirRessource(joueur.getRessources(), plateau.getRessources(), Constantes.MINERAI, valeur); break;
+                        case Constantes.COLLINE : PaquetRessources.recevoirRessource(joueur.getRessources(), plateau.getRessources(), Constantes.ARGILE, valeur); break;
+                        case Constantes.CHAMP : PaquetRessources.recevoirRessource(joueur.getRessources(), plateau.getRessources(), Constantes.BLE, valeur); break;
+                        default : System.out.println("Erreur donnerRessourceAuxJoueurs t.getTypeTuile deuxieme switch "); break;
+                    }
+                }
+            }
+        }
+
+    }
+
+    // Renvoie la liste des tuiles dont le jeton est egal a la somme des des
+    public ArrayList<Tuile> getListeTuileJeton(int sommeDes)
+    {
+        ArrayList<Tuile> liste = new ArrayList<Tuile>();
+
+        for(int i=0; i<plateau.getListeTuiles().size(); i++)
+        {
+            if(plateau.getListeTuiles().get(i).getJeton().getValeur() == sommeDes)
+            {
+                liste.add(plateau.getListeTuiles().get(i));
+            }
+        }
+
+        return liste;
+    }
+
+
+    // Fin ajout
+
     // Getters & Setters
 
     public int getIndiceJoueurActif() {

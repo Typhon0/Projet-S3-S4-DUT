@@ -16,9 +16,18 @@ public class Constantes {
     public static final int ARGILE = 4;
     public static final int MINERAI = 5;
 
+    public static final int FORET = 1;
+    public static final int PRE = 2;
+    public static final int CHAMP = 3;
+    public static final int COLLINE = 4;
+    public static final int MONTAGNE = 5;
+    public static final int DESERT = 6;
+
     public static final int NUMERO_RESSOURCE_MIN = 1;
     public static final int NUMERO_RESSOURCE_MAX = 5;
     public static final int TAILLE_TABLEAU_RESSOURCE = NUMERO_RESSOURCE_MAX + 1; // sert pour la taille de tableau, on ne travaille pas avec l'indice 0 du talbeau
+
+
 
     public static String nomRessource(int ressource) {
         String nom;

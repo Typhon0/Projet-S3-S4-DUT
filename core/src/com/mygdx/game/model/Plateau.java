@@ -3,7 +3,6 @@ package com.mygdx.game.model;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.game.autre.*;
 import com.mygdx.game.autre.StackNonRedimensionnable;
 
 import java.util.*;
@@ -25,7 +24,7 @@ public class Plateau {
     private static Texture VILLE_JAUNE,COLONIE_JAUNE,ROUTE_JAUNE;
     private ArrayList<Tuile> listeTuiles; // liste des tuiles
     private ArrayList<Port> listePorts; // liste des ports
-    private com.mygdx.game.autre.StackNonRedimensionnable<String> stackTerrains; // stack de type de tuile
+    private com.mygdx.game.autre.StackNonRedimensionnable<Integer> stackTerrains; // stack de type de tuile
     private com.mygdx.game.autre.StackNonRedimensionnable<Jeton> stackJetons; // stack de tokens
     private Texture textureMer;
     private static PaquetRessources ressources;
@@ -36,7 +35,7 @@ public class Plateau {
         chargerTextures();
         listeTuiles = new ArrayList<Tuile>();
         listePorts = new ArrayList<Port>();
-        stackTerrains = new com.mygdx.game.autre.StackNonRedimensionnable<String>(19);
+        stackTerrains = new com.mygdx.game.autre.StackNonRedimensionnable<Integer>(19);
         stackJetons = new com.mygdx.game.autre.StackNonRedimensionnable<Jeton>(18);
         //stackPorts = new StackNonRedimensionnable<Port>(6);
         textureMer = MER;
@@ -96,15 +95,15 @@ public class Plateau {
     // Génère le paquet de type de terrain
     private void genererStackTerrains() {
         for (int i=0 ; i<4 ; i++) {
-            stackTerrains.push("foret");
-            stackTerrains.push("pre");
-            stackTerrains.push("champ");
+            stackTerrains.push(Constantes.FORET);
+            stackTerrains.push(Constantes.PRE);
+            stackTerrains.push(Constantes.CHAMP);
             if (i>0) {
-                stackTerrains.push("colline");
-                stackTerrains.push("montagne");
+                stackTerrains.push(Constantes.COLLINE);
+                stackTerrains.push(Constantes.MONTAGNE);
             }
         }
-        stackTerrains.push("desert");
+        stackTerrains.push(Constantes.DESERT);
         //System.out.println(stackTerrains);
         stackTerrains.shuffle();
         //System.out.println(stackTerrains);
@@ -139,8 +138,10 @@ public class Plateau {
     // Affecte un jeton à chaque tuile excepté la tuile désert
     private void affecterJetons() {
         for (Tuile h : listeTuiles) {
-            if (!h.getType().equals("desert"))
+            if (h.getType()!=Constantes.DESERT)
                 h.affecterJeton(stackJetons.pop());
+            else
+                System.out.println("J'ai trouve le desert");
         }
     }
 
@@ -491,7 +492,7 @@ public class Plateau {
         return ROUTE_JAUNE;
     }
 
-    public com.mygdx.game.autre.StackNonRedimensionnable<String> getStackTerrains() {
+    public com.mygdx.game.autre.StackNonRedimensionnable<Integer> getStackTerrains() {
         return stackTerrains;
     }
 

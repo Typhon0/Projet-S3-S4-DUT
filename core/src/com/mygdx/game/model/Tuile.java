@@ -1,12 +1,7 @@
 package com.mygdx.game.model;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 
 import java.util.ArrayList;
 
@@ -29,7 +24,7 @@ public class Tuile {
     private ArrayList<Vector2> listeSommets;
     private ArrayList<SiteConstruction> listeSitesConstruction;
     private ArrayList<SiteConstruction> listeSitesConstructionRoute;
-    private String type;
+    private int type;
     private Texture textureTuile;
 
     public Tuile(Vector2 center, float taille) {
@@ -48,19 +43,19 @@ public class Tuile {
     }
 
     // Affecte à une tuile son type et sa texture
-    public void affecterType(String s) {
+    public void affecterType(int s) {
         this.setType(s);
-        if (s.equals("foret"))
+        if (s==Constantes.FORET)
             textureTuile = Plateau.getFORET();
-        else if (s.equals("pre"))
+        else if (s==Constantes.PRE)
             textureTuile = Plateau.getPRE();
-        else if (s.equals("champ"))
+        else if (s==Constantes.CHAMP)
             textureTuile = Plateau.getCHAMP();
-        else if (s.equals("colline"))
+        else if (s==Constantes.COLLINE)
             textureTuile = Plateau.getCOLLINE();
-        else if (s.equals("montagne"))
+        else if (s==Constantes.MONTAGNE)
             textureTuile = Plateau.getMONTAGNE();
-        else if (s.equals("desert"))
+        else if (s==Constantes.DESERT)
             textureTuile = Plateau.getDESERT();
         else {
             textureTuile = Plateau.getDESERT();
@@ -158,7 +153,7 @@ public class Tuile {
     public void ajouterSiteConstructionRoute(SiteConstruction sc) {
         if (!listeSitesConstructionRoute.contains(sc))
             System.out.println("entre");
-            listeSitesConstructionRoute.add(sc);
+        listeSitesConstructionRoute.add(sc);
     }
 
     // Si deux SiteConstructionRoute ont la même position, ils pointent vers le même objet
@@ -337,11 +332,11 @@ public class Tuile {
         this.textureTuile = textureTuile;
     }
 
-    public String getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(int type) {
         this.type = type;
     }
 
