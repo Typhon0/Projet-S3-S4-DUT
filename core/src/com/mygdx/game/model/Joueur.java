@@ -1,5 +1,6 @@
 package com.mygdx.game.model;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 
@@ -17,9 +18,9 @@ public class Joueur {
     private PaquetRessources ressources; // paquet de ressources
     private List<Structure> listeStructures; // liste des structures placées
     private String nom; // nom du joueur
-    private Color couleur; // couleur du joueur
+    private int couleur; // couleur du joueur
 
-    public Joueur(String nom,Color couleur) {
+    public Joueur(String nom, int couleur) {
         this.nom = nom;
         this.points = 0;
         this.paquetStructures = new int[Constantes.TAILLE_TABLEAU_STRUCTURE];
@@ -41,17 +42,22 @@ public class Joueur {
     }
 
     public void construireVille(Joueur j,SiteConstruction sc){
+        System.out.println("entré");
         if (!sc.isEstConstruit()) {
-            if (sc.isEstBatiment()) {
+            //if (sc.isEstBatiment()) {
                 if (paquetStructures[Constantes.VILLE] >0) {
                     int[]cout = Constantes.getCoutConstructionVille();
                     if (estAchetable(cout)) {
                         paquetStructures[Constantes.VILLE]--; // décrémente de 1 le nombre de villes restantes
                         acheter( cout ); // achète le cout de la ville
-                        Structure s = new Structure( this, new Vector2( sc.getPosition().x, sc.getPosition().y), Constantes.VILLE ); // Création de la structure
-                        ajouterStructure( s );
-                        sc.setEstConstruit( true );
+                        System.out.println("Coordonnées de la strucure : "+new Vector2( sc.getPosition().x, sc.getPosition().y ).toString());
+                        Structure s = new Structure( this,sc, new Vector2( sc.getPosition().x, sc.getPosition().y), Constantes.VILLE ); // Création de la structure
+
+                        s.affecterTexture(); // affecte la texture à la structure selon son type de structure
+                        ajouterStructure( s ); // ajoute la structure à la liste de structures du joueur
+                        sc.setEstConstruit( true ); //
                         sc.setStructure( s );
+
 
                         //Structure s = new Structure(this,)
                         // listeStructures.add(new Structure()); // crée la ville et l'ajoute à la liste des structures
@@ -63,9 +69,9 @@ public class Joueur {
                 }
                 else
                     throw new RuntimeException("Erreur : Vous n'avez plus de ville à construire");
-            }
+            /*}
             else
-                throw new RuntimeException("Erreur : Vous ne pouvez pas construire une ville à cet emplacement");
+                throw new RuntimeException("Erreur : Vous ne pouvez pas construire une ville à cet emplacement");*/
         }
         else
             throw new RuntimeException("Erreur : il y a déjà une structure construite à cet emplacement");
@@ -149,7 +155,7 @@ public class Joueur {
         this.listeStructures = listeStructures;
     }
 
-    public void setCouleur(Color couleur) {
+    public void setCouleur(int couleur) {
         this.couleur = couleur;
     }
 
@@ -169,7 +175,7 @@ public class Joueur {
         return listeStructures;
     }
 
-    public Color getCouleur() {
+    public int getCouleur() {
         return couleur;
     }
 }

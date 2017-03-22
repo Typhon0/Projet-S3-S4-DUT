@@ -19,12 +19,16 @@ public class Structure {
     //private float hauteur; // hauteur de l'image qu'il faut afficher pour la structure
     private int typeStructure ; // type de la structure
     private int valeurPointVictoire; // Valeur en point victoire de la structure
+    private SiteConstruction sc;
     private Texture texture;
 
-    public Structure(Joueur joueur, Vector2 position, int typeStructure) {
+    public Structure(Joueur joueur,SiteConstruction sc, Vector2 position, int typeStructure) {
         this.joueur = joueur;
         this.position = position;
         this.typeStructure = typeStructure;
+        this.sc = sc;
+        this.position.x = sc.getPosition().x;
+        this.position.y = sc.getPosition().y;
         //this.texture = texture; charger la textrure par après
 
         affecterValeurPointVictoire();
@@ -45,6 +49,58 @@ public class Structure {
         }
     }
 
+    public void affecterTexture() {
+        switch (joueur.getCouleur()) {
+            case Constantes.COULEUR_ROUGE :
+                if (typeStructure == Constantes.VILLE) {
+                    texture = Plateau.getVilleRouge();
+                }
+                else if (typeStructure == Constantes.COLONIE) {
+                    texture = Plateau.getColonieRouge();
+                }
+                else {
+                    texture = Plateau.getRouteRouge();
+                }
+                break;
+            case Constantes.COULEUR_BLEU :
+                if (typeStructure == Constantes.VILLE) {
+                    texture = Plateau.getVilleBleu();
+                }
+                else if (typeStructure == Constantes.COLONIE) {
+                    texture = Plateau.getColonieBleu();
+                }
+                else {
+                    texture = Plateau.getRouteBleu();
+                }
+                break;
+            case Constantes.COULEUR_VERT :
+                if (typeStructure == Constantes.VILLE) {
+                    texture = Plateau.getVilleVert();
+                }
+                else if (typeStructure == Constantes.COLONIE) {
+                    texture = Plateau.getColonieVert();
+                }
+                else {
+                    texture = Plateau.getRouteVert();
+                }
+                break;
+            case Constantes.COULEUR_JAUNE :
+                if (typeStructure == Constantes.VILLE) {
+                    texture = Plateau.getVilleJaune();
+                }
+                else if (typeStructure == Constantes.COLONIE) {
+                    texture = Plateau.getColonieJaune();
+                }
+                else {
+                    texture = Plateau.getRouteJaune();
+                }
+                break;
+
+            default:;
+        }
+
+    }
+
     //
     public void ajouterPointVictoire() {
         joueur.ajouterPointVictoire( valeurPointVictoire );
@@ -52,6 +108,15 @@ public class Structure {
 
 
     // Getters & Setters
+
+
+    public SiteConstruction getSc() {
+        return sc;
+    }
+
+    public void setSc(SiteConstruction sc) {
+        this.sc = sc;
+    }
 
     public Joueur getJoueur() {
         return joueur;

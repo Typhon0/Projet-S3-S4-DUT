@@ -31,11 +31,11 @@ public class SiteConstruction {
         listeTuilesAdjacentes = new ArrayList<Tuile>();
     }
 
-    // Deux sites de construction sont identiques s'il la distance entre eux est inférieur à 3 pixel en x et y
+    // Deux sites de construction sont identiques s'il la distance entre eux est inférieur à 5 pixel en x et y
     public boolean equals(Object o) {
         if (o instanceof SiteConstruction) {
             SiteConstruction sc = (SiteConstruction) o;
-            return ( (Math.abs(this.position.x - sc.position.x) <= 3.0 && Math.abs(this.position.y - sc.position.y) <= 3.0) && sc.estBatiment==this.estBatiment);
+            return ( (Math.abs(this.position.x - sc.position.x) <= 5.0 && Math.abs(this.position.y - sc.position.y) <= 5.0) && sc.estBatiment==this.estBatiment);
         }
         return false;
     }

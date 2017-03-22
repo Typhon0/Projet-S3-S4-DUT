@@ -19,7 +19,10 @@ public class Plateau {
     public static final Vector2 CENTRE_PLATEAU = new Vector2(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2);
 
     private static Texture JETON_2, JETON_3, JETON_4, JETON_5, JETON_6, JETON_8, JETON_9, JETON_10, JETON_11, JETON_12, FORET, PRE, CHAMP, COLLINE, MONTAGNE, DESERT, MER, PORT;
-    private Texture BATIMENT_RED,ROUTE_RED;
+    private static Texture VILLE_ROUGE,COLONIE_ROUGE,ROUTE_ROUGE;
+    private static Texture VILLE_BLEU,COLONIE_BLEU,ROUTE_BLEU;
+    private static Texture VILLE_VERT,COLONIE_VERT,ROUTE_VERT;
+    private static Texture VILLE_JAUNE,COLONIE_JAUNE,ROUTE_JAUNE;
     private ArrayList<Tuile> listeTuiles; // liste des tuiles
     private ArrayList<Port> listePorts; // liste des ports
     private com.mygdx.game.autre.StackNonRedimensionnable<String> stackTerrains; // stack de type de tuile
@@ -266,17 +269,78 @@ public class Plateau {
         } catch (Exception e) {
             messageErreur += "Erreur lors du chargement de la texture : "+Constantes.CHEMIN_ACCES_PORTS+"texture_port2.png"+"\n";
         }
+        // Pions rouge
         try {
-            BATIMENT_RED = new Texture(Gdx.files.internal("textures/pions/ville/Ville_rouge.png"));
+            VILLE_ROUGE = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_PIONS+"ville_rouge.png"));
         } catch (Exception e) {
-            messageErreur += "Erreur lors du chargement de la texture : "+"textures/pions/ville/Ville_rouge.png"+"\n";
+            messageErreur += "Erreur lors du chargement de la texture : "+Constantes.CHEMIN_ACCES_PIONS+"ville_rouge.png"+"\n";
         }
         try {
-            ROUTE_RED = new Texture(Gdx.files.internal("textures/pions/route/Route_rouge.png"));
+            COLONIE_ROUGE = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_PIONS+"colonie_rouge.png"));
         } catch (Exception e) {
-            messageErreur += "Erreur lors du chargement de la texture : "+"textures/pions/route/Route_rouge.png"+"\n";
+            messageErreur += "Erreur lors du chargement de la texture : "+Constantes.CHEMIN_ACCES_PIONS+"colonie_rouge.png"+"\n";
+        }
+        try {
+            ROUTE_ROUGE = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_PIONS+"route_rouge.png"));
+        } catch (Exception e) {
+            messageErreur += "Erreur lors du chargement de la texture : "+Constantes.CHEMIN_ACCES_PIONS+"route_rouge.png"+"\n";
+        }
+        // Pions bleu
+        try {
+            VILLE_BLEU = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_PIONS+"ville_bleu.png"));
+        } catch (Exception e) {
+            messageErreur += "Erreur lors du chargement de la texture : "+Constantes.CHEMIN_ACCES_PIONS+"ville_bleu.png"+"\n";
+        }
+        try {
+            COLONIE_BLEU = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_PIONS+"colonie_bleu.png"));
+        } catch (Exception e) {
+            messageErreur += "Erreur lors du chargement de la texture : "+Constantes.CHEMIN_ACCES_PIONS+"colonie_bleu.png"+"\n";
+        }
+        try {
+            ROUTE_BLEU = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_PIONS+"route_bleu.png"));
+        } catch (Exception e) {
+            messageErreur += "Erreur lors du chargement de la texture : "+Constantes.CHEMIN_ACCES_PIONS+"route_bleu.png"+"\n";
+        }
+        // Pions vert
+        try {
+            VILLE_VERT = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_PIONS+"ville_vert.png"));
+        } catch (Exception e) {
+            messageErreur += "Erreur lors du chargement de la texture : "+Constantes.CHEMIN_ACCES_PIONS+"ville_vert.png"+"\n";
+        }
+        try {
+            COLONIE_VERT = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_PIONS+"colonie_vert.png"));
+        } catch (Exception e) {
+            messageErreur += "Erreur lors du chargement de la texture : "+Constantes.CHEMIN_ACCES_PIONS+"colonie_vert.png"+"\n";
+        }
+        try {
+            ROUTE_VERT = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_PIONS+"route_vert.png"));
+        } catch (Exception e) {
+            messageErreur += "Erreur lors du chargement de la texture : "+Constantes.CHEMIN_ACCES_PIONS+"route_vert.png"+"\n";
+        }
+        // Pions jaune
+        try {
+            VILLE_JAUNE = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_PIONS+"ville_jaune.png"));
+        } catch (Exception e) {
+            messageErreur += "Erreur lors du chargement de la texture : "+Constantes.CHEMIN_ACCES_PIONS+"ville_jaune.png"+"\n";
+        }
+        try {
+            COLONIE_JAUNE = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_PIONS+"colonie_jaune.png"));
+        } catch (Exception e) {
+            messageErreur += "Erreur lors du chargement de la texture : "+Constantes.CHEMIN_ACCES_PIONS+"colonie_jaune.png"+"\n";
+        }
+        try {
+            ROUTE_JAUNE = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_PIONS+"route_jaune.png"));
+        } catch (Exception e) {
+            messageErreur += "Erreur lors du chargement de la texture : "+Constantes.CHEMIN_ACCES_PIONS+"route_jaune.png"+"\n";
         }
         System.err.println(messageErreur);
+
+        /*
+        private Texture VILLE_ROUGE,COLONIE_ROUGE,ROUTE_ROUGE;
+    private Texture VILLE_BLEU,COLONIE_BLEU,ROUTE_BLEU;
+    private Texture VILLE_VERT,COLONIE_VERT,ROUTE_VERT;
+    private Texture VILLE_JAUNE,COLONIE_JAUNE,ROUTE_JAUNE;
+         */
     }
 
     public static PaquetRessources getRessources() {
@@ -379,12 +443,52 @@ public class Plateau {
         return CENTRE_PLATEAU;
     }
 
-    public Texture getBatimentRed() {
-        return BATIMENT_RED;
+    public static Texture getVilleRouge() {
+        return VILLE_ROUGE;
     }
 
-    public Texture getRouteRed() {
-        return ROUTE_RED;
+    public static Texture getColonieRouge() {
+        return COLONIE_ROUGE;
+    }
+
+    public static Texture getRouteRouge() {
+        return ROUTE_ROUGE;
+    }
+
+    public static Texture getVilleBleu() {
+        return VILLE_BLEU;
+    }
+
+    public static Texture getColonieBleu() {
+        return COLONIE_BLEU;
+    }
+
+    public static Texture getRouteBleu() {
+        return ROUTE_BLEU;
+    }
+
+    public static Texture getVilleVert() {
+        return VILLE_VERT;
+    }
+
+    public static Texture getColonieVert() {
+        return COLONIE_VERT;
+    }
+
+    public static Texture getRouteVert() {
+        return ROUTE_VERT;
+    }
+
+    public static Texture getVilleJaune() {
+        return VILLE_JAUNE;
+    }
+
+    public static Texture getColonieJaune() {
+        return COLONIE_JAUNE;
+    }
+
+    public static Texture getRouteJaune() {
+        return ROUTE_JAUNE;
     }
 
     public com.mygdx.game.autre.StackNonRedimensionnable<String> getStackTerrains() {

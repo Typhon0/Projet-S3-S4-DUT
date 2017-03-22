@@ -321,7 +321,7 @@ public class HUD {
                 pions.setVisible(false);
                 pionsCancel.setVisible(true);
                 //TODO Afficher emplacement disponible et placer pion
-
+                game.getPartie().setTypeStructure( Constantes.ROUTE );
 
             }
         });
@@ -334,6 +334,7 @@ public class HUD {
                 pions.setVisible(false);
                 pionsCancel.setVisible(true);
                 //TODO Afficher emplacement disponible et placer pion
+                game.getPartie().setTypeStructure( Constantes.COLONIE );
             }
         });
 
@@ -345,6 +346,7 @@ public class HUD {
                 pions.setVisible(false);
                 pionsCancel.setVisible(true);
                 //TODO Afficher emplacement disponible et placer pion
+                game.getPartie().setTypeStructure( Constantes.VILLE );
 
             }
         });

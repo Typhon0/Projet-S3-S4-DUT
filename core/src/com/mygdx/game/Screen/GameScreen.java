@@ -24,6 +24,7 @@ import com.badlogic.gdx.utils.FloatArray;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.mygdx.game.Catan;
 import com.mygdx.game.model.Constantes;
+import com.mygdx.game.model.Joueur;
 import com.mygdx.game.model.Plateau;
 import com.mygdx.game.model.SiteConstruction;
 import com.mygdx.game.model.State;
@@ -168,18 +169,31 @@ public class GameScreen implements Screen, InputProcessor {
         game.batch.begin();
 
         // Affichage de chaque Site de construction et de route du plateau et non des joueurs
+        /*
         for (int i = 0; i < game.getPartie().getPlateau().getListeTuiles().size(); i++) {
             for (int j = 0; j < game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstruction().size(); j++) {
-                game.batch.draw( game.getPartie().getPlateau().getBatimentRed(),
+                game.batch.draw( Plateau.getVilleRouge(),
                         game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstruction().get(j).getCoinInferieurGaucheSiteConstruction().x,
                         game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstruction().get(j).getCoinInferieurGaucheSiteConstruction().y,
                         Constantes.DISTANCE_SITE_CONSTRUCTION_X*2,
                         Constantes.DISTANCE_SITE_CONSTRUCTION_X*2);
             }
             for (int j = 0; j < game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstructionRoute().size(); j++) {
-                game.batch.draw( game.getPartie().getPlateau().getRouteRed(),
+                game.batch.draw( Plateau.getRouteRouge(),
                         game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstructionRoute().get(j).getCoinInferieurGaucheSiteConstruction().x,
                         game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstructionRoute().get(j).getCoinInferieurGaucheSiteConstruction().y,
+                        Constantes.DISTANCE_SITE_CONSTRUCTION_X*2,
+                        Constantes.DISTANCE_SITE_CONSTRUCTION_X*2);
+            }
+        }
+        */
+
+        // Affichage des structures de chaque joueur
+        for (int i =0 ; i<game.getPartie().getJoueurs().length ; i++) {
+            for (int j=0 ; j<game.getPartie().getJoueurs()[i].getListeStructures().size() ; j++) {
+                game.batch.draw( game.getPartie().getJoueurs()[i].getListeStructures().get( j ).getTexture(),
+                        game.getPartie().getJoueurs()[i].getListeStructures().get( j ).getSc().getCoinInferieurGaucheSiteConstruction().x,
+                        game.getPartie().getJoueurs()[i].getListeStructures().get( j ).getSc().getCoinInferieurGaucheSiteConstruction().y,
                         Constantes.DISTANCE_SITE_CONSTRUCTION_X*2,
                         Constantes.DISTANCE_SITE_CONSTRUCTION_X*2);
             }
@@ -260,25 +274,44 @@ public class GameScreen implements Screen, InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        screenY = Gdx.graphics.getHeight() - 1 - screenY;
+        //screenY = Gdx.graphics.getWidth(- screenY;
         System.out.println("Le pixel " + screenX + " " + screenY + " a été touché");
-        for (int i = 0; i < game.getPartie().getPlateau().getListeTuiles().size(); i++) {
-            for (int j = 0; j < game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstruction().size(); j++) {
+        Joueur joueur = game.getPartie().getJoueurActif();
+        // Si une construction a été sélectionnée
+        if (game.getPartie().getTypeStructure() >= Constantes.NUMERO_STRUCTURE_MIN && game.getPartie().getTypeStructure() <=Constantes.NUMERO_STRUCTURE_MAX) {
+            for (int i = 0; i < game.getPartie().getPlateau().getListeTuiles().size(); i++) {
+                for (int j = 0; j < game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstruction().size(); j++) {
+                    if (game.getPartie().getTypeStructure()== Constantes.ROUTE) {
+                        if (game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstructionRoute().get(j).estToucheInt(screenX, screenY)) {
+                            SiteConstruction sc = game.getPartie().getPlateau().getListeTuiles().get( i ).getListeSitesConstructionRoute().get( j );
 
-                if (game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstruction().get(j).estToucheInt(screenX, screenY)) {
-                    //System.out.println("Site de construction : " + game.plateau.getListeTuiles().get(i).getListeSitesConstruction().get(j).getPosition().x + "," +
-                            //game.plateau.getListeTuiles().get(i).getListeSitesConstruction().get(j).getPosition().y + " touché");
-                    System.out.println("trouvé batiment");
-                    return false;
+                            System.out.println("route trouvée");
+                            return false;
+                        }
+                    }
+                    else {
+                        if (game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstruction().get(j).estToucheInt(screenX, screenY)) {
+                            System.out.println("batiment trouvée");
+                            SiteConstruction sc = game.getPartie().getPlateau().getListeTuiles().get( i ).getListeSitesConstructionRoute().get( j );
+                            // Colonie
+                            if (game.getPartie().getTypeStructure() == Constantes.COLONIE) {
+
+                            }
+                            // Ville
+                            else {
+                                System.out.println("Je vais construire une ville");
+                                joueur.construireVille( joueur,sc );
+                                System.out.println("J'ai construit une ville");
+                            }
+                            return false;
+                        }
+                    }
                 }
-
-
-                if (game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstructionRoute().get(j).estToucheInt(screenX, screenY)) {
-                    System.out.println("trouvé route");
-                    return false;
-                }
-
             }
         }
+        //System.out.println( game.getPartie().getTypeStructure() );
+
         return false;
     }
 
