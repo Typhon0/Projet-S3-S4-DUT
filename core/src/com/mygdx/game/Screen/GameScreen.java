@@ -209,6 +209,50 @@ public class GameScreen implements Screen, InputProcessor {
 
     }
 
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        System.out.println("Le pixel (touchDown) " + screenX + " " + screenY + " a été touché");
+        screenY = Gdx.graphics.getHeight() - 1 - screenY;
+        //screenY = Gdx.graphics.getWidth(- screenY;
+        System.out.println("Le pixel (Corrigé) " + screenX + " " + screenY + " a été touché");
+        Joueur joueur = game.getPartie().getJoueurActif();
+        // Si une construction a été sélectionnée
+        if (game.getPartie().getTypeStructure() >= Constantes.NUMERO_STRUCTURE_MIN && game.getPartie().getTypeStructure() <=Constantes.NUMERO_STRUCTURE_MAX) {
+            for (int i = 0; i < game.getPartie().getPlateau().getListeTuiles().size(); i++) {
+                for (int j = 0; j < game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstruction().size(); j++) {
+                    if (game.getPartie().getTypeStructure()== Constantes.ROUTE) {
+                        if (game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstructionRoute().get(j).estToucheInt(screenX, screenY)) {
+                            SiteConstruction sc = game.getPartie().getPlateau().getListeTuiles().get( i ).getListeSitesConstructionRoute().get( j );
+
+                            System.out.println("route trouvée");
+                            return false;
+                        }
+                    }
+                    else {
+                        if (game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstruction().get(j).estToucheInt(screenX, screenY)) {
+                            System.out.println("batiment trouvée");
+                            SiteConstruction sc = game.getPartie().getPlateau().getListeTuiles().get( i ).getListeSitesConstruction().get( j );
+                            // Colonie
+                            if (game.getPartie().getTypeStructure() == Constantes.COLONIE) {
+
+                            }
+                            // Ville
+                            else {
+                                System.out.println("Je vais construire une ville");
+                                joueur.construireVille( joueur,sc );
+                                System.out.println("J'ai construit une ville");
+                            }
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        //System.out.println( game.getPartie().getTypeStructure() );
+
+        return false;
+    }
+
     public void quitGameConfirm() {
         System.out.println("quit");
         GDXButtonDialog bDialog = dialogs.newDialog(GDXButtonDialog.class);
@@ -272,48 +316,7 @@ public class GameScreen implements Screen, InputProcessor {
         this.state = t;
     }
 
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        screenY = Gdx.graphics.getHeight() - 1 - screenY;
-        //screenY = Gdx.graphics.getWidth(- screenY;
-        System.out.println("Le pixel " + screenX + " " + screenY + " a été touché");
-        Joueur joueur = game.getPartie().getJoueurActif();
-        // Si une construction a été sélectionnée
-        if (game.getPartie().getTypeStructure() >= Constantes.NUMERO_STRUCTURE_MIN && game.getPartie().getTypeStructure() <=Constantes.NUMERO_STRUCTURE_MAX) {
-            for (int i = 0; i < game.getPartie().getPlateau().getListeTuiles().size(); i++) {
-                for (int j = 0; j < game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstruction().size(); j++) {
-                    if (game.getPartie().getTypeStructure()== Constantes.ROUTE) {
-                        if (game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstructionRoute().get(j).estToucheInt(screenX, screenY)) {
-                            SiteConstruction sc = game.getPartie().getPlateau().getListeTuiles().get( i ).getListeSitesConstructionRoute().get( j );
 
-                            System.out.println("route trouvée");
-                            return false;
-                        }
-                    }
-                    else {
-                        if (game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstruction().get(j).estToucheInt(screenX, screenY)) {
-                            System.out.println("batiment trouvée");
-                            SiteConstruction sc = game.getPartie().getPlateau().getListeTuiles().get( i ).getListeSitesConstructionRoute().get( j );
-                            // Colonie
-                            if (game.getPartie().getTypeStructure() == Constantes.COLONIE) {
-
-                            }
-                            // Ville
-                            else {
-                                System.out.println("Je vais construire une ville");
-                                joueur.construireVille( joueur,sc );
-                                System.out.println("J'ai construit une ville");
-                            }
-                            return false;
-                        }
-                    }
-                }
-            }
-        }
-        //System.out.println( game.getPartie().getTypeStructure() );
-
-        return false;
-    }
 
     @Override
     public boolean keyDown(int keycode) {

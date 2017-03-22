@@ -28,7 +28,7 @@ public class PaquetRessources {
     // Vérifie que la quantité de typeRessrouce est retirable
     public boolean estRetirable(int typeRessource,int quantite) {
         //if (typeRessource >= Constantes.NUMERO_RESSOURCE_MIN && typeRessource <= Constantes.NUMERO_RESSOURCE_MAX)
-        System.out.println("Ressource en stock de "+Constantes.nomRessource(typeRessource)+" en stock = "+ressources[typeRessource]+" ,quantité demandée = "+quantite);
+        //System.out.println("Ressource en stock de "+Constantes.nomRessource(typeRessource)+" en stock = "+ressources[typeRessource]+" ,quantité demandée = "+quantite);
             return ressources[typeRessource] >= quantite;
         //return false;
     }
