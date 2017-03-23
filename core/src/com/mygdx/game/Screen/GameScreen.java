@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.FloatArray;
@@ -64,6 +65,11 @@ public class GameScreen implements Screen, InputProcessor {
     private State state = State.RUN; // status du jeu
 
 
+    Label point_vic_J1 ;
+    Label point_vic_J2 ;
+    Label point_vic_J3 ;
+    Label point_vic_J4 ;
+
     public GameScreen(Catan g) {
         this.game = g;
         try {
@@ -78,6 +84,12 @@ public class GameScreen implements Screen, InputProcessor {
         inputMultiplexer.addProcessor(hud.stage);
         inputMultiplexer.addProcessor(this);
         Gdx.input.setInputProcessor(inputMultiplexer);
+        skin = new Skin(Gdx.files.internal("ui/glassy-ui.json"));
+
+        point_vic_J1 = new Label("0", skin);
+        point_vic_J2 = new Label("0", skin);
+        point_vic_J3 = new Label("0", skin);
+        point_vic_J4 = new Label("0", skin);
 
 
     }
@@ -100,6 +112,22 @@ public class GameScreen implements Screen, InputProcessor {
                 drawBoard();
                 //HUD
                 //game.batch2.setProjectionMatrix(hud.stage.getCamera().combined);
+
+                Table table2 = new Table();
+                table2.setSize(1920, 1080);
+
+                point_vic_J1.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_BLEU].getPoints()));
+                point_vic_J2.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_JAUNE].getPoints()));
+                point_vic_J3.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_ROUGE].getPoints()));
+                point_vic_J4.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_VERT].getPoints()));
+
+                table2.add(point_vic_J1);
+                table2.add(point_vic_J2);
+                table2.add(point_vic_J3);
+                table2.add(point_vic_J4);
+
+                hud.stage.addActor(table2);
+
                 hud.stage.act();
                 hud.stage.draw();
 
@@ -170,7 +198,6 @@ public class GameScreen implements Screen, InputProcessor {
         }
 
 
-
         // Affichage de chaque Site de construction et de route du plateau et non des joueurs
         /*
         for (int i = 0; i < game.getPartie().getPlateau().getListeTuiles().size(); i++) {
@@ -197,16 +224,16 @@ public class GameScreen implements Screen, InputProcessor {
 
         game.batch.begin();
 
-        game.batch.draw( v.getTexture(), t.getCoinInferieurGaucheJeton().x,t.getCoinInferieurGaucheJeton().y,DELTA_X,DELTA_X);
+        game.batch.draw(v.getTexture(), t.getCoinInferieurGaucheJeton().x, t.getCoinInferieurGaucheJeton().y, DELTA_X, DELTA_X);
 
         // Affichage des structures de chaque joueur
-        for (int i =0 ; i<game.getPartie().getJoueurs().length ; i++) {
-            for (int j=0 ; j<game.getPartie().getJoueurs()[i].getListeStructures().size() ; j++) {
-                game.batch.draw( game.getPartie().getJoueurs()[i].getListeStructures().get( j ).getTexture(),
-                        game.getPartie().getJoueurs()[i].getListeStructures().get( j ).getSc().getCoinInferieurGaucheSiteConstruction().x,
-                        game.getPartie().getJoueurs()[i].getListeStructures().get( j ).getSc().getCoinInferieurGaucheSiteConstruction().y,
-                        Constantes.DISTANCE_SITE_CONSTRUCTION_X*2,
-                        Constantes.DISTANCE_SITE_CONSTRUCTION_X*2);
+        for (int i = 0; i < game.getPartie().getJoueurs().length; i++) {
+            for (int j = 0; j < game.getPartie().getJoueurs()[i].getListeStructures().size(); j++) {
+                game.batch.draw(game.getPartie().getJoueurs()[i].getListeStructures().get(j).getTexture(),
+                        game.getPartie().getJoueurs()[i].getListeStructures().get(j).getSc().getCoinInferieurGaucheSiteConstruction().x,
+                        game.getPartie().getJoueurs()[i].getListeStructures().get(j).getSc().getCoinInferieurGaucheSiteConstruction().y,
+                        Constantes.DISTANCE_SITE_CONSTRUCTION_X * 2,
+                        Constantes.DISTANCE_SITE_CONSTRUCTION_X * 2);
             }
         }
 
@@ -229,40 +256,38 @@ public class GameScreen implements Screen, InputProcessor {
         Joueur joueur = game.getPartie().getJoueurActif();
         // Si une construction a été sélectionnée
         if (game.getPartie().getPlateau().getVoleur().isActif()) {
-            Vector2 pixel = new Vector2(screenX,screenY);
+            Vector2 pixel = new Vector2(screenX, screenY);
             Voleur v = game.getPartie().getPlateau().getVoleur();
-            for (int i=0 ; i<game.getPartie().getPlateau().getListeTuiles().size() ;i++) {
+            for (int i = 0; i < game.getPartie().getPlateau().getListeTuiles().size(); i++) {
                 Tuile t = game.getPartie().getPlateau().getListeTuiles().get(i);
                 if (t.equals(pixel)) {
-                    Partie.getHud().afficherMessage("ok","ok");
+                    Partie.getHud().afficherMessage("ok", "ok");
                     //v.setTuile(t);
                     game.getPartie().actionVoleur(t);
 
+                }
             }
-            }
-        }
-        else {
-            if (game.getPartie().getTypeStructure() >= Constantes.NUMERO_STRUCTURE_MIN && game.getPartie().getTypeStructure() <=Constantes.NUMERO_STRUCTURE_MAX) {
+        } else {
+            if (game.getPartie().getTypeStructure() >= Constantes.NUMERO_STRUCTURE_MIN && game.getPartie().getTypeStructure() <= Constantes.NUMERO_STRUCTURE_MAX) {
                 for (int i = 0; i < game.getPartie().getPlateau().getListeTuiles().size(); i++) {
                     for (int j = 0; j < game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstruction().size(); j++) {
-                        if (game.getPartie().getTypeStructure()== Constantes.ROUTE) {
+                        if (game.getPartie().getTypeStructure() == Constantes.ROUTE) {
                             if (game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstructionRoute().get(j).estToucheInt(screenX, screenY)) {
-                                SiteConstruction sc = game.getPartie().getPlateau().getListeTuiles().get( i ).getListeSitesConstructionRoute().get( j );
+                                SiteConstruction sc = game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstructionRoute().get(j);
                                 joueur.construireRoute(sc);
                                 //System.out.println("route trouvée");
                                 return false;
                             }
-                        }
-                        else {
+                        } else {
                             if (game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstruction().get(j).estToucheInt(screenX, screenY)) {
                                 //System.out.println("batiment trouvée");
-                                SiteConstruction sc = game.getPartie().getPlateau().getListeTuiles().get( i ).getListeSitesConstruction().get( j );
+                                SiteConstruction sc = game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstruction().get(j);
                                 // Colonie
                                 if (game.getPartie().getTypeStructure() == Constantes.COLONIE) {
                                     //joueur.construireColonie(sc);
                                     //System.out.println("Ressources avant construction : " + joueur.getRessourcesString());
                                     //System.out.println("Je vais construire une ville");
-                                    joueur.construireColonie( sc );
+                                    joueur.construireColonie(sc);
                                     game.getPartie().verifierPointsVictoire();
                                     //System.out.println("J'ai construit une ville");
                                 /*
@@ -281,7 +306,7 @@ public class GameScreen implements Screen, InputProcessor {
                                 else {
                                     //System.out.println("Ressources avant construction : " + joueur.getRessourcesString());
                                     //System.out.println("Je vais construire une ville");
-                                    joueur.construireVille( sc );
+                                    joueur.construireVille(sc);
                                     game.getPartie().verifierPointsVictoire();
                                     //System.out.println("J'ai construit une ville");
                                 /*
@@ -370,7 +395,6 @@ public class GameScreen implements Screen, InputProcessor {
     public void setState(State t) {
         this.state = t;
     }
-
 
 
     @Override

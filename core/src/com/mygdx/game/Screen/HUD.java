@@ -99,6 +99,9 @@ public class HUD {
         stage.addActor(table);
 
 
+
+
+
         //Listener Bouton piocher
         piocher.addListener(new ClickListener() {
             @Override
