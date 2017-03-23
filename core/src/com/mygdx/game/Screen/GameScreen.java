@@ -230,11 +230,13 @@ public class GameScreen implements Screen, InputProcessor {
         // Si une construction a été sélectionnée
         if (game.getPartie().getPlateau().getVoleur().isActif()) {
             Vector2 pixel = new Vector2(screenX,screenY);
-
+            Voleur v = game.getPartie().getPlateau().getVoleur();
             for (int i=0 ; i<game.getPartie().getPlateau().getListeTuiles().size() ;i++) {
                 Tuile t = game.getPartie().getPlateau().getListeTuiles().get(i);
                 if (t.equals(pixel)) {
                     Partie.getHud().afficherMessage("ok","ok");
+                    //v.setTuile(t);
+                    game.getPartie().actionVoleur(t);
                 }
             }
         }

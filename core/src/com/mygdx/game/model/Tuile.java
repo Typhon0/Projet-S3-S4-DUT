@@ -1,6 +1,7 @@
 package com.mygdx.game.model;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g3d.utils.shapebuilders.ConeShapeBuilder;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
@@ -239,7 +240,7 @@ public class Tuile {
     }
 
     public boolean equals(Vector2 v) {
-            return ( Math.abs(this.center.x - v.x) <= 3.0 && Math.abs(this.center.y - v.y) <= 3.0);
+            return ( Math.abs(this.center.x - v.x) <= Constantes.DELTA_X*2/3 && Math.abs(this.center.y - v.y) <= Constantes.DELTA_X*2/3);
     }
 
     /**

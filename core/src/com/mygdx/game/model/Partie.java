@@ -80,7 +80,7 @@ public class Partie {
         creerDes();
         joueurActif = joueurs[0];
         donnerRessourcesDepart();
-        nouveauTour();
+        //nouveauTour();
     }
 
     /**
