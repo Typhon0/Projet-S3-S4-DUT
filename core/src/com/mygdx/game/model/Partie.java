@@ -51,6 +51,11 @@ public class Partie {
     private Joueur joueurActif;
 
     /**
+     *
+     */
+    private Joueur joueurAQuiOnVeutEchanger;
+
+    /**
      * Type de structure sélectionnée par le jour dans l'interface de construction
      */
     private int typeStructure; // type de structure sélectionnée par le joueur
@@ -80,10 +85,10 @@ public class Partie {
      * Crée les 4 joueurs
      */
     public void creerJoueurs() {
-        Joueur j1 = new Joueur( "joueur 1", Constantes.COULEUR_ROUGE );
-        Joueur j2 = new Joueur( "joueur 2", Constantes.COULEUR_BLEU );
-        Joueur j3 = new Joueur( "joueur 3", Constantes.COULEUR_VERT );
-        Joueur j4 = new Joueur( "joueur 4", Constantes.COULEUR_JAUNE );
+        Joueur j1 = new Joueur(  Constantes.COULEUR_ROUGE );
+        Joueur j2 = new Joueur( Constantes.COULEUR_BLEU );
+        Joueur j3 = new Joueur( Constantes.COULEUR_VERT );
+        Joueur j4 = new Joueur(  Constantes.COULEUR_JAUNE );
         joueurs = new Joueur[]{j1, j2, j3, j4};
     }
 

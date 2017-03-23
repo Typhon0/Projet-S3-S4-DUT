@@ -25,14 +25,14 @@ public class PaquetRessources {
     /**
      * Nom du propriétaire : est le paquet d'un joueur ou du plateau jeu (=ressource globale)
      */
-    private String proprietaire;
+    private int proprietaire;
 
     /**
      * Constructeur qui crée le tableau de ressource et initialise le montant de chaque ressource à 0
      *
      * @param proprietaire nom du proprietaire du paquet de ressources
      */
-    public PaquetRessources(String proprietaire) {
+    public PaquetRessources(int proprietaire) {
         ressources = new int[Constantes.TAILLE_TABLEAU_RESSOURCE];
         this.proprietaire = proprietaire;
         for (int i = Constantes.NUMERO_RESSOURCE_MIN; i < ressources.length; i++) {
@@ -109,7 +109,7 @@ public class PaquetRessources {
         return ressources;
     }
 
-    public String getProprietaire() {
+    public int getProprietaire() {
         return proprietaire;
     }
 }

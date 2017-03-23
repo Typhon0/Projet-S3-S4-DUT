@@ -48,11 +48,6 @@ public class Joueur {
     private List<Structure> listeStructures;
 
     /**
-     * Nom du joueur
-     */
-    private String nom; // nom du joueur
-
-    /**
      * Couleur (en entier) du joueur. Voir classe Constantes
      */
     private int couleur; // couleur du joueur
@@ -61,15 +56,13 @@ public class Joueur {
      * Constructeur du Joueur. On initialise son nom, ses points victorires à 0, ses ressources, son tableau de pions et sa liste de structures construites.
      * Le paquet de strucures (les pions) sont initialiés par le nombre de pions de départ
      *
-     * @param nom
      * @param couleur
      */
-    public Joueur(String nom, int couleur) {
-        this.nom = nom;
+    public Joueur(int couleur) {
         this.points = 0;
         this.paquetStructures = new int[Constantes.TAILLE_TABLEAU_STRUCTURE];
         this.listeStructures = new ArrayList<Structure>();
-        this.ressources = new PaquetRessources( nom );
+        this.ressources = new PaquetRessources( couleur );
         this.couleur = couleur;
         remplirPaquetStructures();
     }
