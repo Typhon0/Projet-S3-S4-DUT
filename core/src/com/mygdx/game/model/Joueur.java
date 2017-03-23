@@ -306,7 +306,7 @@ public class Joueur {
         return paquetStructures;
     }
 
-    public PaquetRessources getRessources() {
+    public PaquetRessources getPaquetRessources() {
         return ressources;
     }
 

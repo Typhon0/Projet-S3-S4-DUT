@@ -4,6 +4,7 @@ package com.mygdx.game.model;
 import com.mygdx.game.Screen.HUD;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * <b> Partie est la classe représentant le partie du jeu</b>
@@ -165,11 +166,11 @@ public class Partie {
      */
     public void donnerRessourcesDepart() {
         for (int i = 0; i < joueurs.length; i++) {
-            PaquetRessources.recevoirRessource(joueurs[i].getRessources(), plateau.getRessources(), Constantes.ARGILE, Constantes.MONTANT_RESSOURCE_DEPART_ARGILE);
-            PaquetRessources.recevoirRessource(joueurs[i].getRessources(), plateau.getRessources(), Constantes.BLE, Constantes.MONTANT_RESSOURCE_DEPART_BLE);
-            PaquetRessources.recevoirRessource(joueurs[i].getRessources(), plateau.getRessources(), Constantes.MINERAI, Constantes.MONTANT_RESSOURCE_DEPART_MINERAI);
-            PaquetRessources.recevoirRessource(joueurs[i].getRessources(), plateau.getRessources(), Constantes.BOIS, Constantes.MONTANT_RESSOURCE_DEPART_BOIS);
-            PaquetRessources.recevoirRessource(joueurs[i].getRessources(), plateau.getRessources(), Constantes.LAINE, Constantes.MONTANT_RESSOURCE_DEPART_LAINE);
+            PaquetRessources.recevoirRessource(joueurs[i].getPaquetRessources(), plateau.getRessources(), Constantes.ARGILE, Constantes.MONTANT_RESSOURCE_DEPART_ARGILE);
+            PaquetRessources.recevoirRessource(joueurs[i].getPaquetRessources(), plateau.getRessources(), Constantes.BLE, Constantes.MONTANT_RESSOURCE_DEPART_BLE);
+            PaquetRessources.recevoirRessource(joueurs[i].getPaquetRessources(), plateau.getRessources(), Constantes.MINERAI, Constantes.MONTANT_RESSOURCE_DEPART_MINERAI);
+            PaquetRessources.recevoirRessource(joueurs[i].getPaquetRessources(), plateau.getRessources(), Constantes.BOIS, Constantes.MONTANT_RESSOURCE_DEPART_BOIS);
+            PaquetRessources.recevoirRessource(joueurs[i].getPaquetRessources(), plateau.getRessources(), Constantes.LAINE, Constantes.MONTANT_RESSOURCE_DEPART_LAINE);
         }
     }
 
@@ -179,11 +180,10 @@ public class Partie {
         }
     }
 
-    public void activerVoleur()
-    {
+    public void activerVoleur() {
         //if(de1.getValeur()+de2.getValeur() == 7)
         //{
-            plateau.getVoleur().setActif(true);
+        plateau.getVoleur().setActif(true);
         //}
     }
 
@@ -206,19 +206,19 @@ public class Partie {
                         valeur = (s.getTypeStructure() == Constantes.VILLE) ? 2 : 1;
                         switch (t.getType()) {
                             case Constantes.FORET:
-                                PaquetRessources.recevoirRessource(joueur.getRessources(), plateau.getRessources(), Constantes.BOIS, valeur);
+                                PaquetRessources.recevoirRessource(joueur.getPaquetRessources(), plateau.getRessources(), Constantes.BOIS, valeur);
                                 break;
                             case Constantes.PRE:
-                                PaquetRessources.recevoirRessource(joueur.getRessources(), plateau.getRessources(), Constantes.LAINE, valeur);
+                                PaquetRessources.recevoirRessource(joueur.getPaquetRessources(), plateau.getRessources(), Constantes.LAINE, valeur);
                                 break;
                             case Constantes.MONTAGNE:
-                                PaquetRessources.recevoirRessource(joueur.getRessources(), plateau.getRessources(), Constantes.MINERAI, valeur);
+                                PaquetRessources.recevoirRessource(joueur.getPaquetRessources(), plateau.getRessources(), Constantes.MINERAI, valeur);
                                 break;
                             case Constantes.COLLINE:
-                                PaquetRessources.recevoirRessource(joueur.getRessources(), plateau.getRessources(), Constantes.ARGILE, valeur);
+                                PaquetRessources.recevoirRessource(joueur.getPaquetRessources(), plateau.getRessources(), Constantes.ARGILE, valeur);
                                 break;
                             case Constantes.CHAMP:
-                                PaquetRessources.recevoirRessource(joueur.getRessources(), plateau.getRessources(), Constantes.BLE, valeur);
+                                PaquetRessources.recevoirRessource(joueur.getPaquetRessources(), plateau.getRessources(), Constantes.BLE, valeur);
                                 break;
                             default:
                                 System.err.println("Erreur donnerRessourceAuxJoueurs t.getTypeTuile deuxieme switch ");
@@ -241,37 +241,45 @@ public class Partie {
             // Si le joueur n'est pas le joueur actif
             if (this.getJoueurs()[i] != joueurActif) {
                 // On parcourt les ressources
-                for (int k = 0; k < Constantes.TAILLE_TABLEAU_RESSOURCE; k++) {
+                for (int k = Constantes.NUMERO_RESSOURCE_MIN; k < Constantes.TAILLE_TABLEAU_RESSOURCE; k++) {
                     // On parcourt toutes les ressources
-                    for (int l = 0; l < this.getJoueurs()[i].getRessources().getRessources().length; l++) {
+                    for (int l = 0; l < this.getJoueurs()[i].getPaquetRessources().getRessources().length; l++) {
                         // On compte le nombre de ressources
-                        nbCartes += this.getJoueurs()[i].getRessources().getRessources()[l];
+                        nbCartes += this.getJoueurs()[i].getPaquetRessources().getRessources()[l];
                     }
                 }
                 // Si le joueur a plus de sept cartes
                 if (nbCartes > 7) {
-                    // On enleve aleatoirement la moitie du nombre de ses cartes
-                    for (int m = 0; m < nbCartes / 2; m++) {
-                        // Nombre aleatoire
-                        int r = (int) Math.random() * ((nbCartes - 0) + 0);
-                        // On retire la ressource
-                        this.getJoueurs()[i].getRessources().retirerRessource(this.getJoueurs()[i].getRessources().getRessources()[r], 1);
+                    int nbCartesRetirees = 0;
+                    while (nbCartesRetirees < nbCartes / 2) {
+                        Random r = new Random();
+                        int a;
+                        a = Constantes.NUMERO_RESSOURCE_MIN + r.nextInt(Constantes.NUMERO_RESSOURCE_MAX - Constantes.NUMERO_RESSOURCE_MIN + 1);
+                        System.out.println("L'aleatoire est : " + a);
+
+                        if (this.getJoueurs()[i].getPaquetRessources().getRessources()[a] >= 1) {
+                            System.out.println("On peut retirer");
+                            PaquetRessources.recevoirRessource(plateau.getRessources(), getJoueurs()[i].getPaquetRessources(), a, 1);
+                            nbCartesRetirees++;
+                        }
                     }
                 }
             }
         }
     }
 
+
+
     // Vol d'une ressource aupres d'un des joueurs adjacents apres avoir deplace le voleur (et apres la methode actionVoleur ci-dessus)
     public void volJoueur(Joueur j, Joueur j2) {
         // On choisit une carte aleatoire
-        int r = (int) (Math.random() * ((j2.getRessources().getRessources().length - 1) - 0) + 0);
+        int r = (int) (Math.random() * ((j2.getPaquetRessources().getRessources().length - 1) - 0) + 0);
         // On stocke la valeur qui se trouve a cet indice dans une variable a
-        int a = j2.getRessources().getRessources()[r];
+        int a = j2.getPaquetRessources().getRessources()[r];
         // On ajoute la carte volee au joueur
-        j.getRessources().ajouterRessource(a, 1);
+        j.getPaquetRessources().ajouterRessource(a, 1);
         // On enleve la carte au joueur 2
-        j2.getRessources().retirerRessource(a, 1);
+        j2.getPaquetRessources().retirerRessource(a, 1);
     }
 
     /**
