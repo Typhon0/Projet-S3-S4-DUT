@@ -56,6 +56,7 @@ public class Voleur {
 
     public void setActif(boolean actif) {
         this.actif = actif;
+        Partie.getHud().afficherMessage("Voleur actif", "Vous devez choisir une tuile ou placer le voleur");
     }
 }
 

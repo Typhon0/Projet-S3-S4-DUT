@@ -80,6 +80,7 @@ public class Partie {
         creerDes();
         joueurActif = joueurs[0];
         donnerRessourcesDepart();
+        nouveauTour();
     }
 
     /**
@@ -143,6 +144,7 @@ public class Partie {
         hud.afficherMessage("Nouveau tour", "C'est au tour du joueur : " + Constantes.couleurJoueur(joueurActif.getCouleur()));
         de1.lancer();
         de2.lancer();
+        activerVoleur();
         donnerRessourcesAuxJoueurs(de1.getValeur() + de2.getValeur());
     }
 
@@ -175,6 +177,14 @@ public class Partie {
         for (int i = 0; i < joueurs.length; i++) {
             System.out.println("Joueur " + i + " " + joueurs[i].getPoints());
         }
+    }
+
+    public void activerVoleur()
+    {
+        //if(de1.getValeur()+de2.getValeur() == 7)
+        //{
+            plateau.getVoleur().setActif(true);
+        //}
     }
 
     /**
@@ -222,14 +232,14 @@ public class Partie {
     }
 
     // Methode qui est utilisee lorsque le joueur fait 7 aux des et qu'il choisit ou il place le voleur (joueur et la tuile ciblee en parametres)
-    public void actionVoleur(Joueur j, Tuile t) {
+    public void actionVoleur(Tuile t) {
         // On deplace le voleur sur la tuile que le joueur a choisi
         plateau.getVoleur().setTuile(t);
         int nbCartes = 0;
         // On parcourt les joueurs
         for (int i = 0; i < this.getJoueurs().length; i++) {
             // Si le joueur n'est pas le joueur actif
-            if (this.getJoueurs()[i] != j) {
+            if (this.getJoueurs()[i] != joueurActif) {
                 // On parcourt les ressources
                 for (int k = 0; k < Constantes.TAILLE_TABLEAU_RESSOURCE; k++) {
                     // On parcourt toutes les ressources

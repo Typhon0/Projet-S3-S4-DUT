@@ -26,6 +26,7 @@ import com.mygdx.game.Catan;
 import com.mygdx.game.model.Constantes;
 import com.mygdx.game.model.De;
 import com.mygdx.game.model.Joueur;
+import com.mygdx.game.model.Partie;
 import com.mygdx.game.model.Plateau;
 import com.mygdx.game.model.SiteConstruction;
 import com.mygdx.game.model.State;
@@ -227,29 +228,40 @@ public class GameScreen implements Screen, InputProcessor {
 
         Joueur joueur = game.getPartie().getJoueurActif();
         // Si une construction a été sélectionnée
-        if (game.getPartie().getTypeStructure() >= Constantes.NUMERO_STRUCTURE_MIN && game.getPartie().getTypeStructure() <=Constantes.NUMERO_STRUCTURE_MAX) {
-            for (int i = 0; i < game.getPartie().getPlateau().getListeTuiles().size(); i++) {
-                for (int j = 0; j < game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstruction().size(); j++) {
-                    if (game.getPartie().getTypeStructure()== Constantes.ROUTE) {
-                        if (game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstructionRoute().get(j).estToucheInt(screenX, screenY)) {
-                            SiteConstruction sc = game.getPartie().getPlateau().getListeTuiles().get( i ).getListeSitesConstructionRoute().get( j );
-                            joueur.construireRoute(sc);
-                            //System.out.println("route trouvée");
-                            return false;
+        if (game.getPartie().getPlateau().getVoleur().isActif()) {
+            Vector2 pixel = new Vector2(screenX,screenY);
+
+            for (int i=0 ; i<game.getPartie().getPlateau().getListeTuiles().size() ;i++) {
+                Tuile t = game.getPartie().getPlateau().getListeTuiles().get(i);
+                if (t.equals(pixel)) {
+                    Partie.getHud().afficherMessage("ok","ok");
+                }
+            }
+        }
+        else {
+            if (game.getPartie().getTypeStructure() >= Constantes.NUMERO_STRUCTURE_MIN && game.getPartie().getTypeStructure() <=Constantes.NUMERO_STRUCTURE_MAX) {
+                for (int i = 0; i < game.getPartie().getPlateau().getListeTuiles().size(); i++) {
+                    for (int j = 0; j < game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstruction().size(); j++) {
+                        if (game.getPartie().getTypeStructure()== Constantes.ROUTE) {
+                            if (game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstructionRoute().get(j).estToucheInt(screenX, screenY)) {
+                                SiteConstruction sc = game.getPartie().getPlateau().getListeTuiles().get( i ).getListeSitesConstructionRoute().get( j );
+                                joueur.construireRoute(sc);
+                                //System.out.println("route trouvée");
+                                return false;
+                            }
                         }
-                    }
-                    else {
-                        if (game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstruction().get(j).estToucheInt(screenX, screenY)) {
-                            //System.out.println("batiment trouvée");
-                            SiteConstruction sc = game.getPartie().getPlateau().getListeTuiles().get( i ).getListeSitesConstruction().get( j );
-                            // Colonie
-                            if (game.getPartie().getTypeStructure() == Constantes.COLONIE) {
-                                //joueur.construireColonie(sc);
-                                //System.out.println("Ressources avant construction : " + joueur.getRessourcesString());
-                                //System.out.println("Je vais construire une ville");
-                                joueur.construireColonie( sc );
-                                game.getPartie().verifierPointsVictoire();
-                                //System.out.println("J'ai construit une ville");
+                        else {
+                            if (game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstruction().get(j).estToucheInt(screenX, screenY)) {
+                                //System.out.println("batiment trouvée");
+                                SiteConstruction sc = game.getPartie().getPlateau().getListeTuiles().get( i ).getListeSitesConstruction().get( j );
+                                // Colonie
+                                if (game.getPartie().getTypeStructure() == Constantes.COLONIE) {
+                                    //joueur.construireColonie(sc);
+                                    //System.out.println("Ressources avant construction : " + joueur.getRessourcesString());
+                                    //System.out.println("Je vais construire une ville");
+                                    joueur.construireColonie( sc );
+                                    game.getPartie().verifierPointsVictoire();
+                                    //System.out.println("J'ai construit une ville");
                                 /*
                                 System.out.println("Ressources apres construction : " + joueur.getRessourcesString());
                                 De d1 = game.getPartie().getDe1();
@@ -261,14 +273,14 @@ public class GameScreen implements Screen, InputProcessor {
                                 game.getPartie().donnerRessourcesAuxJoueurs(4);
                                 System.out.println("Apres ajout : " + joueur.getRessourcesString());
                                 */
-                            }
-                            // Ville
-                            else {
-                                //System.out.println("Ressources avant construction : " + joueur.getRessourcesString());
-                                //System.out.println("Je vais construire une ville");
-                                joueur.construireVille( sc );
-                                game.getPartie().verifierPointsVictoire();
-                                //System.out.println("J'ai construit une ville");
+                                }
+                                // Ville
+                                else {
+                                    //System.out.println("Ressources avant construction : " + joueur.getRessourcesString());
+                                    //System.out.println("Je vais construire une ville");
+                                    joueur.construireVille( sc );
+                                    game.getPartie().verifierPointsVictoire();
+                                    //System.out.println("J'ai construit une ville");
                                 /*
                                 System.out.println("Ressources apres construction : " + joueur.getRessourcesString());
                                 De d1 = game.getPartie().getDe1();
@@ -281,15 +293,15 @@ public class GameScreen implements Screen, InputProcessor {
                                 System.out.println("Apres ajout : " + joueur.getRessourcesString());
                                 */
 
+                                }
+                                return false;
                             }
-                            return false;
                         }
                     }
                 }
             }
+            //System.out.println( game.getPartie().getTypeStructure() );
         }
-        //System.out.println( game.getPartie().getTypeStructure() );
-
         return false;
     }
 
