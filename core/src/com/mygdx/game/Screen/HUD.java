@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -16,10 +15,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.Catan;
 import com.mygdx.game.model.Constantes;
-import com.mygdx.game.model.State;
 
 import de.tomgrill.gdxdialogs.core.GDXDialogs;
 import de.tomgrill.gdxdialogs.core.GDXDialogsSystem;
@@ -43,7 +40,7 @@ public class HUD {
 
     public HUD(SpriteBatch sb, Catan game) {
         this.game = game;
-        this.game.getPartie().setHud( this );
+        this.game.getPartie().setHud(this);
         skin = new Skin(Gdx.files.internal("ui/glassy-ui.json"));
         try {
             dialogs = GDXDialogsSystem.install();
@@ -232,6 +229,9 @@ public class HUD {
 
     }
 
+    /**
+     * Affiche la fenêtre de confirmation pour quitter la partie
+     */
     public void quitGameConfirm() {
         System.out.println("quit");
         GDXButtonDialog bDialog = dialogs.newDialog(GDXButtonDialog.class);
@@ -266,30 +266,8 @@ public class HUD {
     }
 
     /**
-     * Permet d'afficher une boite de dialogue style android
-     * avec un titre et un message personnalisé
-     *
-     * @param title
-     * @param message
+     * Affiche la fenêtre de confirmation pour afficher un tour
      */
-    public void afficherMessage(String title, String message) {
-
-        GDXButtonDialog bDialog = dialogs.newDialog(GDXButtonDialog.class);
-        bDialog.setTitle(title);
-        bDialog.setMessage(message);
-
-
-        bDialog.setClickListener(new ButtonClickListener() {
-
-            @Override
-            public void click(int button) {
-            }
-        });
-        bDialog.addButton(" Ok ");
-
-        bDialog.build().show();
-    }
-
     public void passerTourDialog() {
 
         GDXButtonDialog bDialog = dialogs.newDialog(GDXButtonDialog.class);
@@ -320,6 +298,10 @@ public class HUD {
 
     }
 
+    /**
+     * Affiche la fênetre d'échange ou est selectionner
+     * le joueur avec qui l'on veut échanger.
+     */
     public void windowsEchange() {
         Button deny = new Button(skin, "deny");
         TextButton Jbleu_button = new TextButton("Bleu", skin);
@@ -388,40 +370,146 @@ public class HUD {
         });
     }
 
+    /**
+     * Affiche la fênetre d'échange ou
+     * est selectionner le nombre de ressource échanger.
+     */
     public void windowEchange2() {
         Button deny = new Button(skin, "deny");
-        Label bois_label = new Label("Bois", skin);
+        Button confirm = new Button(skin, "confirm");
+        Label J1_label = new Label("Joueur 1", skin);
+        Label J2_label = new Label("Joueur 2", skin);
+        Label space = new Label(" ", skin);
+
+
+        //J1 button
+        final Label bois_label = new Label("Bois", skin);
+        Label count_bois_J1 = new Label("0", skin, "big");
+        Button plus_bois_J1 = new Button(skin, "plus");
+        Button minus_bois_J1 = new Button(skin, "minus");
+
         Label argile_label = new Label("Argile", skin);
+        Label count_argile_J1 = new Label("0", skin, "big");
+        Button plus_argile_J1 = new Button(skin, "plus");
+        Button minus_argile_J1 = new Button(skin, "minus");
+
         Label laine_label = new Label("Laine", skin);
+        Label count_laine_J1 = new Label("0", skin, "big");
+        Button plus_laine_J1 = new Button(skin, "plus");
+        Button minus_laine_J1 = new Button(skin, "minus");
+
         Label pierre_label = new Label("Pierre", skin);
+        Label count_pierre_J1 = new Label("0", skin, "big");
+        Button plus_pierre_J1 = new Button(skin, "plus");
+        Button minus_pierre_J1 = new Button(skin, "minus");
+
         Label ble_label = new Label("Blé", skin);
+        Label count_ble_J1 = new Label("0", skin, "big");
+        Button plus_ble_J1 = new Button(skin, "plus");
+        Button minus_ble_J1 = new Button(skin, "minus");
 
-        Label label_boisJ1 = new Label("0",skin,"font-big");
+        //J2 Button
 
-        Button plus = new Button(skin,"plus");
-        Button minus = new Button(skin,"minus");
+        Label bois_label_J2 = new Label("Bois", skin);
+        Label count_bois_J2 = new Label("0", skin, "big");
+        Button plus_bois_J2 = new Button(skin, "plus");
+        Button minus_bois_J2 = new Button(skin, "minus");
+
+        Label argile_label_J2 = new Label("Argile", skin);
+        Label count_argile_J2 = new Label("0", skin, "big");
+        Button plus_argile_J2 = new Button(skin, "plus");
+        Button minus_argile_J2 = new Button(skin, "minus");
+
+        Label laine_label_J2 = new Label("Laine", skin);
+        Label count_laine_J2 = new Label("0", skin, "big");
+        Button plus_laine_J2 = new Button(skin, "plus");
+        Button minus_laine_J2 = new Button(skin, "minus");
+
+        Label pierre_label_J2 = new Label("Pierre", skin);
+        Label count_pierre_J2 = new Label("0", skin, "big");
+        Button plus_pierre_J2 = new Button(skin, "plus");
+        Button minus_pierre_J2 = new Button(skin, "minus");
+
+        Label ble_label_J2 = new Label("Ble", skin);
+        Label count_ble_J2 = new Label("0", skin, "big");
+        Button plus_ble_J2 = new Button(skin, "plus");
+        Button minus_ble_J2 = new Button(skin, "minus");
 
 
         final Window echange2Windows = new Window("Echange", skin);
 
+        echange2Windows.add(J1_label);
+        echange2Windows.add(space);
+        echange2Windows.add(space);
+        echange2Windows.add(space);
+        echange2Windows.add(space);
+        echange2Windows.add(J2_label);
+
+        echange2Windows.row();
 
         echange2Windows.add(bois_label);
-        echange2Windows.add(plus);
-        echange2Windows.add(label_boisJ1);
-        echange2Windows.add(minus);
-        echange2Windows.row();
-        echange2Windows.add(argile_label);
-        echange2Windows.row();
-        echange2Windows.add(laine_label);
-        echange2Windows.row();
-        echange2Windows.add(pierre_label);
-        echange2Windows.row();
-        echange2Windows.add(ble_label);
+        echange2Windows.add(plus_bois_J1);
+        echange2Windows.add(count_bois_J1);
+        echange2Windows.add(minus_bois_J1);
 
+        echange2Windows.add(bois_label_J2).padLeft(100).padRight(80);
+        echange2Windows.add(plus_bois_J2);
+        echange2Windows.add(count_bois_J2);
+        echange2Windows.add(minus_bois_J2);
+
+        echange2Windows.row();
+
+        echange2Windows.add(laine_label);
+        echange2Windows.add(plus_laine_J1);
+        echange2Windows.add(count_laine_J1);
+        echange2Windows.add(minus_laine_J1);
+
+        echange2Windows.add(laine_label_J2);
+        echange2Windows.add(plus_laine_J2);
+        echange2Windows.add(count_laine_J2);
+        echange2Windows.add(minus_laine_J2);
+
+        echange2Windows.row();
+
+        echange2Windows.add(argile_label);
+        echange2Windows.add(plus_argile_J1);
+        echange2Windows.add(count_argile_J1);
+        echange2Windows.add(minus_argile_J1);
+
+        echange2Windows.add(argile_label_J2);
+        echange2Windows.add(plus_argile_J2);
+        echange2Windows.add(count_argile_J2);
+        echange2Windows.add(minus_argile_J2);
+
+        echange2Windows.row();
+
+        echange2Windows.add(pierre_label);
+        echange2Windows.add(plus_pierre_J1);
+        echange2Windows.add(count_pierre_J1);
+        echange2Windows.add(minus_pierre_J1);
+
+        echange2Windows.add(pierre_label_J2);
+        echange2Windows.add(plus_pierre_J2);
+        echange2Windows.add(count_pierre_J2);
+        echange2Windows.add(minus_pierre_J2);
+
+        echange2Windows.row();
+
+        echange2Windows.add(ble_label);
+        echange2Windows.add(plus_ble_J1);
+        echange2Windows.add(count_ble_J1);
+        echange2Windows.add(minus_ble_J1);
+
+        echange2Windows.add(ble_label_J2);
+        echange2Windows.add(plus_ble_J2);
+        echange2Windows.add(count_ble_J2);
+        echange2Windows.add(minus_ble_J2);
 
         echange2Windows.row();
         //button
-        echange2Windows.add(deny).padTop(50).padRight(200);
+        echange2Windows.add(deny);
+        echange2Windows.add(confirm);
+
         echange2Windows.setSize(1500, 1000);
         echange2Windows.setPosition(450, stage.getHeight() / 2 - echange2Windows.getHeight() / 2);
 
@@ -436,8 +524,162 @@ public class HUD {
 
             }
         });
-    }
 
+        //Touch listener bouton valider
+        confirm.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                echange2Windows.setVisible(false);
+
+            }
+        });
+
+        plus_bois_J1.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+            }
+        });
+
+        minus_bois_J1.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+            }
+        });
+
+        plus_bois_J2.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+            }
+        });
+
+        minus_bois_J2.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+            }
+        });
+
+
+        plus_laine_J1.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+            }
+        });
+
+        minus_laine_J1.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+            }
+        });
+
+        plus_laine_J2.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+            }
+        });
+
+        minus_laine_J2.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+            }
+        });
+
+
+        plus_argile_J1.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+            }
+        });
+
+        minus_argile_J1.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+            }
+        });
+
+        plus_argile_J2.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+            }
+        });
+
+        minus_argile_J2.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+            }
+        });
+
+
+        plus_pierre_J1.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+            }
+        });
+
+        minus_pierre_J1.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+            }
+        });
+
+        plus_pierre_J2.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+            }
+        });
+
+        minus_pierre_J2.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+            }
+        });
+
+
+        plus_ble_J1.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+            }
+        });
+
+        minus_ble_J1.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+            }
+        });
+
+        plus_ble_J2.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+            }
+        });
+
+        minus_ble_J2.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+            }
+        });
+
+
+    }
 
     /**
      * Affiche la fenêtre pour poser un pion
@@ -515,5 +757,29 @@ public class HUD {
         });
     }
 
+    /**
+     * Permet d'afficher une boite de dialogue style android
+     * avec un titre et un message personnalisé
+     *
+     * @param title
+     * @param message
+     */
+    public void afficherMessage(String title, String message) {
+
+        GDXButtonDialog bDialog = dialogs.newDialog(GDXButtonDialog.class);
+        bDialog.setTitle(title);
+        bDialog.setMessage(message);
+
+
+        bDialog.setClickListener(new ButtonClickListener() {
+
+            @Override
+            public void click(int button) {
+            }
+        });
+        bDialog.addButton(" Ok ");
+
+        bDialog.build().show();
+    }
 
 }
