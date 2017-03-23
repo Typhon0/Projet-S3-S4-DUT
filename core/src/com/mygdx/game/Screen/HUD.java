@@ -38,7 +38,7 @@ public class HUD {
         return game;
     }
 
-    public HUD(SpriteBatch sb, Catan game) {
+    public HUD(final SpriteBatch sb, final Catan game) {
         this.game = game;
         this.game.getPartie().setHud(this);
         skin = new Skin(Gdx.files.internal("ui/glassy-ui.json"));
@@ -98,50 +98,6 @@ public class HUD {
 
         stage.addActor(table);
 
-        Table table2 = new Table();
-        table2.setSize(1920, 1080);
-        table2.setPosition(650, -450);
-        final Label wood_count = new Label("0", skin, "big");
-        final Label foin_count = new Label("0", skin, "big");
-        final Label stone_count = new Label("0", skin, "big");
-        final Label mouton_count = new Label("0", skin, "big");
-        final Label brick_count = new Label("0", skin, "big");
-
-
-        table2.add(wood_count);
-        table2.add(foin_count);
-        table2.add(stone_count);
-        table2.add(mouton_count);
-        table2.add(brick_count);
-        table2.row();
-
-        //image bois
-        Texture texture_img_wood = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_RESSOURCES + "bois.png"));
-        Image image_wood = new Image(texture_img_wood);
-
-        //image foin
-        Texture texture_img_hay = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_RESSOURCES + "argile.png"));
-        Image image_hay = new Image(texture_img_hay);
-
-        //image pierre
-        Texture texture_img_rock = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_RESSOURCES + "minerai.png"));
-        Image image_rock = new Image(texture_img_rock);
-
-        //image mouton
-        Texture texture_img_sheep = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_RESSOURCES + "laine.png"));
-        Image image_sheep = new Image(texture_img_sheep);
-
-        //image brique
-        Texture texture_img_brick = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_RESSOURCES + "argile.png"));
-        Image image_brick = new Image(texture_img_brick);
-
-        table2.add(image_wood);
-        table2.add(image_hay);
-        table2.add(image_rock);
-        table2.add(image_sheep);
-        table2.add(image_brick);
-        stage.addActor(table2);
-
 
         //Listener Bouton piocher
         piocher.addListener(new ClickListener() {
@@ -157,8 +113,156 @@ public class HUD {
             @Override
             public void clicked(InputEvent event, float x, float y) {
 
-                //TODO
-                afficherMessage("test", "test");
+                final Window windows_stat = new Window("Statistique", skin);
+                windows_stat.setSize(1500, 1000);
+                windows_stat.setPosition(450, stage.getHeight() / 2 - windows_stat.getHeight() / 2);
+                Button deny = new Button(skin, "deny");
+                Label space = new Label(" ", skin);
+
+
+                final Label j1_label = new Label("Joueur rouge", skin);
+                final Label j2_label = new Label("Joueur bleu", skin);
+                final Label j3_label = new Label("Joueur vert", skin);
+                final Label j4_label = new Label("Joueur jaune", skin);
+
+
+                final Label wood_count = new Label("0", skin, "big");
+                final Label foin_count = new Label("0", skin, "big");
+                final Label stone_count = new Label("0", skin, "big");
+                final Label mouton_count = new Label("0", skin, "big");
+                final Label brick_count = new Label("0", skin, "big");
+
+                final Label wood_count_j2 = new Label("0", skin, "big");
+                final Label foin_count_j2 = new Label("0", skin, "big");
+                final Label stone_count_j2 = new Label("0", skin, "big");
+                final Label mouton_count_j2 = new Label("0", skin, "big");
+                final Label brick_count_j2 = new Label("0", skin, "big");
+
+                final Label wood_count_j3 = new Label("0", skin, "big");
+                final Label foin_count_j3 = new Label("0", skin, "big");
+                final Label stone_count_j3 = new Label("0", skin, "big");
+                final Label mouton_count_j3 = new Label("0", skin, "big");
+                final Label brick_count_j3 = new Label("0", skin, "big");
+
+
+                final Label wood_count_j4 = new Label("0", skin, "big");
+                final Label foin_count_j4 = new Label("0", skin, "big");
+                final Label stone_count_j4 = new Label("0", skin, "big");
+                final Label mouton_count_j4 = new Label("0", skin, "big");
+                final Label brick_count_j4 = new Label("0", skin, "big");
+
+
+                //image bois
+                Texture texture_img_wood = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_RESSOURCES + "bois.png"));
+                Image image_wood = new Image(texture_img_wood);
+                windows_stat.add(image_wood);
+                //image foin
+                Texture texture_img_hay = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_RESSOURCES + "ble.png"));
+                Image image_hay = new Image(texture_img_hay);
+                windows_stat.add(image_hay);
+
+                //image pierre
+                Texture texture_img_rock = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_RESSOURCES + "minerai.png"));
+                Image image_rock = new Image(texture_img_rock);
+                windows_stat.add(image_rock);
+
+                //image mouton
+                Texture texture_img_sheep = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_RESSOURCES + "laine.png"));
+                Image image_sheep = new Image(texture_img_sheep);
+                windows_stat.add(image_sheep);
+
+                //image brique
+                Texture texture_img_brick = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_RESSOURCES + "argile.png"));
+                Image image_brick = new Image(texture_img_brick);
+
+                //J1
+                wood_count.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_ROUGE].getPaquetRessources().getRessources()[1]));
+                foin_count.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_ROUGE].getPaquetRessources().getRessources()[2]));
+                stone_count.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_ROUGE].getPaquetRessources().getRessources()[3]));
+                mouton_count.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_ROUGE].getPaquetRessources().getRessources()[4]));
+                brick_count.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_ROUGE].getPaquetRessources().getRessources()[5]));
+
+                wood_count_j2.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_BLEU].getPaquetRessources().getRessources()[1]));
+                foin_count_j2.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_BLEU].getPaquetRessources().getRessources()[2]));
+                stone_count_j2.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_BLEU].getPaquetRessources().getRessources()[3]));
+                mouton_count_j2.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_BLEU].getPaquetRessources().getRessources()[4]));
+                brick_count_j2.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_BLEU].getPaquetRessources().getRessources()[5]));
+
+
+                wood_count_j3.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_VERT].getPaquetRessources().getRessources()[1]));
+                foin_count_j3.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_VERT].getPaquetRessources().getRessources()[2]));
+                stone_count_j3.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_VERT].getPaquetRessources().getRessources()[3]));
+                mouton_count_j3.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_VERT].getPaquetRessources().getRessources()[4]));
+                brick_count_j3.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_VERT].getPaquetRessources().getRessources()[5]));
+
+
+                wood_count_j4.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_JAUNE].getPaquetRessources().getRessources()[1]));
+                foin_count_j4.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_JAUNE].getPaquetRessources().getRessources()[2]));
+                stone_count_j4.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_JAUNE].getPaquetRessources().getRessources()[3]));
+                mouton_count_j4.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_JAUNE].getPaquetRessources().getRessources()[4]));
+                brick_count_j4.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_JAUNE].getPaquetRessources().getRessources()[5]));
+
+
+                windows_stat.row();
+                windows_stat.add(space);
+                windows_stat.add(image_wood);
+                windows_stat.add(image_hay);
+                windows_stat.add(image_rock);
+                windows_stat.add(image_sheep);
+                windows_stat.add(image_brick);
+
+
+                windows_stat.row();
+
+                windows_stat.add(j1_label);
+                windows_stat.add(wood_count);
+                windows_stat.add(foin_count);
+                windows_stat.add(stone_count);
+                windows_stat.add(mouton_count);
+                windows_stat.add(brick_count);
+
+
+                windows_stat.row();
+
+                windows_stat.add(j2_label);
+                windows_stat.add(wood_count_j2);
+                windows_stat.add(foin_count_j2);
+                windows_stat.add(stone_count_j2);
+                windows_stat.add(mouton_count_j2);
+                windows_stat.add(brick_count_j2);
+
+
+                windows_stat.row();
+
+                windows_stat.add(j3_label);
+                windows_stat.add(wood_count_j3);
+                windows_stat.add(foin_count_j3);
+                windows_stat.add(stone_count_j3);
+                windows_stat.add(mouton_count_j3);
+                windows_stat.add(brick_count_j3);
+
+                windows_stat.row();
+
+                windows_stat.add(j4_label);
+                windows_stat.add(wood_count_j4);
+                windows_stat.add(foin_count_j4);
+                windows_stat.add(stone_count_j4);
+                windows_stat.add(mouton_count_j4);
+                windows_stat.add(brick_count_j4);
+
+                windows_stat.row();
+                windows_stat.add(deny);
+
+                deny.addListener(new ClickListener() {
+                    @Override
+                    public void clicked(InputEvent event, float x, float y) {
+                        windows_stat.setVisible(false);
+                    }
+                });
+
+                stage.addActor(windows_stat);
+
+
             }
         });
 
