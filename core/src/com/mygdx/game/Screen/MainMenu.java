@@ -19,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.mygdx.game.Catan;
+import com.mygdx.game.autre.Musique;
 import com.mygdx.game.model.Constantes;
 
 /**
@@ -30,10 +31,15 @@ public class MainMenu implements Screen {
     Skin skin;
     Stage stage;
     Catan game;
+    Musique musique;
 
 
     // constructor to keep a reference to the main Game class
-    public MainMenu(Catan pgame) {
+    public MainMenu(Catan pgame, Musique mus) {
+        musique = mus;
+        //lancement de la musique
+        musique.lancerMusique();
+
         this.game = pgame;
 
         stage = new Stage(new ExtendViewport(800, 510));
@@ -82,7 +88,8 @@ public class MainMenu implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 options.addAction(Actions.fadeOut(0.7f));
-                game.setScreen(new OptionScreen(game,false));
+                game.setScreen(new OptionScreen(game,false, musique));
+                musique.lancerSon();
 
             }
         });
@@ -92,8 +99,8 @@ public class MainMenu implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 startGame.addAction(Actions.fadeOut(0.7f));
 
-                game.setScreen(new GameScreen(game));
-
+                game.setScreen(new GameScreen(game, musique));
+                musique.lancerSon();
             }
         });
 
@@ -103,7 +110,8 @@ public class MainMenu implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 loadgame.addAction(Actions.fadeOut(0.7f));
-                game.setScreen(new LoadGameScreen(game));
+                game.setScreen(new LoadGameScreen(game, musique));
+                musique.lancerSon();
 
             }
         });
@@ -113,8 +121,8 @@ public class MainMenu implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 help.addAction(Actions.fadeOut(0.7f));
-                game.setScreen(new HelpScreen(game));
-
+                game.setScreen(new HelpScreen(game, musique));
+                musique.lancerSon();
             }
         });
 

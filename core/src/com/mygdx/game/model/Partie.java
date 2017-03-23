@@ -149,15 +149,16 @@ public class Partie {
      * Début du nouveau tour
      */
     public void nouveauTour() {
-        hud.afficherMessage("Nouveau tour", "C'est au tour du joueur : " + Constantes.couleurJoueur(joueurActif.getCouleur()));
+
         for (int i=0 ; i<joueurs.length ; i++ ) {
             System.out.println("Joueur "+i+"\t"+joueurs[i].getRessourcesString());
         }
         de1.lancer();
         de2.lancer();
+        hud.afficherMessage("Tour du joueur " + Constantes.couleurJoueur(joueurActif.getCouleur()), "Valeur des Des : " + (de1.getValeur() + de2.getValeur()));
         activerVoleur();
         donnerRessourcesAuxJoueurs(de1.getValeur() + de2.getValeur());
-        System.out.println("Valeur des dés :"+(de1.getValeur() + de2.getValeur()));
+
         for (int i=0 ; i<joueurs.length ; i++ ) {
             System.out.println("Joueur "+i+"\t"+joueurs[i].getRessourcesString());
         }

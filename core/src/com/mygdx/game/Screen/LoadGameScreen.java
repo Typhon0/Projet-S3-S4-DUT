@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.mygdx.game.Catan;
+import com.mygdx.game.autre.Musique;
 
 /**
  * Created by typhon0 on 28/02/17.
@@ -24,9 +25,14 @@ public class LoadGameScreen implements Screen{
     Stage stage;
     Catan game;
 
+    Musique musique;
+
+
 
     // constructor to keep a reference to the main Game class
-    public LoadGameScreen(Catan pgame) {
+    public LoadGameScreen(Catan pgame, Musique mus) {
+        musique = mus;
+
         this.game = pgame;
 
         stage = new Stage(new ExtendViewport(800, 500));
@@ -67,7 +73,7 @@ public class LoadGameScreen implements Screen{
 
         if (Gdx.input.isKeyPressed(Input.Keys.BACK)) {
             System.out.println("Back pressed");
-            game.setScreen(new MainMenu(game));
+            game.setScreen(new MainMenu(game, musique));
         }
     }
 
