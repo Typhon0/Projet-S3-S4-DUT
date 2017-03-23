@@ -51,7 +51,7 @@ public class Partie {
     private Joueur joueurActif;
 
     /**
-     *
+     * Joueur à qui on veut donner les ressources
      */
     private Joueur joueurAQuiOnVeutEchanger;
 
@@ -298,5 +298,13 @@ public class Partie {
     public static HUD getHud() {
 
         return hud;
+    }
+
+    public Joueur getJoueurAQuiOnVeutEchanger() {
+        return joueurAQuiOnVeutEchanger;
+    }
+
+    public void setJoueurAQuiOnVeutEchanger(Joueur joueurAQuiOnVeutEchanger) {
+        this.joueurAQuiOnVeutEchanger = joueurAQuiOnVeutEchanger;
     }
 }
