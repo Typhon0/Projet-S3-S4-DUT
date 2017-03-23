@@ -5,20 +5,22 @@ import com.badlogic.gdx.graphics.Texture;
 /**
  * <b> Jeton est la classe représentant le jeton affecté à chaque Tuile. Le jeton permet de connaitre les tuiles qui doivent produire en fonction du résultat des lancers de dés</b>
  * <p>
- *     Un jeton  est caractérisé par les informations suivantes :
- *     <ul>
- *         <li>La valeur du jeton</li>
- *         <li>La tuile associée </li>
- *         <li>La texture de l'image</li>
- *     </ul>
+ * Un jeton  est caractérisé par les informations suivantes :
+ * <ul>
+ * <li>La valeur du jeton</li>
+ * <li>La tuile associée </li>
+ * <li>La texture de l'image</li>
+ * </ul>
  * </p>
- * @see Tuile
- * @see Texture
+ *
  * @author Geris Nicolas
  * @version 1.0
+ * @see Tuile
+ * @see Texture
  */
 
 public class Jeton {
+
     /**
      * La valeur du jeton. Cet
      */
@@ -36,36 +38,40 @@ public class Jeton {
 
     /**
      * Constructeur qui reçoit la valeur du jeton en argument.
-     * @see Jeton#affecterValeur(Integer)
+     *
      * @param valeur la valeur du jeton
+     * @see Jeton#affecterValeur(Integer)
      */
     public Jeton(Integer valeur) {
-        affecterValeur(valeur);
+        affecterValeur( valeur );
     }
 
     /**
      * Affecte au jeton la tuile sur laquelle il se trouve
+     *
      * @param h Tuile sur laquelle se trouve le jeton
      * @see Jeton#affecterTuile(Tuile)
      */
     public void affecterTuile(Tuile h) {
-        this.setTuile(h);
+        this.setTuile( h );
     }
 
     /**
      * Affecte au jeton la valeur qu'il reçoit en argument.
      * Affecte aussi la texture du jeton
-     * @see Jeton#affecterTexture()
+     *
      * @param valeur Valeur du jeton
+     * @see Jeton#affecterTexture()
      */
-    public void affecterValeur(Integer valeur){
-        this.setValeur(valeur);
+    public void affecterValeur(Integer valeur) {
+        this.setValeur( valeur );
         affecterTexture();
     }
 
     /**
      * Affecte au jeton sa texteture en fonction de sa valeur.
      * Ex : Si la valeur du jeton est 2, on lui affecte la texture du jeton 2.
+     *
      * @see Plateau#getJeton2()
      * @see Jeton#valeur
      * @see Jeton#textureJeton
@@ -93,16 +99,17 @@ public class Jeton {
             textureJeton = Plateau.getJeton12();
         else {
             textureJeton = null;
-            System.err.println("Valeur du jeton incorrecte");
+            System.err.println( "Valeur du jeton incorrecte" );
         }
     }
 
     /**
      * Méthode toString() de la classe
+     *
      * @return en String la valeur du jeton
      */
     public String toString() {
-        return "Valeur du jeton : "+valeur.toString();
+        return "Valeur du jeton : " + valeur.toString();
     }
 
     // Getters & Setters

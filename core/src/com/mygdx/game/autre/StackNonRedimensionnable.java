@@ -3,7 +3,9 @@ package com.mygdx.game.autre;
 import java.util.Random;
 
 /**
- * Created by XXIII on 27/01/2017.
+ * StackNonRedimensionnable représente un paquet (bucket) non redimensionnalbe donc le fonctionnement est similaire à celui d'une pile. On peut également mélanger le StackNonRedimensionnable.
+ *
+ * @param <E> Type générique du paquet
  */
 
 public class StackNonRedimensionnable<E> {
@@ -13,7 +15,7 @@ public class StackNonRedimensionnable<E> {
 
     public StackNonRedimensionnable(int capacity) {
         n = 0;
-        items = (E[])new Object[capacity];
+        items = (E[]) new Object[capacity];
     }
 
     public boolean isEmpty() {
@@ -36,9 +38,8 @@ public class StackNonRedimensionnable<E> {
         int index;
         E tmp;
         Random random = new Random();
-        for (int i = n - 1; i > 0; i--)
-        {
-            index = random.nextInt(i + 1);
+        for (int i = n - 1; i > 0; i--) {
+            index = random.nextInt( i + 1 );
             tmp = items[index];
             items[index] = items[i];
             items[i] = tmp;
@@ -46,9 +47,9 @@ public class StackNonRedimensionnable<E> {
     }
 
     public String toString() {
-        String string = "Nombre d'éléménts : "+"\n";
+        String string = "Nombre d'éléménts : " + "\n";
         for (E s : items) {
-            string += s+", ";
+            string += s + ", ";
         }
         return string;
     }

@@ -5,17 +5,18 @@ import java.util.Random;
 /**
  * <b> De est la classe représentant le dé qui sert à définir la tuile qui doivent produire au début du tour en fonction de leur jeton</b>
  * <p>
- *     Un De  est caractérisé par les informations suivantes :
- *     <ul>
- *         <li>le générateur d'entier aléatoire</li>
- *         <li>la valeur du dé </li>
- *         <li>la valeur minimale possible du dé</li>
- *         <li>La valeur maximale possible du dé</li>
- *     </ul>
+ * Un De  est caractérisé par les informations suivantes :
+ * <ul>
+ * <li>le générateur d'entier aléatoire</li>
+ * <li>la valeur du dé </li>
+ * <li>la valeur minimale possible du dé</li>
+ * <li>La valeur maximale possible du dé</li>
+ * </ul>
  * </p>
- * @see Random
+ *
  * @author Geris Nicolas
  * @version 1.0
+ * @see Random
  */
 
 public class De {
@@ -42,6 +43,7 @@ public class De {
 
     /**
      * Constructeur qui initialise le générateur de nombre entier aléatoire et la valeur du dé à 0.
+     *
      * @see Random
      */
     public De() {
@@ -51,21 +53,23 @@ public class De {
 
     /**
      * Génère un nombre aléatoire compris entre la valeur minimale et maximale (compris) et affecte cette valeur à l'attribut valeur
+     *
      * @see De#valeur
      * @see Random#nextInt(int)
      * @see De#MIN
      * @see De#MAX
      */
     public void lancer() {
-        valeur = MIN + r.nextInt(MAX - MIN + 1);
+        valeur = MIN + r.nextInt( MAX - MIN + 1 );
     }
 
     /**
      * toString de la classe qui affiche la valeur du dé
+     *
      * @return la valeur du dé sous forme de texte
      */
     public String toString() {
-        return "Valeur du dé : "+valeur;
+        return "Valeur du dé : " + valeur;
     }
 
     public int getValeur() {
