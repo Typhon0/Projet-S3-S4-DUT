@@ -599,26 +599,26 @@ public class HUD {
 
 
                 for (int i = Constantes.NUMERO_RESSOURCE_MIN; i < Constantes.TAILLE_TABLEAU_RESSOURCE; i++) {
-                    PaquetRessources.recevoirRessource(game.getPartie().getJoueurActif().getRessources(),
-                            game.getPartie().getJoueurAQuiOnVeutEchanger().getRessources(),
+                    PaquetRessources.recevoirRessource(game.getPartie().getJoueurActif().getPaquetRessources(),
+                            game.getPartie().getJoueurAQuiOnVeutEchanger().getPaquetRessources(),
                             i, ressource_j2[i]);
                 }
 
                 for (int i = Constantes.NUMERO_RESSOURCE_MIN; i < Constantes.TAILLE_TABLEAU_RESSOURCE; i++) {
-                    PaquetRessources.recevoirRessource(game.getPartie().getJoueurAQuiOnVeutEchanger().getRessources(),
-                            game.getPartie().getJoueurActif().getRessources(),
+                    PaquetRessources.recevoirRessource(game.getPartie().getJoueurAQuiOnVeutEchanger().getPaquetRessources(),
+                            game.getPartie().getJoueurActif().getPaquetRessources(),
                             i, ressource_j1[i]);
                 }
 
 
                 System.out.println("Ressource J1");
                 for (int i = Constantes.NUMERO_RESSOURCE_MIN; i < Constantes.TAILLE_TABLEAU_RESSOURCE; i++) {
-                    System.out.println(game.getPartie().getJoueurActif().getRessources().getRessources()[i]);
+                    System.out.println(game.getPartie().getJoueurActif().getPaquetRessources().getRessources()[i]);
                 }
 
                 System.out.println("Ressource J2");
                 for (int i = Constantes.NUMERO_RESSOURCE_MIN; i < Constantes.TAILLE_TABLEAU_RESSOURCE; i++) {
-                    System.out.println(game.getPartie().getJoueurAQuiOnVeutEchanger().getRessources().getRessources()[i]);
+                    System.out.println(game.getPartie().getJoueurAQuiOnVeutEchanger().getPaquetRessources().getRessources()[i]);
                 }
                 echange2Windows.setVisible(false);
 
