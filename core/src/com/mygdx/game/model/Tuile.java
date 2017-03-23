@@ -238,6 +238,10 @@ public class Tuile {
         return false;
     }
 
+    public boolean equals(Vector2 v) {
+            return ( Math.abs(this.center.x - v.x) <= 3.0 && Math.abs(this.center.y - v.y) <= 3.0);
+    }
+
     /**
      * Sert à dessiner le squelette de la tuile grâce aux coordonnées de ses sommets
      * @return tableau contenant les couples x,y des sommets de la tuile à dessiner dans le render du batch (affichage)
