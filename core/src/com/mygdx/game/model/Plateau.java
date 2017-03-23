@@ -100,8 +100,6 @@ public class Plateau {
      */
     private static PaquetRessources ressources;
 
-    private boolean deplacerVoleur = false;
-
     /**
      * Constructeur
      */
@@ -614,17 +612,8 @@ public class Plateau {
         return ROUTE_JAUNE;
     }
 
-    public boolean getDeplacerVoleur() {
-        return deplacerVoleur;
-    }
-
-    public void setDeplacerVoleur(boolean deplacerVoleur) {
-        this.deplacerVoleur = deplacerVoleur;
-    }
-
     public com.mygdx.game.autre.StackNonRedimensionnable<Integer> getStackTerrains() {
         return stackTerrains;
-
     }
 
     public static Texture getTRANSPARENT() {
@@ -642,6 +631,4 @@ public class Plateau {
     public StackNonRedimensionnable<Jeton> getStackJetons() {
         return stackJetons;
     }
-
-
 }

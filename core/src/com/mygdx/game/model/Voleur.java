@@ -9,19 +9,19 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Voleur {
     private Tuile tuile;
+    private Vector2 position;
     private Texture texture;
-    private boolean actif;
 
     public Voleur() {
-        actif = false;
         texture = Plateau.getVOLEUR();
     }
 
     public Voleur(Tuile t) {
-        actif = false;
         this.tuile = t;
         texture = Plateau.getVOLEUR();
     }
+
+
 
     public void deplacer(Tuile t) {
         this.tuile = t;
@@ -89,20 +89,20 @@ public class Voleur {
         this.tuile = tuile;
     }
 
+    public Vector2 getPosition() {
+        return position;
+    }
+
+    public void setPosition(Vector2 position) {
+        this.position = position;
+    }
+
     public Texture getTexture() {
         return texture;
     }
 
     public void setTexture(Texture texture) {
         this.texture = texture;
-    }
-
-    public boolean isActif() {
-        return actif;
-    }
-
-    public void setActif(boolean actif) {
-        this.actif = actif;
     }
 }
 
