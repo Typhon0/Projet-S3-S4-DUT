@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.mygdx.game.Catan;
 import com.mygdx.game.model.Constantes;
+import com.mygdx.game.model.PaquetRessources;
 
 import de.tomgrill.gdxdialogs.core.GDXDialogs;
 import de.tomgrill.gdxdialogs.core.GDXDialogsSystem;
@@ -68,8 +69,8 @@ public class HUD {
         table.add(regle).size(170, 170);
         table.row();
 
-        final Button lancedes = new Button(skin, "round");//TODO Changer image button
-        table.add(lancedes).size(170, 170).padRight(1500);
+        final Button echangePort = new Button(skin, "round");//TODO Changer image button
+        table.add(echangePort).size(170, 170).padRight(1500);
 
         final Button settings = new Button(skin, "settings");
         table.add(settings).size(170, 170);
@@ -169,6 +170,16 @@ public class HUD {
 
             }
         });
+
+        //Listener Bouton echange
+        echangePort.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                windowsEchange();
+
+            }
+        });
+
 
         //Listener Bouton regle
         regle.addListener(new ClickListener() {
@@ -560,7 +571,57 @@ public class HUD {
         confirm.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                int[] ressource_j1 = new int[Constantes.TAILLE_TABLEAU_RESSOURCE];
+                ressource_j1[Constantes.ARGILE] = Integer.valueOf(count_argile_J1.getText().toString());
+                ressource_j1[Constantes.BLE] = Integer.valueOf(count_ble_J1.getText().toString());
+                ressource_j1[Constantes.BOIS] = Integer.valueOf(count_bois_J1.getText().toString());
+                ressource_j1[Constantes.LAINE] = Integer.valueOf(count_laine_J1.getText().toString());
+                ressource_j1[Constantes.MINERAI] = Integer.valueOf(count_pierre_J1.getText().toString());
+
+
+                int[] ressource_j2 = new int[Constantes.TAILLE_TABLEAU_RESSOURCE];
+
+                ressource_j2[Constantes.ARGILE] = Integer.valueOf(count_argile_J2.getText().toString());
+                ressource_j2[Constantes.BLE] = Integer.valueOf(count_ble_J2.getText().toString());
+                ressource_j2[Constantes.BOIS] = Integer.valueOf(count_bois_J2.getText().toString());
+                ressource_j2[Constantes.LAINE] = Integer.valueOf(count_laine_J2.getText().toString());
+                ressource_j2[Constantes.MINERAI] = Integer.valueOf(count_pierre_J2.getText().toString());
+
+                System.out.println("Ressource J1");
+                for (int i = Constantes.NUMERO_RESSOURCE_MIN; i < Constantes.TAILLE_TABLEAU_RESSOURCE; i++) {
+                    System.out.println(ressource_j1[i]);
+                }
+
+                System.out.println("Ressource J2");
+                for (int i = Constantes.NUMERO_RESSOURCE_MIN; i < Constantes.TAILLE_TABLEAU_RESSOURCE; i++) {
+                    System.out.println(ressource_j2[i]);
+                }
+
+
+                for (int i = Constantes.NUMERO_RESSOURCE_MIN; i < Constantes.TAILLE_TABLEAU_RESSOURCE; i++) {
+                    PaquetRessources.recevoirRessource(game.getPartie().getJoueurActif().getRessources(),
+                            game.getPartie().getJoueurAQuiOnVeutEchanger().getRessources(),
+                            i, ressource_j2[i]);
+                }
+
+                for (int i = Constantes.NUMERO_RESSOURCE_MIN; i < Constantes.TAILLE_TABLEAU_RESSOURCE; i++) {
+                    PaquetRessources.recevoirRessource(game.getPartie().getJoueurAQuiOnVeutEchanger().getRessources(),
+                            game.getPartie().getJoueurActif().getRessources(),
+                            i, ressource_j1[i]);
+                }
+
+
+                System.out.println("Ressource J1");
+                for (int i = Constantes.NUMERO_RESSOURCE_MIN; i < Constantes.TAILLE_TABLEAU_RESSOURCE; i++) {
+                    System.out.println(game.getPartie().getJoueurActif().getRessources().getRessources()[i]);
+                }
+
+                System.out.println("Ressource J2");
+                for (int i = Constantes.NUMERO_RESSOURCE_MIN; i < Constantes.TAILLE_TABLEAU_RESSOURCE; i++) {
+                    System.out.println(game.getPartie().getJoueurAQuiOnVeutEchanger().getRessources().getRessources()[i]);
+                }
                 echange2Windows.setVisible(false);
+
 
             }
         });
