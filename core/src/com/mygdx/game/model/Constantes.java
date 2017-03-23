@@ -163,6 +163,7 @@ public class Constantes {
     public static final int DISTANCE_TUILE_X = 32;
     public static final int DISTANCE_SITE_CONSTRUCTION_X = 16;
 
+    public static final int COULEUR_JEU = -1;
     public static final int COULEUR_ROUGE = 0;
     public static final int COULEUR_BLEU = 1;
     public static final int COULEUR_VERT = 2;

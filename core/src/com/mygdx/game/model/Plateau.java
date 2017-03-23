@@ -2,6 +2,7 @@ package com.mygdx.game.model;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g3d.utils.shapebuilders.ConeShapeBuilder;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.autre.StackNonRedimensionnable;
 
@@ -111,7 +112,7 @@ public class Plateau {
         //stackPorts = new StackNonRedimensionnable<Port>(6);
         textureMer = MER;
 
-        ressources = new PaquetRessources( "jeu" );
+        ressources = new PaquetRessources(Constantes.COULEUR_JEU);
         ressources.remplir();
     }
 
