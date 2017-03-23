@@ -27,7 +27,6 @@ import de.tomgrill.gdxdialogs.core.listener.ButtonClickListener;
  * Created by typhon0 on 15/03/17.
  */
 
-
 public class HUD {
     private static Catan game;
     public Stage stage;
@@ -303,11 +302,34 @@ public class HUD {
      * le joueur avec qui l'on veut échanger.
      */
     public void windowsEchange() {
-        Button deny = new Button(skin, "deny");
+
         TextButton Jbleu_button = new TextButton("Bleu", skin);
         TextButton Jrouge_button = new TextButton("Rouge", skin);
         TextButton Jvert_button = new TextButton("Vert", skin);
         TextButton Jjaune_button = new TextButton("Jaune", skin);
+
+        switch (game.getPartie().getJoueurActif().getCouleur()) {
+            case Constantes.COULEUR_BLEU:
+                Jbleu_button.setVisible(false);
+                break;
+            case Constantes.COULEUR_JAUNE:
+                Jjaune_button.setVisible(false);
+
+                break;
+            case Constantes.COULEUR_ROUGE:
+                Jrouge_button.setVisible(false);
+
+                break;
+            case Constantes.COULEUR_VERT:
+                Jvert_button.setVisible(false);
+
+                break;
+            default:
+                break;
+
+        }
+
+        Button deny = new Button(skin, "deny");
 
 
         final Window echangeWindows = new Window("Choisir joueur avec qui echanger", skin);
@@ -332,6 +354,7 @@ public class HUD {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 echangeWindows.setVisible(false);
+                game.getPartie().setJoueurAQuiOnVeutEchanger(game.getPartie().getJoueurs()[Constantes.COULEUR_BLEU]);
                 windowEchange2();
             }
         });
@@ -340,7 +363,8 @@ public class HUD {
         Jrouge_button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
+                game.getPartie().setJoueurAQuiOnVeutEchanger(game.getPartie().getJoueurs()[Constantes.COULEUR_ROUGE]);
+                windowEchange2();
             }
         });
 
@@ -348,7 +372,8 @@ public class HUD {
         Jvert_button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
+                game.getPartie().setJoueurAQuiOnVeutEchanger(game.getPartie().getJoueurs()[Constantes.COULEUR_VERT]);
+                windowEchange2();
             }
         });
 
@@ -356,7 +381,8 @@ public class HUD {
         Jjaune_button.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
+                game.getPartie().setJoueurAQuiOnVeutEchanger(game.getPartie().getJoueurs()[Constantes.COULEUR_JAUNE]);
+                windowEchange2();
             }
         });
 
@@ -375,6 +401,11 @@ public class HUD {
      * est selectionner le nombre de ressource échanger.
      */
     public void windowEchange2() {
+
+        final int[] ressources_J1 = new int[Constantes.TAILLE_TABLEAU_RESSOURCE];
+        int[] ressources_J2 = new int[Constantes.TAILLE_TABLEAU_RESSOURCE];
+
+
         Button deny = new Button(skin, "deny");
         Button confirm = new Button(skin, "confirm");
         Label J1_label = new Label("Joueur 1", skin);
@@ -384,54 +415,54 @@ public class HUD {
 
         //J1 button
         final Label bois_label = new Label("Bois", skin);
-        Label count_bois_J1 = new Label("0", skin, "big");
+        final Label count_bois_J1 = new Label("0", skin, "big");
         Button plus_bois_J1 = new Button(skin, "plus");
         Button minus_bois_J1 = new Button(skin, "minus");
 
         Label argile_label = new Label("Argile", skin);
-        Label count_argile_J1 = new Label("0", skin, "big");
+        final Label count_argile_J1 = new Label("0", skin, "big");
         Button plus_argile_J1 = new Button(skin, "plus");
         Button minus_argile_J1 = new Button(skin, "minus");
 
         Label laine_label = new Label("Laine", skin);
-        Label count_laine_J1 = new Label("0", skin, "big");
+        final Label count_laine_J1 = new Label("0", skin, "big");
         Button plus_laine_J1 = new Button(skin, "plus");
         Button minus_laine_J1 = new Button(skin, "minus");
 
         Label pierre_label = new Label("Pierre", skin);
-        Label count_pierre_J1 = new Label("0", skin, "big");
+        final Label count_pierre_J1 = new Label("0", skin, "big");
         Button plus_pierre_J1 = new Button(skin, "plus");
         Button minus_pierre_J1 = new Button(skin, "minus");
 
         Label ble_label = new Label("Blé", skin);
-        Label count_ble_J1 = new Label("0", skin, "big");
+        final Label count_ble_J1 = new Label("0", skin, "big");
         Button plus_ble_J1 = new Button(skin, "plus");
         Button minus_ble_J1 = new Button(skin, "minus");
 
         //J2 Button
 
         Label bois_label_J2 = new Label("Bois", skin);
-        Label count_bois_J2 = new Label("0", skin, "big");
+        final Label count_bois_J2 = new Label("0", skin, "big");
         Button plus_bois_J2 = new Button(skin, "plus");
         Button minus_bois_J2 = new Button(skin, "minus");
 
         Label argile_label_J2 = new Label("Argile", skin);
-        Label count_argile_J2 = new Label("0", skin, "big");
+        final Label count_argile_J2 = new Label("0", skin, "big");
         Button plus_argile_J2 = new Button(skin, "plus");
         Button minus_argile_J2 = new Button(skin, "minus");
 
         Label laine_label_J2 = new Label("Laine", skin);
-        Label count_laine_J2 = new Label("0", skin, "big");
+        final Label count_laine_J2 = new Label("0", skin, "big");
         Button plus_laine_J2 = new Button(skin, "plus");
         Button minus_laine_J2 = new Button(skin, "minus");
 
         Label pierre_label_J2 = new Label("Pierre", skin);
-        Label count_pierre_J2 = new Label("0", skin, "big");
+        final Label count_pierre_J2 = new Label("0", skin, "big");
         Button plus_pierre_J2 = new Button(skin, "plus");
         Button minus_pierre_J2 = new Button(skin, "minus");
 
         Label ble_label_J2 = new Label("Ble", skin);
-        Label count_ble_J2 = new Label("0", skin, "big");
+        final Label count_ble_J2 = new Label("0", skin, "big");
         Button plus_ble_J2 = new Button(skin, "plus");
         Button minus_ble_J2 = new Button(skin, "minus");
 
@@ -537,28 +568,36 @@ public class HUD {
         plus_bois_J1.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
+                int tmp_count = Integer.valueOf(count_bois_J1.getText().toString());
+                tmp_count++;
+                count_bois_J1.setText(String.valueOf(tmp_count));
             }
         });
 
         minus_bois_J1.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
+                int tmp_count = Integer.valueOf(count_bois_J1.getText().toString());
+                tmp_count--;
+                count_bois_J1.setText(String.valueOf(tmp_count));
             }
         });
 
         plus_bois_J2.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
+                int tmp_count = Integer.valueOf(count_bois_J2.getText().toString());
+                tmp_count++;
+                count_bois_J2.setText(String.valueOf(tmp_count));
             }
         });
 
         minus_bois_J2.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
+                int tmp_count = Integer.valueOf(count_bois_J2.getText().toString());
+                tmp_count--;
+                count_bois_J2.setText(String.valueOf(tmp_count));
             }
         });
 
@@ -566,28 +605,36 @@ public class HUD {
         plus_laine_J1.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
+                int tmp_count = Integer.valueOf(count_laine_J1.getText().toString());
+                tmp_count++;
+                count_laine_J1.setText(String.valueOf(tmp_count));
             }
         });
 
         minus_laine_J1.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
+                int tmp_count = Integer.valueOf(count_laine_J1.getText().toString());
+                tmp_count--;
+                count_laine_J1.setText(String.valueOf(tmp_count));
             }
         });
 
         plus_laine_J2.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
+                int tmp_count = Integer.valueOf(count_laine_J2.getText().toString());
+                tmp_count++;
+                count_laine_J2.setText(String.valueOf(tmp_count));
             }
         });
 
         minus_laine_J2.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
+                int tmp_count = Integer.valueOf(count_laine_J2.getText().toString());
+                tmp_count--;
+                count_laine_J2.setText(String.valueOf(tmp_count));
             }
         });
 
@@ -595,28 +642,36 @@ public class HUD {
         plus_argile_J1.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
+                int tmp_count = Integer.valueOf(count_argile_J1.getText().toString());
+                tmp_count++;
+                count_argile_J1.setText(String.valueOf(tmp_count));
             }
         });
 
         minus_argile_J1.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
+                int tmp_count = Integer.valueOf(count_argile_J1.getText().toString());
+                tmp_count--;
+                count_argile_J1.setText(String.valueOf(tmp_count));
             }
         });
 
         plus_argile_J2.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
+                int tmp_count = Integer.valueOf(count_argile_J2.getText().toString());
+                tmp_count++;
+                count_argile_J2.setText(String.valueOf(tmp_count));
             }
         });
 
         minus_argile_J2.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
+                int tmp_count = Integer.valueOf(count_argile_J2.getText().toString());
+                tmp_count--;
+                count_argile_J2.setText(String.valueOf(tmp_count));
             }
         });
 
@@ -624,28 +679,36 @@ public class HUD {
         plus_pierre_J1.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
+                int tmp_count = Integer.valueOf(count_pierre_J1.getText().toString());
+                tmp_count++;
+                count_pierre_J1.setText(String.valueOf(tmp_count));
             }
         });
 
         minus_pierre_J1.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
+                int tmp_count = Integer.valueOf(count_pierre_J1.getText().toString());
+                tmp_count--;
+                count_pierre_J1.setText(String.valueOf(tmp_count));
             }
         });
 
         plus_pierre_J2.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
+                int tmp_count = Integer.valueOf(count_pierre_J2.getText().toString());
+                tmp_count++;
+                count_pierre_J2.setText(String.valueOf(tmp_count));
             }
         });
 
         minus_pierre_J2.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
+                int tmp_count = Integer.valueOf(count_pierre_J2.getText().toString());
+                tmp_count--;
+                count_pierre_J2.setText(String.valueOf(tmp_count));
             }
         });
 
@@ -653,28 +716,36 @@ public class HUD {
         plus_ble_J1.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
+                int tmp_count = Integer.valueOf(count_ble_J1.getText().toString());
+                tmp_count++;
+                count_ble_J1.setText(String.valueOf(tmp_count));
             }
         });
 
         minus_ble_J1.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
+                int tmp_count = Integer.valueOf(count_ble_J1.getText().toString());
+                tmp_count--;
+                count_ble_J1.setText(String.valueOf(tmp_count));
             }
         });
 
         plus_ble_J2.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
+                int tmp_count = Integer.valueOf(count_ble_J2.getText().toString());
+                tmp_count++;
+                count_ble_J2.setText(String.valueOf(tmp_count));
             }
         });
 
         minus_ble_J2.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
+                int tmp_count = Integer.valueOf(count_ble_J2.getText().toString());
+                tmp_count--;
+                count_ble_J2.setText(String.valueOf(tmp_count));
             }
         });
 
@@ -753,6 +824,14 @@ public class HUD {
             public void clicked(InputEvent event, float x, float y) {
                 pionWindows.setVisible(false);
 
+            }
+        });
+
+        //Touch listener bouton cancelpion
+        pionsCancel.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.getPartie().setTypeStructure(0);
             }
         });
     }
