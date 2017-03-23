@@ -120,8 +120,8 @@ public class Plateau {
         Tuile t = null;
         for (int i=0 ; i<listeTuiles.size() ; i++) {
             if (listeTuiles.get( i ).getType() == Constantes.DESERT) {
-                System.out.println("trouvé le desert");
-               t = listeTuiles.get( i);
+                //System.out.println("trouvé le desert");
+                t = listeTuiles.get( i);
                 break;
             }
         }
@@ -241,8 +241,8 @@ public class Plateau {
         for (Tuile h : listeTuiles) {
             if (h.getType() != Constantes.DESERT)
                 h.affecterJeton( stackJetons.pop() );
-            else
-                System.out.println( "J'ai trouve le desert" );
+            //else
+                //System.out.println( "J'ai trouve le desert" );
         }
     }
 

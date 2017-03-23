@@ -5,6 +5,7 @@ import com.mygdx.game.Screen.HUD;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  * <b> Partie est la classe représentant le partie du jeu</b>
@@ -81,7 +82,7 @@ public class Partie {
         creerDes();
         joueurActif = joueurs[0];
         donnerRessourcesDepart();
-        //nouveauTour();
+        premierTour();
     }
 
     /**
@@ -138,15 +139,28 @@ public class Partie {
         }
     }
 
+    public void premierTour() {
+        de1.lancer();
+        de2.lancer();
+        activerVoleur();
+        donnerRessourcesAuxJoueurs(de1.getValeur() + de2.getValeur());
+    }
     /**
      * Début du nouveau tour
      */
     public void nouveauTour() {
         hud.afficherMessage("Nouveau tour", "C'est au tour du joueur : " + Constantes.couleurJoueur(joueurActif.getCouleur()));
+        for (int i=0 ; i<joueurs.length ; i++ ) {
+            System.out.println("Joueur "+i+"\t"+joueurs[i].getRessourcesString());
+        }
         de1.lancer();
         de2.lancer();
         activerVoleur();
         donnerRessourcesAuxJoueurs(de1.getValeur() + de2.getValeur());
+        System.out.println("Valeur des dés :"+(de1.getValeur() + de2.getValeur()));
+        for (int i=0 ; i<joueurs.length ; i++ ) {
+            System.out.println("Joueur "+i+"\t"+joueurs[i].getRessourcesString());
+        }
     }
 
     /**
@@ -154,10 +168,10 @@ public class Partie {
      */
     public void verifierPointsVictoire() {
         if (joueurActif.getPoints() >= Constantes.POINTS_VICTOIRE_MAX) {
-            System.out.println("Le joueur " + joueurActif.toString() + " a gagné");
+            //System.out.println("Le joueur " + joueurActif.toString() + " a gagné");
             hud.afficherMessage("Vainqueur de la partie : joueur " + Constantes.couleurJoueur(joueurActif.getCouleur()), "Vous avez gagné !");
         } else {
-            System.out.println("Le joueur " + joueurActif.toString() + "n'a pas atteint 10 PV");
+            //System.out.println("Le joueur " + joueurActif.toString() + "n'a pas atteint 10 PV");
         }
     }
 
@@ -181,10 +195,9 @@ public class Partie {
     }
 
     public void activerVoleur() {
-        //if(de1.getValeur()+de2.getValeur() == 7)
-        //{
-        plateau.getVoleur().setActif(true);
-        //}
+        if(de1.getValeur()+de2.getValeur() == 7)  {
+            plateau.getVoleur().setActif(true);
+        }
     }
 
     /**
@@ -235,19 +248,17 @@ public class Partie {
     public void actionVoleur(Tuile t) {
         // On deplace le voleur sur la tuile que le joueur a choisi
         plateau.getVoleur().setTuile(t);
-        int nbCartes = 0;
+
         // On parcourt les joueurs
         for (int i = 0; i < this.getJoueurs().length; i++) {
+            int nbCartes = 0;
             // Si le joueur n'est pas le joueur actif
             if (this.getJoueurs()[i] != joueurActif) {
                 // On parcourt les ressources
                 for (int k = Constantes.NUMERO_RESSOURCE_MIN; k < Constantes.TAILLE_TABLEAU_RESSOURCE; k++) {
-                    // On parcourt toutes les ressources
-                    for (int l = 0; l < this.getJoueurs()[i].getPaquetRessources().getRessources().length; l++) {
-                        // On compte le nombre de ressources
-                        nbCartes += this.getJoueurs()[i].getPaquetRessources().getRessources()[l];
-                    }
+                    nbCartes += getJoueurs()[i].getPaquetRessources().getRessources()[k];
                 }
+                System.err.println("nb cartes " + nbCartes);
                 // Si le joueur a plus de sept cartes
                 if (nbCartes > 7) {
                     int nbCartesRetirees = 0;
@@ -255,17 +266,25 @@ public class Partie {
                         Random r = new Random();
                         int a;
                         a = Constantes.NUMERO_RESSOURCE_MIN + r.nextInt(Constantes.NUMERO_RESSOURCE_MAX - Constantes.NUMERO_RESSOURCE_MIN + 1);
-                        System.out.println("L'aleatoire est : " + a);
-
+                        //System.out.println("L'aleatoire est : " + a);
+                        //System.out.println(this.getJoueurs()[i].getRessourcesString());
+                        //System.out.println(this.getJoueurs()[i].getPaquetRessources().getRessources()[a]);
                         if (this.getJoueurs()[i].getPaquetRessources().getRessources()[a] >= 1) {
-                            System.out.println("On peut retirer");
+                            //System.out.println("On peut retirer");
                             PaquetRessources.recevoirRessource(plateau.getRessources(), getJoueurs()[i].getPaquetRessources(), a, 1);
                             nbCartesRetirees++;
                         }
+
                     }
                 }
             }
         }
+        try {
+            plateau.getVoleur().setActif(false);
+        }
+        catch (Exception e) {
+            System.err.println(e.getMessage());
+    }
     }
 
 

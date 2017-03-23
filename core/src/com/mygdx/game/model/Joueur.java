@@ -263,7 +263,7 @@ public class Joueur {
     public String getRessourcesString() {
         String s = "";
         for (int i = Constantes.NUMERO_RESSOURCE_MIN; i <= Constantes.NUMERO_RESSOURCE_MAX; i++) {
-            s += Constantes.nomRessource( i ) + " : " + ressources.getRessources()[i] + "\n";
+            s += Constantes.nomRessource( i ) + " : " + ressources.getRessources()[i] + "\t";
         }
         return s;
     }

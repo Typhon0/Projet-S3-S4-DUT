@@ -237,7 +237,8 @@ public class GameScreen implements Screen, InputProcessor {
                     Partie.getHud().afficherMessage("ok","ok");
                     //v.setTuile(t);
                     game.getPartie().actionVoleur(t);
-                }
+
+            }
             }
         }
         else {
