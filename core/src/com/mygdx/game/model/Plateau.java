@@ -2,7 +2,6 @@ package com.mygdx.game.model;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g3d.utils.shapebuilders.ConeShapeBuilder;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.autre.StackNonRedimensionnable;
 
@@ -127,7 +126,7 @@ public class Plateau {
             }
         }
         if (t != null) {
-            voleur.deplacer( t );
+            voleur.setTuile( t );
         }
         else {
             System.err.println("Erreur de placement du voleur sur le désert");

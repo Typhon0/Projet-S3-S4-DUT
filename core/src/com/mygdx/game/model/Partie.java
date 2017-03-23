@@ -1,3 +1,4 @@
+
 package com.mygdx.game.model;
 
 import com.mygdx.game.Screen.HUD;
@@ -85,10 +86,10 @@ public class Partie {
      * Crée les 4 joueurs
      */
     public void creerJoueurs() {
-        Joueur j1 = new Joueur(  Constantes.COULEUR_ROUGE );
-        Joueur j2 = new Joueur( Constantes.COULEUR_BLEU );
-        Joueur j3 = new Joueur( Constantes.COULEUR_VERT );
-        Joueur j4 = new Joueur(  Constantes.COULEUR_JAUNE );
+        Joueur j1 = new Joueur(Constantes.COULEUR_ROUGE);
+        Joueur j2 = new Joueur(Constantes.COULEUR_BLEU);
+        Joueur j3 = new Joueur(Constantes.COULEUR_VERT);
+        Joueur j4 = new Joueur(Constantes.COULEUR_JAUNE);
         joueurs = new Joueur[]{j1, j2, j3, j4};
     }
 
@@ -122,7 +123,7 @@ public class Partie {
      */
     public void joueurSuivant() {
         for (int i = 0; i < joueurs.length; i++) {
-            if (joueurActif.equals( joueurs[i] )) {
+            if (joueurActif.equals(joueurs[i])) {
                 if (i != joueurs.length - 1) {
                     joueurActif = joueurs[i + 1];
                     //System.out.println("suivant");
@@ -139,10 +140,10 @@ public class Partie {
      * Début du nouveau tour
      */
     public void nouveauTour() {
-        hud.afficherMessage( "Nouveau tour", "C'est au tour du joueur : " + Constantes.couleurJoueur( joueurActif.getCouleur() ) );
+        hud.afficherMessage("Nouveau tour", "C'est au tour du joueur : " + Constantes.couleurJoueur(joueurActif.getCouleur()));
         de1.lancer();
         de2.lancer();
-        donnerRessourcesAuxJoueurs( de1.getValeur() + de2.getValeur() );
+        donnerRessourcesAuxJoueurs(de1.getValeur() + de2.getValeur());
     }
 
     /**
@@ -150,10 +151,10 @@ public class Partie {
      */
     public void verifierPointsVictoire() {
         if (joueurActif.getPoints() >= Constantes.POINTS_VICTOIRE_MAX) {
-            System.out.println( "Le joueur " + joueurActif.toString() + " a gagné" );
-            hud.afficherMessage( "Vainqueur de la partie : joueur " + Constantes.couleurJoueur( joueurActif.getCouleur() ), "Vous avez gagné !" );
+            System.out.println("Le joueur " + joueurActif.toString() + " a gagné");
+            hud.afficherMessage("Vainqueur de la partie : joueur " + Constantes.couleurJoueur(joueurActif.getCouleur()), "Vous avez gagné !");
         } else {
-            System.out.println( "Le joueur " + joueurActif.toString() + "n'a pas atteint 10 PV" );
+            System.out.println("Le joueur " + joueurActif.toString() + "n'a pas atteint 10 PV");
         }
     }
 
@@ -162,17 +163,17 @@ public class Partie {
      */
     public void donnerRessourcesDepart() {
         for (int i = 0; i < joueurs.length; i++) {
-            PaquetRessources.recevoirRessource( joueurs[i].getRessources(), plateau.getRessources(), Constantes.ARGILE, Constantes.MONTANT_RESSOURCE_DEPART_ARGILE );
-            PaquetRessources.recevoirRessource( joueurs[i].getRessources(), plateau.getRessources(), Constantes.BLE, Constantes.MONTANT_RESSOURCE_DEPART_BLE );
-            PaquetRessources.recevoirRessource( joueurs[i].getRessources(), plateau.getRessources(), Constantes.MINERAI, Constantes.MONTANT_RESSOURCE_DEPART_MINERAI );
-            PaquetRessources.recevoirRessource( joueurs[i].getRessources(), plateau.getRessources(), Constantes.BOIS, Constantes.MONTANT_RESSOURCE_DEPART_BOIS );
-            PaquetRessources.recevoirRessource( joueurs[i].getRessources(), plateau.getRessources(), Constantes.LAINE, Constantes.MONTANT_RESSOURCE_DEPART_LAINE );
+            PaquetRessources.recevoirRessource(joueurs[i].getRessources(), plateau.getRessources(), Constantes.ARGILE, Constantes.MONTANT_RESSOURCE_DEPART_ARGILE);
+            PaquetRessources.recevoirRessource(joueurs[i].getRessources(), plateau.getRessources(), Constantes.BLE, Constantes.MONTANT_RESSOURCE_DEPART_BLE);
+            PaquetRessources.recevoirRessource(joueurs[i].getRessources(), plateau.getRessources(), Constantes.MINERAI, Constantes.MONTANT_RESSOURCE_DEPART_MINERAI);
+            PaquetRessources.recevoirRessource(joueurs[i].getRessources(), plateau.getRessources(), Constantes.BOIS, Constantes.MONTANT_RESSOURCE_DEPART_BOIS);
+            PaquetRessources.recevoirRessource(joueurs[i].getRessources(), plateau.getRessources(), Constantes.LAINE, Constantes.MONTANT_RESSOURCE_DEPART_LAINE);
         }
     }
 
     public void afficherPointsVictoire() {
         for (int i = 0; i < joueurs.length; i++) {
-            System.out.println( "Joueur " + i + " " + joueurs[i].getPoints() );
+            System.out.println("Joueur " + i + " " + joueurs[i].getPoints());
         }
     }
 
@@ -182,13 +183,12 @@ public class Partie {
      * @param sommeDes Résultat de la somme des deux dés
      */
     public void donnerRessourcesAuxJoueurs(int sommeDes) {
-        ArrayList<Tuile> liste = getListeTuileJeton( sommeDes );
+        ArrayList<Tuile> liste = getListeTuileJeton(sommeDes);
         for (int i = 0; i < liste.size(); i++) {
-            Tuile t = liste.get( i );
-            if(!plateau.getVoleur().getTuile().equals(t))
-            {
-                for (int j = 0; j < liste.get( i ).getListeSitesConstruction().size(); j++) {
-                    SiteConstruction sc = liste.get( i ).getListeSitesConstruction().get( j );
+            Tuile t = liste.get(i);
+            if (!plateau.getVoleur().getTuile().equals(t)) {
+                for (int j = 0; j < liste.get(i).getListeSitesConstruction().size(); j++) {
+                    SiteConstruction sc = liste.get(i).getListeSitesConstruction().get(j);
                     if (sc.isEstConstruit()) {
                         Structure s = sc.getStructure();
                         Joueur joueur = s.getJoueur();
@@ -196,22 +196,22 @@ public class Partie {
                         valeur = (s.getTypeStructure() == Constantes.VILLE) ? 2 : 1;
                         switch (t.getType()) {
                             case Constantes.FORET:
-                                PaquetRessources.recevoirRessource( joueur.getRessources(), plateau.getRessources(), Constantes.BOIS, valeur );
+                                PaquetRessources.recevoirRessource(joueur.getRessources(), plateau.getRessources(), Constantes.BOIS, valeur);
                                 break;
                             case Constantes.PRE:
-                                PaquetRessources.recevoirRessource( joueur.getRessources(), plateau.getRessources(), Constantes.LAINE, valeur );
+                                PaquetRessources.recevoirRessource(joueur.getRessources(), plateau.getRessources(), Constantes.LAINE, valeur);
                                 break;
                             case Constantes.MONTAGNE:
-                                PaquetRessources.recevoirRessource( joueur.getRessources(), plateau.getRessources(), Constantes.MINERAI, valeur );
+                                PaquetRessources.recevoirRessource(joueur.getRessources(), plateau.getRessources(), Constantes.MINERAI, valeur);
                                 break;
                             case Constantes.COLLINE:
-                                PaquetRessources.recevoirRessource( joueur.getRessources(), plateau.getRessources(), Constantes.ARGILE, valeur );
+                                PaquetRessources.recevoirRessource(joueur.getRessources(), plateau.getRessources(), Constantes.ARGILE, valeur);
                                 break;
                             case Constantes.CHAMP:
-                                PaquetRessources.recevoirRessource( joueur.getRessources(), plateau.getRessources(), Constantes.BLE, valeur );
+                                PaquetRessources.recevoirRessource(joueur.getRessources(), plateau.getRessources(), Constantes.BLE, valeur);
                                 break;
                             default:
-                                System.err.println( "Erreur donnerRessourceAuxJoueurs t.getTypeTuile deuxieme switch " );
+                                System.err.println("Erreur donnerRessourceAuxJoueurs t.getTypeTuile deuxieme switch ");
                                 break; // ne doit jamais se produire
                         }
                     }
@@ -222,35 +222,28 @@ public class Partie {
     }
 
     // Methode qui est utilisee lorsque le joueur fait 7 aux des et qu'il choisit ou il place le voleur (joueur et la tuile ciblee en parametres)
-    public void actionVoleur(Joueur j, Tuile t)
-    {
+    public void actionVoleur(Joueur j, Tuile t) {
         // On deplace le voleur sur la tuile que le joueur a choisi
         plateau.getVoleur().setTuile(t);
         int nbCartes = 0;
         // On parcourt les joueurs
-        for(int i=0; i<this.getJoueurs().length; i++)
-        {
+        for (int i = 0; i < this.getJoueurs().length; i++) {
             // Si le joueur n'est pas le joueur actif
-            if(this.getJoueurs()[i] != j)
-            {
+            if (this.getJoueurs()[i] != j) {
                 // On parcourt les ressources
-                for(int k=0; k<Constantes.TAILLE_TABLEAU_RESSOURCE; k++)
-                {
+                for (int k = 0; k < Constantes.TAILLE_TABLEAU_RESSOURCE; k++) {
                     // On parcourt toutes les ressources
-                    for (int l = 0; l < this.getJoueurs()[i].getRessources().getRessources().length; l++)
-                    {
+                    for (int l = 0; l < this.getJoueurs()[i].getRessources().getRessources().length; l++) {
                         // On compte le nombre de ressources
                         nbCartes += this.getJoueurs()[i].getRessources().getRessources()[l];
                     }
                 }
                 // Si le joueur a plus de sept cartes
-                if(nbCartes > 7)
-                {
+                if (nbCartes > 7) {
                     // On enleve aleatoirement la moitie du nombre de ses cartes
-                    for(int m=0; m<nbCartes/2; m++)
-                    {
+                    for (int m = 0; m < nbCartes / 2; m++) {
                         // Nombre aleatoire
-                        int r = (int)Math.random()*((nbCartes-0) + 0);
+                        int r = (int) Math.random() * ((nbCartes - 0) + 0);
                         // On retire la ressource
                         this.getJoueurs()[i].getRessources().retirerRessource(this.getJoueurs()[i].getRessources().getRessources()[r], 1);
                     }
@@ -258,11 +251,11 @@ public class Partie {
             }
         }
     }
+
     // Vol d'une ressource aupres d'un des joueurs adjacents apres avoir deplace le voleur (et apres la methode actionVoleur ci-dessus)
-    public void volJoueur(Joueur j, Joueur j2)
-    {
+    public void volJoueur(Joueur j, Joueur j2) {
         // On choisit une carte aleatoire
-        int r = (int)(Math.random()*((j2.getRessources().getRessources().length-1)-0) + 0);
+        int r = (int) (Math.random() * ((j2.getRessources().getRessources().length - 1) - 0) + 0);
         // On stocke la valeur qui se trouve a cet indice dans une variable a
         int a = j2.getRessources().getRessources()[r];
         // On ajoute la carte volee au joueur
@@ -280,8 +273,8 @@ public class Partie {
     public ArrayList<Tuile> getListeTuileJeton(int sommeDes) {
         ArrayList<Tuile> liste = new ArrayList<Tuile>();
         for (int i = 0; i < plateau.getListeTuiles().size(); i++) {
-            if (plateau.getListeTuiles().get( i ).getJeton().getValeur() == sommeDes) {
-                liste.add( plateau.getListeTuiles().get( i ) );
+            if (plateau.getListeTuiles().get(i).getJeton().getValeur() == sommeDes) {
+                liste.add(plateau.getListeTuiles().get(i));
             }
         }
         return liste;
@@ -362,3 +355,5 @@ public class Partie {
         this.joueurAQuiOnVeutEchanger = joueurAQuiOnVeutEchanger;
     }
 }
+
+
