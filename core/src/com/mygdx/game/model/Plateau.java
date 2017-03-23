@@ -19,6 +19,7 @@ import java.util.*;
  * <li>La liste des tuiles et des ports/mer</li>
  * <li>Les paquets de terrains et de jetons (piles)</li>
  * <li>Les ressources du plateau de jeu</li>
+ * <li>Le voleur</li>
  * </ul>
  * </p>
  *
@@ -57,12 +58,12 @@ public class Plateau {
     /**
      * Toutes les Textures de jeton et des tuiles
      */
-    private static Texture JETON_2, JETON_3, JETON_4, JETON_5, JETON_6, JETON_8, JETON_9, JETON_10, JETON_11, JETON_12, FORET, PRE, CHAMP, COLLINE, MONTAGNE, DESERT, MER, PORT;
+    private static Texture JETON_2, JETON_3, JETON_4, JETON_5, JETON_6, JETON_8, JETON_9, JETON_10, JETON_11, JETON_12, FORET, PRE, CHAMP, COLLINE, MONTAGNE, DESERT, MER, PORT,TRANSPARENT;
 
     /**
      * Toutes les textures des pions
      */
-    private static Texture VILLE_ROUGE, COLONIE_ROUGE, ROUTE_ROUGE, VILLE_BLEU, COLONIE_BLEU, ROUTE_BLEU, VILLE_VERT, COLONIE_VERT, ROUTE_VERT, VILLE_JAUNE, COLONIE_JAUNE, ROUTE_JAUNE;
+    private static Texture VILLE_ROUGE, COLONIE_ROUGE, ROUTE_ROUGE, VILLE_BLEU, COLONIE_BLEU, ROUTE_BLEU, VILLE_VERT, COLONIE_VERT, ROUTE_VERT, VILLE_JAUNE, COLONIE_JAUNE, ROUTE_JAUNE,VOLEUR;
 
     /**
      * Liste des tuiles du plateau
@@ -90,6 +91,10 @@ public class Plateau {
     private Texture textureMer;
 
     /**
+     * Voleur
+     */
+    private Voleur voleur;
+    /**
      * Le paquet de ressources du plateau de jeu
      */
     private static PaquetRessources ressources;
@@ -110,6 +115,24 @@ public class Plateau {
         ressources.remplir();
     }
 
+    public void placerVoleurSurDesert() {
+        voleur = new Voleur();
+        Tuile t = null;
+        for (int i=0 ; i<listeTuiles.size() ; i++) {
+            if (listeTuiles.get( i ).getType() == Constantes.DESERT) {
+                System.out.println("trouvé le desert");
+               t = listeTuiles.get( i);
+                break;
+            }
+        }
+        if (t != null) {
+            voleur.deplacer( t );
+        }
+        else {
+            System.err.println("Erreur de placement du voleur sur le désert");
+        }
+    }
+
     /**
      * Génère le plateau de jeu ainsi que ses composants
      */
@@ -126,6 +149,8 @@ public class Plateau {
 
         fusionnerSiteConstruction();
         fusionnerSiteConstructionRoute();
+
+        placerVoleurSurDesert();
     }
 
     /**
@@ -422,6 +447,18 @@ public class Plateau {
         } catch (Exception e) {
             messageErreur += "Erreur lors du chargement de la texture : " + Constantes.CHEMIN_ACCES_PIONS + "route_jaune.png" + "\n";
         }
+        // Transparent
+        try {
+            TRANSPARENT = new Texture( Gdx.files.internal( Constantes.CHEMIN_ACCES_JETONS + "transparent.png" ) );
+        } catch (Exception e) {
+            messageErreur += "Erreur lors du chargement de la texture : " + Constantes.CHEMIN_ACCES_JETONS + "transparent.png" + "\n";
+        }
+        // Voleur
+        try {
+            VOLEUR = new Texture( Gdx.files.internal( Constantes.CHEMIN_ACCES_VOLEUR + "voleur.png" ) );
+        } catch (Exception e) {
+            messageErreur += "Erreur lors du chargement de la texture : " + Constantes.CHEMIN_ACCES_VOLEUR + "voleur.png" + "\n";
+        }
         System.err.println( messageErreur );
     }
 
@@ -576,6 +613,18 @@ public class Plateau {
 
     public com.mygdx.game.autre.StackNonRedimensionnable<Integer> getStackTerrains() {
         return stackTerrains;
+    }
+
+    public static Texture getTRANSPARENT() {
+        return TRANSPARENT;
+    }
+
+    public static Texture getVOLEUR() {
+        return VOLEUR;
+    }
+
+    public Voleur getVoleur() {
+        return voleur;
     }
 
     public StackNonRedimensionnable<Jeton> getStackJetons() {

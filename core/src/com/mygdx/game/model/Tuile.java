@@ -83,7 +83,7 @@ public class Tuile {
     public Tuile(Vector2 center, float taille) {
         this.center = center;
         this.taille = taille;
-        this.jeton = new Jeton(3);
+        this.jeton = new Jeton(0);
         this.deltaX = (float) ((Math.sqrt(3) * taille) / 2);
 
         listeSommets = new ArrayList<Vector2>();

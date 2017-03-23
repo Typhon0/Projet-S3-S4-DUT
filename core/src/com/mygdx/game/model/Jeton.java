@@ -71,12 +71,13 @@ public class Jeton {
     /**
      * Affecte au jeton sa texteture en fonction de sa valeur.
      * Ex : Si la valeur du jeton est 2, on lui affecte la texture du jeton 2.
-     *
+     * Pour le desert, on affecte une texture transparente sans incidence
      * @see Plateau#getJeton2()
      * @see Jeton#valeur
      * @see Jeton#textureJeton
      */
     public void affecterTexture() {
+
         if (valeur == Constantes.JETON_2)
             textureJeton = Plateau.getJeton2();
         else if (valeur == Constantes.JETON_3)
@@ -98,7 +99,7 @@ public class Jeton {
         else if (valeur == Constantes.JETON_12)
             textureJeton = Plateau.getJeton12();
         else {
-            textureJeton = null;
+            textureJeton = Plateau.getTRANSPARENT();
             System.err.println( "Valeur du jeton incorrecte" );
         }
     }

@@ -1,38 +1,37 @@
 package com.mygdx.game.model;
 
-import java.util.ArrayList;
-import java.util.Random;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector2;
 
 /**
  * Created by robrinne on 18/03/2017.
  */
 
-public class Voleur
-{
-    private Tuile position;
-/*
-    public Voleur(Tuile t)
-    {
-        this.position = t;
+public class Voleur {
+    private Tuile tuile;
+    private Vector2 position;
+    private Texture texture;
+
+    public Voleur() {
+        texture = Plateau.getVOLEUR();
     }
 
-    public Tuile getPosition()
-    {
-        return this.position;
+    public Voleur(Tuile t) {
+        this.tuile = t;
+        texture = Plateau.getVOLEUR();
     }
 
-    public void deplacer(Tuile t)
-    {
-        this.position = t;
+
+
+    public void deplacer(Tuile t) {
+        this.tuile = t;
     }
 
     // Verifie si le voleur est a la tuile placee en parametre
-    public boolean tuileVoleur(Tuile t)
-    {
+    public boolean tuileVoleur(Tuile t) {
         boolean b = false;
 
-        if(this.getPosition() == t)
-        {
+        if (this.getTuile() == t) {
             b = true;
         }
 
@@ -40,6 +39,7 @@ public class Voleur
     }
 
     // Methode qui est utilisee lorsque le joueur fait 7 aux des et qu'il choisit ou il place le voleur (joueur et la tuile ciblee en parametres)
+    /*
     public void actionVoleur(Partie p, Joueur j, Tuile t)
     {
         // On deplace le voleur sur la tuile que le joueur a choisi
@@ -66,21 +66,43 @@ public class Voleur
             }
         }
     }
-
+*/
     // Vol d'une ressource aupres d'un des joueurs adjacents apres avoir deplace le voleur (et apres la methode actionVoleur ci-dessus)
-    public void volJoueur(Joueur j, Joueur j2)
-    {
+    public void volJoueur(Joueur j, Joueur j2) {
         // On choisit une carte aleatoire
-        int r = (int)(Math.random()*((j2.getRessources().getRessources().length-1)-0) + 0);
+        int r = (int) (Math.random() * ((j2.getRessources().getRessources().length - 1) - 0) + 0);
         // On stocke la valeur qui se trouve a cet indice dans une variable a
         int a = j2.getRessources().getRessources()[r];
 
         // On ajoute la carte volee au joueur
-        j.getRessources().ajouterRessource(a, 1);
+        j.getRessources().ajouterRessource( a, 1 );
 
         // On enleve la carte au joueur 2
-        j2.getRessources().retirerRessource(a, 1);
+        j2.getRessources().retirerRessource( a, 1 );
     }
-*/
+
+    public Tuile getTuile() {
+        return this.tuile;
+    }
+
+    public void setTuile(Tuile tuile) {
+        this.tuile = tuile;
+    }
+
+    public Vector2 getPosition() {
+        return position;
+    }
+
+    public void setPosition(Vector2 position) {
+        this.position = position;
+    }
+
+    public Texture getTexture() {
+        return texture;
+    }
+
+    public void setTexture(Texture texture) {
+        this.texture = texture;
+    }
 }
 

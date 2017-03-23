@@ -30,6 +30,7 @@ import com.mygdx.game.model.Plateau;
 import com.mygdx.game.model.SiteConstruction;
 import com.mygdx.game.model.State;
 import com.mygdx.game.model.Tuile;
+import com.mygdx.game.model.Voleur;
 
 import java.util.ArrayList;
 
@@ -167,7 +168,7 @@ public class GameScreen implements Screen, InputProcessor {
 
         }
 
-        game.batch.begin();
+
 
         // Affichage de chaque Site de construction et de route du plateau et non des joueurs
         /*
@@ -189,8 +190,15 @@ public class GameScreen implements Screen, InputProcessor {
         }
         */
 
-        // Affichage des structures de chaque joueur
+        // Afficher le voleur
+        Voleur v = game.getPartie().getPlateau().getVoleur();
+        Tuile t = v.getTuile();
 
+        game.batch.begin();
+
+        game.batch.draw( v.getTexture(), t.getCoinInferieurGaucheJeton().x,t.getCoinInferieurGaucheJeton().y,DELTA_X,DELTA_X);
+
+        // Affichage des structures de chaque joueur
         for (int i =0 ; i<game.getPartie().getJoueurs().length ; i++) {
             for (int j=0 ; j<game.getPartie().getJoueurs()[i].getListeStructures().size() ; j++) {
                 game.batch.draw( game.getPartie().getJoueurs()[i].getListeStructures().get( j ).getTexture(),

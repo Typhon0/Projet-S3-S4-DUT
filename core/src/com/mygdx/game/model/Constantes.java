@@ -1,5 +1,7 @@
 package com.mygdx.game.model;
 
+import com.badlogic.gdx.Gdx;
+
 /**
  * Cette classe sert à définir toutes les constantes qui sont utilisées dans le programme ainsi que des méthodes utilitaires.
  * Pour faire varier des données du jeu, il suffit de modifier les valeurs de ces constantes
@@ -9,6 +11,9 @@ public class Constantes {
     /*
 
      */
+    public static final int TAILLE_TUILE = Gdx.graphics.getHeight() / 10;
+    public static final float DELTA_X = (float) Math.sqrt( 3 ) * TAILLE_TUILE / 2;
+
     public static final int MONTANT_RESSOURCE_MAXIMUM = 1000; // montant maximum de ressources par type
     public static final int MONTANT_RESSOURCE_DEPART_BOIS = 100;
     public static final int MONTANT_RESSOURCE_DEPART_LAINE = 100;
@@ -153,6 +158,7 @@ public class Constantes {
     public static final String CHEMIN_ACCES_RESSOURCES = "textures/ressources/";
     public static final String CHEMIN_ACCES_TUILES = "textures/tuiles/";
     public static final String CHEMIN_ACCES_UI = "ui/";
+    public static final String CHEMIN_ACCES_VOLEUR = "textures/pions/";
 
     public static final int DISTANCE_TUILE_X = 32;
     public static final int DISTANCE_SITE_CONSTRUCTION_X = 16;

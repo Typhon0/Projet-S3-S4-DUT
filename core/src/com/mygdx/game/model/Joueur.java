@@ -164,7 +164,7 @@ public class Joueur {
                     if (estAchetable( cout )) {
                         paquetStructures[Constantes.COLONIE]--; // décrémente de 1 le nombre de villes restantes
                         acheter( cout ); // achète le cout de la ville
-                        //System.out.println("Coordonnées de la strucure : "+new Vector2( sc.getPosition().x, sc.getPosition().y ).toString());
+                        //System.out.println("Coordonnées de la strucure : "+new Vector2( sc.getTuile().x, sc.getTuile().y ).toString());
                         Structure s = new Structure( this, sc, new Vector2( sc.getPosition().x, sc.getPosition().y ), Constantes.COLONIE ); // Création de la structure
                         s.affecterTexture(); // affecte la texture à la structure selon son type de structure
                         ajouterStructure( s ); // ajoute la structure à la liste de structures du joueur
@@ -207,7 +207,7 @@ public class Joueur {
                     if (estAchetable( cout )) {
                         paquetStructures[Constantes.ROUTE]--; // décrémente de 1 le nombre de villes restantes
                         acheter( cout ); // achète le cout de la ville
-                        //System.out.println("Coordonnées de la strucure : "+new Vector2( sc.getPosition().x, sc.getPosition().y ).toString());
+                        //System.out.println("Coordonnées de la strucure : "+new Vector2( sc.getTuile().x, sc.getTuile().y ).toString());
                         Structure s = new Structure( this, sc, new Vector2( sc.getPosition().x, sc.getPosition().y ), Constantes.ROUTE ); // Création de la structure
                         s.affecterTexture(); // affecte la texture à la structure selon son type de structure
                         ajouterStructure( s ); // ajoute la structure à la liste de structures du joueur
