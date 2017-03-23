@@ -226,6 +226,15 @@ public class GameScreen implements Screen, InputProcessor {
         System.out.println("Le pixel (Corrigé) " + screenX + " " + screenY + " a été touché");
 
         Joueur joueur = game.getPartie().getJoueurActif();
+        if (game.getPartie().getPlateau().getDeplacerVoleur()) {
+            // on déplace le voleur
+            // puis on désactive le voleur
+        }
+
+        else {
+
+        }
+
         // Si une construction a été sélectionnée
         if (game.getPartie().getTypeStructure() >= Constantes.NUMERO_STRUCTURE_MIN && game.getPartie().getTypeStructure() <=Constantes.NUMERO_STRUCTURE_MAX) {
             for (int i = 0; i < game.getPartie().getPlateau().getListeTuiles().size(); i++) {
