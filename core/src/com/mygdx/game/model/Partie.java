@@ -185,36 +185,90 @@ public class Partie {
         ArrayList<Tuile> liste = getListeTuileJeton( sommeDes );
         for (int i = 0; i < liste.size(); i++) {
             Tuile t = liste.get( i );
-            for (int j = 0; j < liste.get( i ).getListeSitesConstruction().size(); j++) {
-                SiteConstruction sc = liste.get( i ).getListeSitesConstruction().get( j );
-                if (sc.isEstConstruit()) {
-                    Structure s = sc.getStructure();
-                    Joueur joueur = s.getJoueur();
-                    int valeur = 0;
-                    valeur = (s.getTypeStructure() == Constantes.VILLE) ? 2 : 1;
-                    switch (t.getType()) {
-                        case Constantes.FORET:
-                            PaquetRessources.recevoirRessource( joueur.getRessources(), plateau.getRessources(), Constantes.BOIS, valeur );
-                            break;
-                        case Constantes.PRE:
-                            PaquetRessources.recevoirRessource( joueur.getRessources(), plateau.getRessources(), Constantes.LAINE, valeur );
-                            break;
-                        case Constantes.MONTAGNE:
-                            PaquetRessources.recevoirRessource( joueur.getRessources(), plateau.getRessources(), Constantes.MINERAI, valeur );
-                            break;
-                        case Constantes.COLLINE:
-                            PaquetRessources.recevoirRessource( joueur.getRessources(), plateau.getRessources(), Constantes.ARGILE, valeur );
-                            break;
-                        case Constantes.CHAMP:
-                            PaquetRessources.recevoirRessource( joueur.getRessources(), plateau.getRessources(), Constantes.BLE, valeur );
-                            break;
-                        default:
-                            System.err.println( "Erreur donnerRessourceAuxJoueurs t.getTypeTuile deuxieme switch " );
-                            break; // ne doit jamais se produire
+            if(!plateau.getVoleur().getTuile().equals(t))
+            {
+                for (int j = 0; j < liste.get( i ).getListeSitesConstruction().size(); j++) {
+                    SiteConstruction sc = liste.get( i ).getListeSitesConstruction().get( j );
+                    if (sc.isEstConstruit()) {
+                        Structure s = sc.getStructure();
+                        Joueur joueur = s.getJoueur();
+                        int valeur = 0;
+                        valeur = (s.getTypeStructure() == Constantes.VILLE) ? 2 : 1;
+                        switch (t.getType()) {
+                            case Constantes.FORET:
+                                PaquetRessources.recevoirRessource( joueur.getRessources(), plateau.getRessources(), Constantes.BOIS, valeur );
+                                break;
+                            case Constantes.PRE:
+                                PaquetRessources.recevoirRessource( joueur.getRessources(), plateau.getRessources(), Constantes.LAINE, valeur );
+                                break;
+                            case Constantes.MONTAGNE:
+                                PaquetRessources.recevoirRessource( joueur.getRessources(), plateau.getRessources(), Constantes.MINERAI, valeur );
+                                break;
+                            case Constantes.COLLINE:
+                                PaquetRessources.recevoirRessource( joueur.getRessources(), plateau.getRessources(), Constantes.ARGILE, valeur );
+                                break;
+                            case Constantes.CHAMP:
+                                PaquetRessources.recevoirRessource( joueur.getRessources(), plateau.getRessources(), Constantes.BLE, valeur );
+                                break;
+                            default:
+                                System.err.println( "Erreur donnerRessourceAuxJoueurs t.getTypeTuile deuxieme switch " );
+                                break; // ne doit jamais se produire
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+
+    // Methode qui est utilisee lorsque le joueur fait 7 aux des et qu'il choisit ou il place le voleur (joueur et la tuile ciblee en parametres)
+    public void actionVoleur(Joueur j, Tuile t)
+    {
+        // On deplace le voleur sur la tuile que le joueur a choisi
+        plateau.getVoleur().setTuile(t);
+        int nbCartes = 0;
+        // On parcourt les joueurs
+        for(int i=0; i<this.getJoueurs().length; i++)
+        {
+            // Si le joueur n'est pas le joueur actif
+            if(this.getJoueurs()[i] != j)
+            {
+                // On parcourt les ressources
+                for(int k=0; k<Constantes.TAILLE_TABLEAU_RESSOURCE; k++)
+                {
+                    // On parcourt toutes les ressources
+                    for (int l = 0; l < this.getJoueurs()[i].getRessources().getRessources().length; l++)
+                    {
+                        // On compte le nombre de ressources
+                        nbCartes += this.getJoueurs()[i].getRessources().getRessources()[l];
+                    }
+                }
+                // Si le joueur a plus de sept cartes
+                if(nbCartes > 7)
+                {
+                    // On enleve aleatoirement la moitie du nombre de ses cartes
+                    for(int m=0; m<nbCartes/2; m++)
+                    {
+                        // Nombre aleatoire
+                        int r = (int)Math.random()*((nbCartes-0) + 0);
+                        // On retire la ressource
+                        this.getJoueurs()[i].getRessources().retirerRessource(this.getJoueurs()[i].getRessources().getRessources()[r], 1);
                     }
                 }
             }
         }
+    }
+    // Vol d'une ressource aupres d'un des joueurs adjacents apres avoir deplace le voleur (et apres la methode actionVoleur ci-dessus)
+    public void volJoueur(Joueur j, Joueur j2)
+    {
+        // On choisit une carte aleatoire
+        int r = (int)(Math.random()*((j2.getRessources().getRessources().length-1)-0) + 0);
+        // On stocke la valeur qui se trouve a cet indice dans une variable a
+        int a = j2.getRessources().getRessources()[r];
+        // On ajoute la carte volee au joueur
+        j.getRessources().ajouterRessource(a, 1);
+        // On enleve la carte au joueur 2
+        j2.getRessources().retirerRessource(a, 1);
     }
 
     /**
