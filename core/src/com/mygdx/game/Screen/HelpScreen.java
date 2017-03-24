@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.mygdx.game.Catan;
+import com.mygdx.game.autre.Musique;
 import com.mygdx.game.model.Constantes;
 
 
@@ -28,10 +29,14 @@ public class HelpScreen implements Screen {
     private Skin skin;
     private Stage stage;
     private Catan game;
+    private Musique musique;
+
 
 
     // constructor to keep a reference to the main Game class
-    public HelpScreen(Catan pgame) {
+    public HelpScreen(Catan pgame, Musique mus) {
+        musique = mus;
+
         this.game = pgame;
 
         stage = new Stage(new ExtendViewport(800, 500));
@@ -89,7 +94,7 @@ public class HelpScreen implements Screen {
 
         if (Gdx.input.isKeyPressed(Input.Keys.BACK)) {
             System.out.println("Back pressed");
-            game.setScreen(new MainMenu(game));
+            game.setScreen(new MainMenu(game, musique));
         }
     }
 

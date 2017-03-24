@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.mygdx.game.Catan;
+import com.mygdx.game.autre.Musique;
 import com.mygdx.game.model.Constantes;
 import com.mygdx.game.model.PaquetRessources;
 
@@ -34,12 +35,15 @@ public class HUD {
     public Stage stage;
     private Skin skin;
     private GDXDialogs dialogs;
+    private Musique musique;
 
     public static Catan getGame() {
         return game;
     }
 
-    public HUD(final SpriteBatch sb, final Catan game) {
+    public HUD(final SpriteBatch sb, final Catan game, Musique mus) {
+        musique = mus;
+
         this.game = game;
         this.game.getPartie().setHud(this);
         skin = new Skin(Gdx.files.internal("ui/glassy-ui.json"));
@@ -298,7 +302,7 @@ public class HUD {
             @Override
             public void clicked(InputEvent event, float x, float y) {
 
-                getGame().setScreen(new HelpScreen(getGame()));
+                getGame().setScreen(new HelpScreen(getGame(), musique));
             }
         });
 
@@ -306,7 +310,7 @@ public class HUD {
         settings.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                getGame().setScreen(new OptionScreen(getGame(), true));
+                getGame().setScreen(new OptionScreen(getGame(), true, musique));
             }
         });
 
@@ -373,7 +377,7 @@ public class HUD {
                     Gdx.app.postRunnable(new Runnable() {
                         @Override
                         public void run() {
-                            game.setScreen(new MainMenu(game));
+                            game.setScreen(new MainMenu(game, musique));
                         }
                     });
 

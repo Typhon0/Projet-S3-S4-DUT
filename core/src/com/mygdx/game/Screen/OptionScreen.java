@@ -23,6 +23,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.mygdx.game.Catan;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
+import com.mygdx.game.autre.Musique;
 import com.mygdx.game.model.Constantes;
 
 
@@ -36,10 +37,13 @@ public class OptionScreen implements Screen {
     private Stage stage;
     private Catan game;
     public boolean fromGame;
+    private Musique musique;
 
 
     // constructor to keep a reference to the main Game class
-    public OptionScreen(Catan pgame, final boolean fromGame) {
+    public OptionScreen(Catan pgame, final boolean fromGame, Musique mus) {
+        musique = mus;
+
         this.game = pgame;
         this.fromGame = fromGame;
         stage = new Stage(new ExtendViewport(800, 500));
@@ -67,12 +71,12 @@ public class OptionScreen implements Screen {
         table.add(hardCB).padLeft(10).padTop(-100);
         table.row();
 
-        CheckBox musicCB = new CheckBox("    Musique", skin, "music");
+        final CheckBox musicCB = new CheckBox("    Musique", skin, "music");
         table.add(musicCB).padTop(20).padLeft(40);
         table.row();
 
 
-        CheckBox soundCB = new CheckBox("    Son", skin, "sound");
+        final CheckBox soundCB = new CheckBox("    Son", skin, "sound");
         table.add(soundCB).padTop(20);
         table.row();
 
@@ -104,12 +108,12 @@ public class OptionScreen implements Screen {
             public void clicked(InputEvent event, float x, float y) {
                 save.addAction(Actions.fadeOut(0.7f));
                 //TODO save options
-
+                musique.lancerSon();
                 if (fromGame == true) {
 
-                    game.setScreen(new GameScreen(game));
+                    game.setScreen(new GameScreen(game, musique));
                 }else{
-                    game.setScreen(new MainMenu(game));
+                    game.setScreen(new MainMenu(game, musique));
 
                 }
             }
@@ -120,15 +124,42 @@ public class OptionScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 cancel.addAction(Actions.fadeOut(0.7f));
-
+                musique.lancerSon();
                 if (fromGame == true) {
-
-                    game.setScreen(new GameScreen(game));
+                    game.setScreen(new GameScreen(game, musique));
                 }else{
-                    game.setScreen(new MainMenu(game));
+                    game.setScreen(new MainMenu(game, musique));
 
                 }
 
+            }
+        });
+
+        // listener checkbox musique
+        soundCB.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if(soundCB.isChecked()){
+                    System.out.println("sound destactivate  ");
+                    musique.stopperSon();
+                }
+                else{
+                    System.out.println("sound activate  ");
+                    musique.relancerSon();
+                }
+            }
+        });
+
+        musicCB.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if(musicCB.isChecked()){
+                    System.out.println("music ischecked  ");
+                    musique.stopperMusique();
+                }
+                else {
+                    musique.relancerMusique();
+                }
             }
         });
 

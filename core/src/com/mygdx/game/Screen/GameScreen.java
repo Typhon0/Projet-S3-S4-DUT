@@ -25,6 +25,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.FloatArray;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.mygdx.game.Catan;
+import com.mygdx.game.autre.Musique;
 import com.mygdx.game.model.Constantes;
 import com.mygdx.game.model.De;
 import com.mygdx.game.model.Joueur;
@@ -62,6 +63,8 @@ public class GameScreen implements Screen, InputProcessor {
     public Stage stage;
     private HUD hud;
 
+    private Musique musique;
+
 
     private State state = State.RUN; // status du jeu
 
@@ -71,7 +74,9 @@ public class GameScreen implements Screen, InputProcessor {
     Label point_vic_J3;
     Label point_vic_J4;
 
-    public GameScreen(Catan g) {
+    public GameScreen(Catan g, Musique mus) {
+        musique = mus;
+
         this.game = g;
         try {
             dialogs = GDXDialogsSystem.install();
@@ -80,7 +85,7 @@ public class GameScreen implements Screen, InputProcessor {
         }
 
         state = State.RUN;
-        hud = new HUD(game.batch, g);
+        hud = new HUD(game.batch, g, musique);
         InputMultiplexer inputMultiplexer = new InputMultiplexer();
         inputMultiplexer.addProcessor(hud.stage);
         inputMultiplexer.addProcessor(this);
@@ -359,7 +364,7 @@ public class GameScreen implements Screen, InputProcessor {
                     Gdx.app.postRunnable(new Runnable() {
                         @Override
                         public void run() {
-                            game.setScreen(new MainMenu(game));
+                            game.setScreen(new MainMenu(game, musique));
                         }
                     });
 
