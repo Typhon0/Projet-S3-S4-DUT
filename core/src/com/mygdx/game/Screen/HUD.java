@@ -235,10 +235,10 @@ public class HUD {
                 windows_stat.row();
                 windows_stat.add(space);
                 windows_stat.add(image_wood);
-                windows_stat.add(image_hay);
-                windows_stat.add(image_rock);
                 windows_stat.add(image_sheep);
+                windows_stat.add(image_hay);
                 windows_stat.add(image_brick);
+                windows_stat.add(image_rock);
                 windows_stat.add(route_label).padLeft(100);
                 windows_stat.add(colonie_label).padLeft(50);
                 windows_stat.add(ville_label).padLeft(50);
