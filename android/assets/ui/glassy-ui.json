@@ -59,10 +59,35 @@
 
 		}
 
-	deny:{
-		up:deny
-		down:deny-down
+		statistiques:{
+			up:statistiques
+			down:statistiques_down
+		}
+
+		pion:{
+			up:pion-down
+			down:pion
+		}
+
+	cartedevellopement:{
+			up:cartedevellopement
+			down:cartedevellopement-down
 	}
+
+        echange:{
+          up:echange
+          down:echange-down
+        }
+
+        echange-port:{
+          up: echange-port
+            down:echange-port-down
+  }
+
+		deny:{
+			up:deny
+			down:deny-down
+		}
 
 	}
 

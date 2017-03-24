@@ -50,22 +50,22 @@ public class HUD {
         Table table = new Table();
         table.setSize(1920, 1080);
         //Text Button
-        final Button piocher = new Button(skin, "round");//TODO Changer image button
+        final Button piocher = new Button(skin, "cartedevellopement");
         table.add(piocher).size(170, 170).padRight(1500);
 
-        final Button stat = new Button(skin, "round");//TODO Changer image button
+        final Button stat = new Button(skin, "statistiques");
         table.add(stat).size(170, 170);
         table.row();
 
         //Text Button
-        final Button echange = new Button(skin, "round");//TODO Changer image button
+        final Button echange = new Button(skin, "echange");//TODO Changer image button
         table.add(echange).size(170, 170).padRight(1500);
 
         final Button regle = new Button(skin, "help");
         table.add(regle).size(170, 170);
         table.row();
 
-        final Button echangePort = new Button(skin, "round");//TODO Changer image button
+        final Button echangePort = new Button(skin, "echange-port");//TODO Changer image button
         table.add(echangePort).size(170, 170).padRight(1500);
 
         final Button settings = new Button(skin, "settings");
@@ -75,7 +75,7 @@ public class HUD {
 
         Stack stackPion = new Stack();
 
-        final Button pions = new Button(skin, "round"); //TODO Changer image button
+        final Button pions = new Button(skin, "pion");
         final Button pionsCancel = new Button(skin, "deny");
         pionsCancel.setVisible(false);
         stackPion.add(pions);
