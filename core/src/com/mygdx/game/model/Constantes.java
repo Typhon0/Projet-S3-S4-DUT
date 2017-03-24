@@ -13,13 +13,13 @@ public class Constantes {
     public static final int TAILLE_TUILE = Gdx.graphics.getHeight() / 10;
 
     // Taille en largeur d'une tuile sur pointe
-    public static final float DELTA_X = (float) Math.sqrt(3) * TAILLE_TUILE / 2;
+    public static final float DELTA_X = (float) Math.sqrt( 3 ) * TAILLE_TUILE / 2;
 
     // Taux de change maximum des ports
     public static final int PORT_TAUX_DE_CHANGE_MAXIMUM = 4;
 
     // Montant des ressources des acteurs en début de partie
-    public static final int MONTANT_RESSOURCE_MAXIMUM = 50; // montant maximum de ressources par type
+    public static final int MONTANT_RESSOURCE_MAXIMUM = 100; // montant maximum de ressources par type
     public static final int MONTANT_RESSOURCE_DEPART_BOIS = 5;
     public static final int MONTANT_RESSOURCE_DEPART_LAINE = 5;
     public static final int MONTANT_RESSOURCE_DEPART_BLE = 5;

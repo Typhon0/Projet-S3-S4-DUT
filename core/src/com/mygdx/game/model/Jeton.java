@@ -43,7 +43,7 @@ public class Jeton {
      * @see Jeton#affecterValeur(Integer)
      */
     public Jeton(Integer valeur) {
-        affecterValeur(valeur);
+        affecterValeur( valeur );
     }
 
     /**
@@ -53,7 +53,7 @@ public class Jeton {
      * @see Jeton#affecterTuile(Tuile)
      */
     public void affecterTuile(Tuile h) {
-        this.setTuile(h);
+        this.setTuile( h );
     }
 
     /**
@@ -64,7 +64,7 @@ public class Jeton {
      * @see Jeton#affecterTexture()
      */
     public void affecterValeur(Integer valeur) {
-        this.setValeur(valeur);
+        this.setValeur( valeur );
         affecterTexture();
     }
 
@@ -101,7 +101,7 @@ public class Jeton {
             textureJeton = Plateau.getJeton12();
         else {
             textureJeton = Plateau.getTRANSPARENT();
-            System.err.println("Valeur du jeton incorrecte");
+            System.err.println( "Valeur du jeton incorrecte" );
         }
     }
 
@@ -113,7 +113,6 @@ public class Jeton {
     public String toString() {
         return "Valeur du jeton : " + valeur.toString();
     }
-
 
     // Getters & Setters
 
@@ -133,4 +132,7 @@ public class Jeton {
         return valeur;
     }
 
+    public Tuile getTuile() {
+        return tuile;
+    }
 }

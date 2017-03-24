@@ -6,11 +6,7 @@ import com.mygdx.game.Screen.HUD;
 
 import java.util.ArrayList;
 import java.util.Random;
-
-import de.tomgrill.gdxdialogs.core.GDXDialogs;
-import de.tomgrill.gdxdialogs.core.GDXDialogsSystem;
-import de.tomgrill.gdxdialogs.core.dialogs.GDXButtonDialog;
-import de.tomgrill.gdxdialogs.core.listener.ButtonClickListener;
+import java.util.Scanner;
 
 /**
  * <b> Partie est la classe représentant le partie du jeu</b>
@@ -38,8 +34,6 @@ import de.tomgrill.gdxdialogs.core.listener.ButtonClickListener;
  */
 
 public class Partie {
-
-    public GDXDialogs dialogs;
     /**
      * Interface de boutons de la partie
      */
@@ -89,11 +83,6 @@ public class Partie {
      * Constructeur de partie
      */
     public Partie() {
-        try {
-            dialogs = GDXDialogsSystem.install();
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-        }
         creerPlateau();
         creerJoueurs();
         creerDes();
@@ -122,42 +111,11 @@ public class Partie {
     }
 
     /**
-     * Crée le plateau et le génère
+     * Crée le plateau
      */
     public void creerPlateau() {
         plateau = new Plateau();
         plateau.generer();
-    }
-
-    public void premierTour() {
-        afficherMessage("Nouvelle partie","Le joueur "+Constantes.couleurJoueur(joueurActif.getCouleur())+" commence");
-        de1.lancer();
-        de2.lancer();
-        int sommeDes = de1.getValeur() + de2.getValeur();
-        afficherMessage("Lancer de dés","Vous avez obtenu "+sommeDes);
-        activerVoleur();
-        donnerRessourcesAuxJoueurs(de1.getValeur() + de2.getValeur());
-    }
-
-    /**
-     * Début du nouveau tour
-     */
-    public void nouveauTour() {
-        afficherMessage("Nouveau tour","C'est au tour du joueur "+Constantes.couleurJoueur(joueurActif.getCouleur())+" de jouer");
-        /*      for (int i=0 ; i<joueurs.length ; i++ ) {
-            System.out.println("Joueur "+i+"\t"+joueurs[i].getRessourcesString());
-        } */
-        de1.lancer();
-        de2.lancer();
-        int sommeDes = de1.getValeur() + de2.getValeur();
-        afficherMessage("Lancer de dés","Vous avez obtenu "+sommeDes);
-        //hud.afficherMessage("Tour du joueur " + Constantes.couleurJoueur(joueurActif.getCouleur()), "Valeur des Des : " + (de1.getValeur() + de2.getValeur()));
-        activerVoleur();
-        donnerRessourcesAuxJoueurs(de1.getValeur() + de2.getValeur());
-
-        /* for (int i=0 ; i<joueurs.length ; i++ ) {
-            System.out.println("Joueur "+i+"\t"+joueurs[i].getRessourcesString());
-        } */
     }
 
     /**
@@ -191,10 +149,34 @@ public class Partie {
         }
     }
 
+    public void premierTour() {
+        de1.lancer();
+        de2.lancer();
+        activerVoleur();
+        donnerRessourcesAuxJoueurs(de1.getValeur() + de2.getValeur());
+    }
+    /**
+     * Début du nouveau tour
+     */
+    public void nouveauTour() {
+
+        for (int i=0 ; i<joueurs.length ; i++ ) {
+            System.out.println("Joueur "+i+"\t"+joueurs[i].getRessourcesString());
+        }
+        de1.lancer();
+        de2.lancer();
+        hud.afficherMessage("Tour du joueur " + Constantes.couleurJoueur(joueurActif.getCouleur()), "Valeur des Des : " + (de1.getValeur() + de2.getValeur()));
+        activerVoleur();
+        donnerRessourcesAuxJoueurs(de1.getValeur() + de2.getValeur());
+
+        for (int i=0 ; i<joueurs.length ; i++ ) {
+            System.out.println("Joueur "+i+"\t"+joueurs[i].getRessourcesString());
+        }
+    }
+
     /**
      * Vérifie si le joueur actif a atteint les 10 points de victoire
      */
-    /*
     public void verifierPointsVictoire() {
         if (joueurActif.getPoints() >= Constantes.POINTS_VICTOIRE_MAX) {
             //System.out.println("Le joueur " + joueurActif.toString() + " a gagné");
@@ -203,7 +185,7 @@ public class Partie {
             //System.out.println("Le joueur " + joueurActif.toString() + "n'a pas atteint 10 PV");
         }
     }
-*/
+
     /**
      * Donne des ressources à chaque joueur
      */
@@ -346,21 +328,6 @@ public class Partie {
         return liste;
     }
 
-    public void afficherMessage(String title, String message) {
-        GDXButtonDialog bDialog = dialogs.newDialog(GDXButtonDialog.class);
-        bDialog.setTitle(title);
-        bDialog.setMessage(message);
-        bDialog.setClickListener(new ButtonClickListener() {
-
-            @Override
-            public void click(int button) {
-            }
-        });
-        bDialog.addButton(" Ok ");
-        bDialog.build().show();
-    }
-
-
     // Getters & Setters
 
     public int getIndiceJoueurActif() {
@@ -375,12 +342,40 @@ public class Partie {
         return joueurs;
     }
 
+    public void setJoueurs(Joueur[] joueurs) {
+        this.joueurs = joueurs;
+    }
+
     public Joueur getJoueurActif() {
         return joueurActif;
     }
 
+    public void setJoueurActif(Joueur joueurActif) {
+        this.joueurActif = joueurActif;
+    }
+
     public Plateau getPlateau() {
         return plateau;
+    }
+
+    public void setPlateau(Plateau plateau) {
+        this.plateau = plateau;
+    }
+
+    public De getDe1() {
+        return de1;
+    }
+
+    public void setDe1(De de1) {
+        this.de1 = de1;
+    }
+
+    public De getDe2() {
+        return de2;
+    }
+
+    public void setDe2(De de2) {
+        this.de2 = de2;
     }
 
     public int getTypeStructure() {
