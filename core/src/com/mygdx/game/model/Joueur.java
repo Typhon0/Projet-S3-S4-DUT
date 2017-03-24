@@ -289,6 +289,17 @@ public class Joueur {
         return false;
     }
 
+    public int getTauxDeChangeMinimum() {
+        int taux = Constantes.PORT_TAUX_DE_CHANGE_MAXIMUM;
+        for (Structure s : listeStructures) {
+            if (s.getSc().possedePort()) {
+                if (s.getSc().getPort().getTauxDeChange() < taux);
+                taux = s.getSc().getPort().getTauxDeChange();
+            }
+        }
+        return taux;
+    }
+
     // Getters et Setters
 
     public void setPoints(int points) {

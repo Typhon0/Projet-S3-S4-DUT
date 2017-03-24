@@ -13,7 +13,7 @@ public class Constantes {
      */
     public static final int TAILLE_TUILE = Gdx.graphics.getHeight() / 10;
     public static final float DELTA_X = (float) Math.sqrt( 3 ) * TAILLE_TUILE / 2;
-
+    public static final int PORT_TAUX_DE_CHANGE_MAXIMUM = 4;
     public static final int MONTANT_RESSOURCE_MAXIMUM = 10000; // montant maximum de ressources par type
     public static final int MONTANT_RESSOURCE_DEPART_BOIS = 100;
     public static final int MONTANT_RESSOURCE_DEPART_LAINE = 100;
