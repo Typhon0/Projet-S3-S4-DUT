@@ -104,9 +104,6 @@ public class HUD {
         stage.addActor(table);
 
 
-
-
-
         //Listener Bouton piocher
         piocher.addListener(new ClickListener() {
             @Override
@@ -123,7 +120,7 @@ public class HUD {
 
                 final Window windows_stat = new Window("Statistique", skin);
                 windows_stat.setSize(1500, 1000);
-                windows_stat.setPosition(450, stage.getHeight() / 2 - windows_stat.getHeight() / 2);
+                windows_stat.setPosition(200, 50);
                 Button deny = new Button(skin, "deny");
                 Label space = new Label(" ", skin);
 
@@ -143,18 +140,29 @@ public class HUD {
                 final Label stone_count = new Label("0", skin, "big");
                 final Label mouton_count = new Label("0", skin, "big");
                 final Label brick_count = new Label("0", skin, "big");
+                final Label route_count = new Label("0", skin, "big");
+                final Label colonie_count = new Label("0", skin, "big");
+                final Label ville_count = new Label("0", skin, "big");
+
 
                 final Label wood_count_j2 = new Label("0", skin, "big");
                 final Label foin_count_j2 = new Label("0", skin, "big");
                 final Label stone_count_j2 = new Label("0", skin, "big");
                 final Label mouton_count_j2 = new Label("0", skin, "big");
                 final Label brick_count_j2 = new Label("0", skin, "big");
+                final Label route_count_j2 = new Label("0", skin, "big");
+                final Label colonie_count_j2 = new Label("0", skin, "big");
+                final Label ville_count_j2 = new Label("0", skin, "big");
+
 
                 final Label wood_count_j3 = new Label("0", skin, "big");
                 final Label foin_count_j3 = new Label("0", skin, "big");
                 final Label stone_count_j3 = new Label("0", skin, "big");
                 final Label mouton_count_j3 = new Label("0", skin, "big");
                 final Label brick_count_j3 = new Label("0", skin, "big");
+                final Label route_count_j3 = new Label("0", skin, "big");
+                final Label colonie_count_j3 = new Label("0", skin, "big");
+                final Label ville_count_j3 = new Label("0", skin, "big");
 
 
                 final Label wood_count_j4 = new Label("0", skin, "big");
@@ -162,6 +170,9 @@ public class HUD {
                 final Label stone_count_j4 = new Label("0", skin, "big");
                 final Label mouton_count_j4 = new Label("0", skin, "big");
                 final Label brick_count_j4 = new Label("0", skin, "big");
+                final Label route_count_j4 = new Label("0", skin, "big");
+                final Label colonie_count_j4 = new Label("0", skin, "big");
+                final Label ville_count_j4 = new Label("0", skin, "big");
 
 
                 //image bois
@@ -187,33 +198,48 @@ public class HUD {
                 Texture texture_img_brick = new Texture(Gdx.files.internal(Constantes.CHEMIN_ACCES_RESSOURCES + "argile.png"));
                 Image image_brick = new Image(texture_img_brick);
 
+                Label route_label = new Label("Route", skin);
+                Label colonie_label = new Label("Colonie", skin);
+                Label ville_label = new Label("Ville", skin);
+
+
                 //J1
                 wood_count.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_ROUGE].getPaquetRessources().getRessources()[1]));
                 foin_count.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_ROUGE].getPaquetRessources().getRessources()[2]));
                 stone_count.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_ROUGE].getPaquetRessources().getRessources()[3]));
                 mouton_count.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_ROUGE].getPaquetRessources().getRessources()[4]));
                 brick_count.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_ROUGE].getPaquetRessources().getRessources()[5]));
+                route_count.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_ROUGE].getPaquetStructures()[0]));
+                colonie_count.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_ROUGE].getPaquetStructures()[1]));
+                ville_count.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_ROUGE].getPaquetStructures()[2]));
+
 
                 wood_count_j2.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_BLEU].getPaquetRessources().getRessources()[1]));
                 foin_count_j2.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_BLEU].getPaquetRessources().getRessources()[2]));
                 stone_count_j2.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_BLEU].getPaquetRessources().getRessources()[3]));
                 mouton_count_j2.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_BLEU].getPaquetRessources().getRessources()[4]));
                 brick_count_j2.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_BLEU].getPaquetRessources().getRessources()[5]));
-
+                route_count_j2.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_BLEU].getPaquetStructures()[0]));
+                colonie_count_j2.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_BLEU].getPaquetStructures()[1]));
+                ville_count_j2.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_BLEU].getPaquetStructures()[2]));
 
                 wood_count_j3.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_VERT].getPaquetRessources().getRessources()[1]));
                 foin_count_j3.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_VERT].getPaquetRessources().getRessources()[2]));
                 stone_count_j3.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_VERT].getPaquetRessources().getRessources()[3]));
                 mouton_count_j3.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_VERT].getPaquetRessources().getRessources()[4]));
                 brick_count_j3.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_VERT].getPaquetRessources().getRessources()[5]));
-
+                route_count_j3.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_VERT].getPaquetStructures()[0]));
+                colonie_count_j3.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_VERT].getPaquetStructures()[1]));
+                ville_count_j3.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_VERT].getPaquetStructures()[2]));
 
                 wood_count_j4.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_JAUNE].getPaquetRessources().getRessources()[1]));
                 foin_count_j4.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_JAUNE].getPaquetRessources().getRessources()[2]));
                 stone_count_j4.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_JAUNE].getPaquetRessources().getRessources()[3]));
                 mouton_count_j4.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_JAUNE].getPaquetRessources().getRessources()[4]));
                 brick_count_j4.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_JAUNE].getPaquetRessources().getRessources()[5]));
-
+                route_count_j4.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_JAUNE].getPaquetStructures()[0]));
+                colonie_count_j4.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_JAUNE].getPaquetStructures()[1]));
+                ville_count_j4.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_JAUNE].getPaquetStructures()[2]));
 
                 windows_stat.row();
                 windows_stat.add(space);
@@ -222,6 +248,9 @@ public class HUD {
                 windows_stat.add(image_rock);
                 windows_stat.add(image_sheep);
                 windows_stat.add(image_brick);
+                windows_stat.add(route_label).padLeft(100);
+                windows_stat.add(colonie_label).padLeft(50);
+                windows_stat.add(ville_label).padLeft(50);
 
 
                 windows_stat.row();
@@ -232,6 +261,9 @@ public class HUD {
                 windows_stat.add(stone_count);
                 windows_stat.add(mouton_count);
                 windows_stat.add(brick_count);
+                windows_stat.add(route_count);
+                windows_stat.add(colonie_count);
+                windows_stat.add(ville_count);
 
 
                 windows_stat.row();
@@ -242,7 +274,9 @@ public class HUD {
                 windows_stat.add(stone_count_j2);
                 windows_stat.add(mouton_count_j2);
                 windows_stat.add(brick_count_j2);
-
+                windows_stat.add(route_count_j2);
+                windows_stat.add(colonie_count_j2);
+                windows_stat.add(ville_count_j2);
 
                 windows_stat.row();
 
@@ -252,6 +286,9 @@ public class HUD {
                 windows_stat.add(stone_count_j3);
                 windows_stat.add(mouton_count_j3);
                 windows_stat.add(brick_count_j3);
+                windows_stat.add(route_count_j3);
+                windows_stat.add(colonie_count_j3);
+                windows_stat.add(ville_count_j3);
 
                 windows_stat.row();
 
@@ -261,6 +298,9 @@ public class HUD {
                 windows_stat.add(stone_count_j4);
                 windows_stat.add(mouton_count_j4);
                 windows_stat.add(brick_count_j4);
+                windows_stat.add(route_count_j4);
+                windows_stat.add(colonie_count_j4);
+                windows_stat.add(ville_count_j4);
 
                 windows_stat.row();
                 windows_stat.add(deny);
