@@ -70,6 +70,7 @@ public class Voleur {
 
     /**
      * Active ou désactive le voleur
+     *
      * @param actif activité du voleur
      */
     public void setActif(boolean actif) {

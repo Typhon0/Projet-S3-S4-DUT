@@ -161,40 +161,12 @@ public class Structure {
         return sc;
     }
 
-    public void setSc(SiteConstruction sc) {
-        this.sc = sc;
-    }
-
     public Joueur getJoueur() {
         return joueur;
     }
 
-    public void setJoueur(Joueur joueur) {
-        this.joueur = joueur;
-    }
-
-    public Vector2 getPosition() {
-        return position;
-    }
-
-    public void setPosition(Vector2 position) {
-        this.position = position;
-    }
-
     public int getTypeStructure() {
         return typeStructure;
-    }
-
-    public void setTypeStructure(int typeStructure) {
-        this.typeStructure = typeStructure;
-    }
-
-    public int getValeurPointVictoire() {
-        return valeurPointVictoire;
-    }
-
-    public void setValeurPointVictoire(int valeurPointVictoire) {
-        this.valeurPointVictoire = valeurPointVictoire;
     }
 
     public Texture getTexture() {

@@ -76,7 +76,7 @@ public class SiteConstruction {
     public boolean equals(Object o) {
         if (o instanceof SiteConstruction) {
             SiteConstruction sc = (SiteConstruction) o;
-            return ((Math.abs( this.position.x - sc.position.x ) <= 5.0 && Math.abs( this.position.y - sc.position.y ) <= 5.0) && sc.estBatiment == this.estBatiment);
+            return ((Math.abs(this.position.x - sc.position.x) <= 5.0 && Math.abs(this.position.y - sc.position.y) <= 5.0) && sc.estBatiment == this.estBatiment);
         }
         return false;
     }
@@ -104,7 +104,7 @@ public class SiteConstruction {
      * @return le pixel d'origine pour dessiner la texture
      */
     public Vector2 getCoinInferieurGaucheSiteConstruction() {
-        return new Vector2( position.x - Constantes.DISTANCE_SITE_CONSTRUCTION_X, position.y - Constantes.DISTANCE_SITE_CONSTRUCTION_X );
+        return new Vector2(position.x - Constantes.DISTANCE_SITE_CONSTRUCTION_X, position.y - Constantes.DISTANCE_SITE_CONSTRUCTION_X);
     }
 
 
@@ -112,10 +112,6 @@ public class SiteConstruction {
 
     public Vector2 getPosition() {
         return position;
-    }
-
-    public ArrayList<Tuile> getListeTuilesAdjacentes() {
-        return listeTuilesAdjacentes;
     }
 
     public Structure getStructure() {
@@ -139,7 +135,7 @@ public class SiteConstruction {
     }
 
     public boolean possedePort() {
-        if (port==null)
+        if (port == null)
             return false;
         else
             return true;

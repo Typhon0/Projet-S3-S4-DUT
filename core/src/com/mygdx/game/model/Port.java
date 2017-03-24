@@ -51,36 +51,8 @@ public class Port {
         return position.toString()+", spécialité : "+specialite+", taux de change : "+tauxDeChange;
     }
 
-    public void setPosition(Vector2 position) {
-        this.position = position;
-    }
-
-    public void setSpecialite(String specialite) {
-        this.specialite = specialite;
-    }
-
-    public void setTauxDeChange(int tauxDeChange) {
-        this.tauxDeChange = tauxDeChange;
-    }
-
-    public void setTexturePort(Texture texturePort) {
-        this.texturePort = texturePort;
-    }
-
     public SiteConstruction getSc() {
         return sc;
-    }
-
-    public void setSc(SiteConstruction sc) {
-        this.sc = sc;
-    }
-
-    public Vector2 getPosition() {
-        return position;
-    }
-
-    public String getSpecialite() {
-        return specialite;
     }
 
     public int getTauxDeChange() {
