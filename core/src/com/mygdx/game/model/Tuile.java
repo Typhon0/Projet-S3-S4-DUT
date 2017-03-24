@@ -163,7 +163,7 @@ public class Tuile {
     public void genererSitesConstruction() {
         ajouterSiteConstruction(new SiteConstruction(new Vector2(center.x, center.y + taille),true));
         ajouterSiteConstruction(new SiteConstruction(new Vector2(center.x + deltaX, center.y + taille / 2),true));
-        ajouterSiteConstruction( new SiteConstruction(new Vector2(center.x + deltaX, center.y - taille / 2),true));
+        ajouterSiteConstruction(new SiteConstruction(new Vector2(center.x + deltaX, center.y - taille / 2),true));
         ajouterSiteConstruction(new SiteConstruction(new Vector2(center.x, center.y - taille),true));
         ajouterSiteConstruction(new SiteConstruction(new Vector2(center.x - deltaX, center.y - taille / 2),true));
         ajouterSiteConstruction(new SiteConstruction(new Vector2(center.x - deltaX, center.y + taille / 2),true));

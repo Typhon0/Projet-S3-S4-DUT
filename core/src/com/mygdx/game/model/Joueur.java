@@ -275,6 +275,19 @@ public class Joueur {
         System.out.println( getRessourcesString() );
     }
 
+    /**
+     * parcourt tous les sites de constructions des structures du joueur afin de détermine si le joueur peut échanger des ressources avec le plateau
+     *
+     * @return boolean si le joueur possède une structure dont le site de construction possède un port
+     */
+    public boolean possedePort() {
+        for (Structure s : listeStructures) {
+            if (s.getSc().possedePort()) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     // Getters et Setters
 

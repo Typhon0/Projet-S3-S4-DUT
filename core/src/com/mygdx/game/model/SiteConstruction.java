@@ -26,6 +26,7 @@ import java.util.ArrayList;
 
 public class SiteConstruction {
 
+    private Port port;
     /**
      * Position du site de construction
      */
@@ -63,6 +64,7 @@ public class SiteConstruction {
         this.estConstruit = false;
         this.structure = null;
         listeTuilesAdjacentes = new ArrayList<Tuile>();
+        port = null;
     }
 
     /**
@@ -144,4 +146,18 @@ public class SiteConstruction {
         return estBatiment;
     }
 
+    public boolean possedePort() {
+        if (port==null)
+            return false;
+        else
+            return true;
+    }
+
+    public Port getPort() {
+        return port;
+    }
+
+    public void setPort(Port port) {
+        this.port = port;
+    }
 }

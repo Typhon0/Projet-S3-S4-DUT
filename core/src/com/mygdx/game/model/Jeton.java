@@ -72,6 +72,7 @@ public class Jeton {
      * Affecte au jeton sa texteture en fonction de sa valeur.
      * Ex : Si la valeur du jeton est 2, on lui affecte la texture du jeton 2.
      * Pour le desert, on affecte une texture transparente sans incidence
+     *
      * @see Plateau#getJeton2()
      * @see Jeton#valeur
      * @see Jeton#textureJeton

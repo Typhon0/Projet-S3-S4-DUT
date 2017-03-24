@@ -378,6 +378,33 @@ public class GameScreen implements Screen, InputProcessor {
 
     }
 
+    /**
+     * Permet d'afficher une boite de dialogue style android
+     * avec un titre et un message personnalisé
+     *
+     * @param title
+     * @param message
+     */
+    public void afficherMessage(String title, String message) {
+
+        GDXButtonDialog bDialog = dialogs.newDialog(GDXButtonDialog.class);
+        bDialog.setTitle(title);
+        bDialog.setMessage(message);
+
+
+        bDialog.setClickListener(new ButtonClickListener() {
+
+            @Override
+            public void click(int button) {
+            }
+        });
+        bDialog.addButton(" Ok ");
+
+        bDialog.build().show();
+    }
+
+
+
     @Override
     public void resize(int width, int height) {
 

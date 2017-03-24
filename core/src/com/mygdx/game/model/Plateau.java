@@ -145,10 +145,10 @@ public class Plateau {
         genererStackJetons();
         affecterJetons();
 
-        genererPorts();
-
         fusionnerSiteConstruction();
         fusionnerSiteConstructionRoute();
+
+        genererPorts();
 
         placerVoleurSurDesert();
     }
@@ -250,12 +250,40 @@ public class Plateau {
      * Génère les 6 ports
      */
     private void genererPorts() {
-        listePorts.add( new Port( new Vector2( listeTuiles.get( 2 ).getListeSommets().get( 0 ).x + DELTA_X, listeTuiles.get( 2 ).getListeSommets().get( 0 ).y + 1.5f * TAILLE_TUILE ), "aucun", 3, PORT ) );
-        listePorts.add( new Port( new Vector2( listeTuiles.get( 11 ).getListeSommets().get( 0 ).x + 2 * DELTA_X, listeTuiles.get( 11 ).getListeSommets().get( 0 ).y ), "aucun", 3, PORT ) );
-        listePorts.add( new Port( new Vector2( listeTuiles.get( 18 ).getListeSommets().get( 0 ).x + DELTA_X, listeTuiles.get( 18 ).getListeSommets().get( 0 ).y - 1.5f * TAILLE_TUILE ), "aucun", 3, PORT ) );
-        listePorts.add( new Port( new Vector2( listeTuiles.get( 16 ).getListeSommets().get( 0 ).x - DELTA_X, listeTuiles.get( 16 ).getListeSommets().get( 0 ).y - 1.5f * TAILLE_TUILE ), "aucun", 3, PORT ) );
-        listePorts.add( new Port( new Vector2( listeTuiles.get( 7 ).getListeSommets().get( 0 ).x - 2 * DELTA_X, listeTuiles.get( 7 ).getListeSommets().get( 0 ).y ), "aucun", 3, PORT ) );
-        listePorts.add( new Port( new Vector2( listeTuiles.get( 0 ).getListeSommets().get( 0 ).x - DELTA_X, listeTuiles.get( 0 ).getListeSommets().get( 0 ).y + 1.5f * TAILLE_TUILE ), "aucun", 3, PORT ) );
+        // Création des 6 ports placés arbitrairement autour du plateau
+        Port p1 = new Port( new Vector2( listeTuiles.get( 2 ).getListeSommets().get( 0 ).x + DELTA_X, listeTuiles.get( 2 ).getListeSommets().get( 0 ).y + 1.5f * TAILLE_TUILE ), "aucun", 3, PORT);
+        Port p2 = new Port( new Vector2( listeTuiles.get( 11 ).getListeSommets().get( 0 ).x + 2 * DELTA_X, listeTuiles.get( 11 ).getListeSommets().get( 0 ).y ), "aucun", 3, PORT ) ;
+        Port p3 = new Port( new Vector2( listeTuiles.get( 18 ).getListeSommets().get( 0 ).x + DELTA_X, listeTuiles.get( 18 ).getListeSommets().get( 0 ).y - 1.5f * TAILLE_TUILE ), "aucun", 3, PORT  );
+        Port p4 = new Port( new Vector2( listeTuiles.get( 16 ).getListeSommets().get( 0 ).x - DELTA_X, listeTuiles.get( 16 ).getListeSommets().get( 0 ).y - 1.5f * TAILLE_TUILE ), "aucun", 3, PORT  );
+        Port p5 = new Port( new Vector2( listeTuiles.get( 7 ).getListeSommets().get( 0 ).x - 2 * DELTA_X, listeTuiles.get( 7 ).getListeSommets().get( 0 ).y ), "aucun", 3, PORT  );
+        Port p6 = new Port( new Vector2( listeTuiles.get( 0 ).getListeSommets().get( 0 ).x - DELTA_X, listeTuiles.get( 0 ).getListeSommets().get( 0 ).y + 1.5f * TAILLE_TUILE ), "aucun", 3, PORT );
+
+        // Ajoute les ports à la liste de ports du plateau pour l'affichage de la texture
+        listePorts.add(p1);
+        listePorts.add(p2);
+        listePorts.add(p3);
+        listePorts.add(p4);
+        listePorts.add(p5);
+        listePorts.add(p6);
+
+        // Affecte les ports à des sites de construction
+        listeTuiles.get( 0 ).getListeSitesConstruction().get( 0 ).setPort( p1 ); // Affecte le port 1 à la tuile 0 au site de construction 0;
+        listeTuiles.get( 0 ).getListeSitesConstruction().get( 5 ).setPort( p1 ); // Affecte le port 1 à la tuile 0 au site de construction 5;
+
+        listeTuiles.get( 2 ).getListeSitesConstruction().get( 0 ).setPort( p2 ); // Affecte le port 2 à la tuile 2 au site de construction 0;
+        listeTuiles.get( 2 ).getListeSitesConstruction().get( 1 ).setPort( p2 ); // Affecte le port 2 à la tuile 2 au site de construction 1;
+
+        listeTuiles.get( 7 ).getListeSitesConstruction().get( 4 ).setPort( p3 ); // Affecte le port 3 à la tuile 7 au site de construction 4;
+        listeTuiles.get( 7 ).getListeSitesConstruction().get( 5 ).setPort( p3 ); // Affecte le port 3 à la tuile 7 au site de construction 5;
+
+        listeTuiles.get( 11 ).getListeSitesConstruction().get( 1 ).setPort( p4 ); // Affecte le port 4 à la tuile 11 au site de construction 1;
+        listeTuiles.get( 11 ).getListeSitesConstruction().get( 2 ).setPort( p4 ); // Affecte le port 4 à la tuile 11 au site de construction 2;
+
+        listeTuiles.get( 16 ).getListeSitesConstruction().get( 3 ).setPort( p5 ); // Affecte le port 5 à la tuile 16 au site de construction 3;
+        listeTuiles.get( 16 ).getListeSitesConstruction().get( 4 ).setPort( p5 ); // Affecte le port 5 à la tuile 16 au site de construction 4;
+
+        listeTuiles.get( 18 ).getListeSitesConstruction().get( 2 ).setPort( p6 ); // Affecte le port 6 à la tuile 18 au site de construction 2;
+        listeTuiles.get( 18 ).getListeSitesConstruction().get( 3 ).setPort( p6 ); // Affecte le port 6 à la tuile 18 au site de construction 3;
     }
 
     /**

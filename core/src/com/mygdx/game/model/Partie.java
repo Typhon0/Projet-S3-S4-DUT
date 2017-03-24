@@ -1,6 +1,7 @@
 
 package com.mygdx.game.model;
 
+import com.mygdx.game.Screen.GameScreen;
 import com.mygdx.game.Screen.HUD;
 
 import java.util.ArrayList;
@@ -37,6 +38,11 @@ public class Partie {
      * Interface de boutons de la partie
      */
     private static HUD hud;
+
+    /**
+     * Interface de boutons de la partie
+     */
+    private static GameScreen gameScreen;
 
     /**
      * Indice de tableau du joueur actif/dont c'est le tour de jouer
@@ -118,7 +124,11 @@ public class Partie {
     public void finDeTour() {
         joueurSuivant();
         typeStructure = 0;
+        if (plateau.getVoleur().isActif()) {
+            plateau.getVoleur().setActif( false );
+        }
         nouveauTour();
+        System.err.println(joueurActif.possedePort());
     }
 
     /**
@@ -383,6 +393,11 @@ public class Partie {
     public static HUD getHud() {
 
         return hud;
+    }
+
+    public static GameScreen getGameScreen() {
+
+        return gameScreen;
     }
 
     public Joueur getJoueurAQuiOnVeutEchanger() {

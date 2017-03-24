@@ -11,9 +11,18 @@ public class Port {
 
     private Vector2 position;
     private String specialite;
-    private Integer tauxDeChange;
+    private int tauxDeChange;
     private Texture texturePort;
+    private SiteConstruction sc;
     // private PositionConstruction p1,p2; 2 sommets lié au port
+
+    public Port(SiteConstruction sc,Vector2 position,String specialite,Integer tauxDeChange,Texture texturePort) {
+        this.position = position;
+        this.specialite = specialite;
+        this.tauxDeChange = tauxDeChange;
+        this.texturePort = texturePort;
+        this.sc = sc;
+    }
 
     public Port(Vector2 position,String specialite,Integer tauxDeChange,Texture texturePort) {
         this.position = position;
@@ -42,6 +51,30 @@ public class Port {
         return position.toString()+", spécialité : "+specialite+", taux de change : "+tauxDeChange;
     }
 
+    public void setPosition(Vector2 position) {
+        this.position = position;
+    }
+
+    public void setSpecialite(String specialite) {
+        this.specialite = specialite;
+    }
+
+    public void setTauxDeChange(int tauxDeChange) {
+        this.tauxDeChange = tauxDeChange;
+    }
+
+    public void setTexturePort(Texture texturePort) {
+        this.texturePort = texturePort;
+    }
+
+    public SiteConstruction getSc() {
+        return sc;
+    }
+
+    public void setSc(SiteConstruction sc) {
+        this.sc = sc;
+    }
+
     public Vector2 getPosition() {
         return position;
     }
@@ -50,7 +83,7 @@ public class Port {
         return specialite;
     }
 
-    public Integer getTauxDeChange() {
+    public int getTauxDeChange() {
         return tauxDeChange;
     }
 
