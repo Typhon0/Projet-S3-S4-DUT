@@ -169,6 +169,9 @@ public class Partie {
         hud.afficherMessage("Nouvelle partie - tour du joueur " + Constantes.couleurJoueur(joueurActif.getCouleur()), "Valeur du lancer des dés : " + sommeDes);
         activerVoleur();
         donnerRessourcesAuxJoueurs(de1.getValeur() + de2.getValeur());
+        for (int i=0 ; i<joueurs.length ; i++) {
+            System.out.println(joueurs[i].getRessourcesString());
+        }
     }
 
     /**
@@ -181,6 +184,9 @@ public class Partie {
         hud.afficherMessage("Tour du joueur " + Constantes.couleurJoueur(joueurActif.getCouleur()), "Valeur du lancer des dés : " + sommeDes);
         activerVoleur();
         donnerRessourcesAuxJoueurs(de1.getValeur() + de2.getValeur());
+        for (int i=0 ; i<joueurs.length ; i++) {
+            System.out.println(joueurs[i].getRessourcesString());
+        }
     }
 
     /**
