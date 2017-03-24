@@ -825,6 +825,7 @@ public class HUD {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 int tmp_count = Integer.valueOf(count_bois_J1.getText().toString());
+                    if (tmp_count>0)
                 tmp_count--;
                 count_bois_J1.setText(String.valueOf(tmp_count));
             }
@@ -843,6 +844,7 @@ public class HUD {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 int tmp_count = Integer.valueOf(count_bois_J2.getText().toString());
+                if (tmp_count>0)
                 tmp_count--;
                 count_bois_J2.setText(String.valueOf(tmp_count));
             }
@@ -862,6 +864,7 @@ public class HUD {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 int tmp_count = Integer.valueOf(count_laine_J1.getText().toString());
+                if (tmp_count>0)
                 tmp_count--;
                 count_laine_J1.setText(String.valueOf(tmp_count));
             }
@@ -880,6 +883,7 @@ public class HUD {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 int tmp_count = Integer.valueOf(count_laine_J2.getText().toString());
+                if (tmp_count>0)
                 tmp_count--;
                 count_laine_J2.setText(String.valueOf(tmp_count));
             }
@@ -899,6 +903,7 @@ public class HUD {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 int tmp_count = Integer.valueOf(count_argile_J1.getText().toString());
+                if (tmp_count>0)
                 tmp_count--;
                 count_argile_J1.setText(String.valueOf(tmp_count));
             }
@@ -917,6 +922,7 @@ public class HUD {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 int tmp_count = Integer.valueOf(count_argile_J2.getText().toString());
+                if (tmp_count>0)
                 tmp_count--;
                 count_argile_J2.setText(String.valueOf(tmp_count));
             }
@@ -936,6 +942,7 @@ public class HUD {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 int tmp_count = Integer.valueOf(count_pierre_J1.getText().toString());
+                if (tmp_count>0)
                 tmp_count--;
                 count_pierre_J1.setText(String.valueOf(tmp_count));
             }
@@ -954,6 +961,7 @@ public class HUD {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 int tmp_count = Integer.valueOf(count_pierre_J2.getText().toString());
+                if (tmp_count>0)
                 tmp_count--;
                 count_pierre_J2.setText(String.valueOf(tmp_count));
             }
@@ -973,6 +981,7 @@ public class HUD {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 int tmp_count = Integer.valueOf(count_ble_J1.getText().toString());
+                if (tmp_count>0)
                 tmp_count--;
                 count_ble_J1.setText(String.valueOf(tmp_count));
             }
@@ -991,6 +1000,7 @@ public class HUD {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 int tmp_count = Integer.valueOf(count_ble_J2.getText().toString());
+                if (tmp_count>0)
                 tmp_count--;
                 count_ble_J2.setText(String.valueOf(tmp_count));
             }
@@ -1251,6 +1261,7 @@ public class HUD {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 int tmp_count = Integer.valueOf(count_bois_J1.getText().toString());
+                if (tmp_count>0)
                 tmp_count--;
                 count_bois_J1.setText(String.valueOf(tmp_count));
             }
@@ -1269,6 +1280,7 @@ public class HUD {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 int tmp_count = Integer.valueOf(count_bois_J2.getText().toString());
+                if (tmp_count>0)
                 tmp_count--;
                 count_bois_J2.setText(String.valueOf(tmp_count));
             }
@@ -1288,6 +1300,7 @@ public class HUD {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 int tmp_count = Integer.valueOf(count_laine_J1.getText().toString());
+                if (tmp_count>0)
                 tmp_count--;
                 count_laine_J1.setText(String.valueOf(tmp_count));
             }
@@ -1306,6 +1319,7 @@ public class HUD {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 int tmp_count = Integer.valueOf(count_laine_J2.getText().toString());
+                if (tmp_count>0)
                 tmp_count--;
                 count_laine_J2.setText(String.valueOf(tmp_count));
             }
@@ -1325,6 +1339,7 @@ public class HUD {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 int tmp_count = Integer.valueOf(count_argile_J1.getText().toString());
+                if (tmp_count>0)
                 tmp_count--;
                 count_argile_J1.setText(String.valueOf(tmp_count));
             }
@@ -1343,6 +1358,7 @@ public class HUD {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 int tmp_count = Integer.valueOf(count_argile_J2.getText().toString());
+                if (tmp_count>0)
                 tmp_count--;
                 count_argile_J2.setText(String.valueOf(tmp_count));
             }
@@ -1362,6 +1378,7 @@ public class HUD {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 int tmp_count = Integer.valueOf(count_pierre_J1.getText().toString());
+                if (tmp_count>0)
                 tmp_count--;
                 count_pierre_J1.setText(String.valueOf(tmp_count));
             }
@@ -1380,6 +1397,7 @@ public class HUD {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 int tmp_count = Integer.valueOf(count_pierre_J2.getText().toString());
+                if (tmp_count>0)
                 tmp_count--;
                 count_pierre_J2.setText(String.valueOf(tmp_count));
             }
@@ -1399,6 +1417,7 @@ public class HUD {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 int tmp_count = Integer.valueOf(count_ble_J1.getText().toString());
+                if (tmp_count>0)
                 tmp_count--;
                 count_ble_J1.setText(String.valueOf(tmp_count));
             }
@@ -1417,6 +1436,7 @@ public class HUD {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 int tmp_count = Integer.valueOf(count_ble_J2.getText().toString());
+                if (tmp_count>0)
                 tmp_count--;
                 count_ble_J2.setText(String.valueOf(tmp_count));
             }
