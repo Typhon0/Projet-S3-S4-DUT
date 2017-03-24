@@ -272,10 +272,8 @@ public class GameScreen implements Screen, InputProcessor {
             for (int i = 0; i < game.getPartie().getPlateau().getListeTuiles().size(); i++) {
                 Tuile t = game.getPartie().getPlateau().getListeTuiles().get(i);
                 if (t.equals(pixel)) {
-                    Partie.getHud().afficherMessage("ok", "ok");
-                    //v.setTuile(t);
+                    Partie.getHud().afficherMessage("Voleur déplacé", "Le voleur a été affecté à une tuile");
                     game.getPartie().actionVoleur(t);
-
                 }
             }
         } else {
@@ -286,52 +284,18 @@ public class GameScreen implements Screen, InputProcessor {
                             if (game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstructionRoute().get(j).estToucheInt(screenX, screenY)) {
                                 SiteConstruction sc = game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstructionRoute().get(j);
                                 joueur.construireRoute(sc);
-                                //System.out.println("route trouvée");
                                 return false;
                             }
                         } else {
                             if (game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstruction().get(j).estToucheInt(screenX, screenY)) {
-                                //System.out.println("batiment trouvée");
                                 SiteConstruction sc = game.getPartie().getPlateau().getListeTuiles().get(i).getListeSitesConstruction().get(j);
                                 // Colonie
                                 if (game.getPartie().getTypeStructure() == Constantes.COLONIE) {
-                                    //joueur.construireColonie(sc);
-                                    //System.out.println("Ressources avant construction : " + joueur.getRessourcesString());
-                                    //System.out.println("Je vais construire une ville");
                                     joueur.construireColonie(sc);
-                                    game.getPartie().verifierPointsVictoire();
-                                    //System.out.println("J'ai construit une ville");
-                                /*
-                                System.out.println("Ressources apres construction : " + joueur.getRessourcesString());
-                                De d1 = game.getPartie().getDe1();
-                                d1.lancer();
-                                De d2 = game.getPartie().getDe1();
-                                d2.lancer();
-
-                                //game.getPartie().donnerRessourcesAuxJoueurs(d1.getValeur()+d2.getValeur());
-                                game.getPartie().donnerRessourcesAuxJoueurs(4);
-                                System.out.println("Apres ajout : " + joueur.getRessourcesString());
-                                */
                                 }
                                 // Ville
                                 else {
-                                    //System.out.println("Ressources avant construction : " + joueur.getRessourcesString());
-                                    //System.out.println("Je vais construire une ville");
                                     joueur.construireVille(sc);
-                                    game.getPartie().verifierPointsVictoire();
-                                    //System.out.println("J'ai construit une ville");
-                                /*
-                                System.out.println("Ressources apres construction : " + joueur.getRessourcesString());
-                                De d1 = game.getPartie().getDe1();
-                                d1.lancer();
-                                De d2 = game.getPartie().getDe1();
-                                d2.lancer();
-
-                                //game.getPartie().donnerRessourcesAuxJoueurs(d1.getValeur()+d2.getValeur());
-                                game.getPartie().donnerRessourcesAuxJoueurs(4);
-                                System.out.println("Apres ajout : " + joueur.getRessourcesString());
-                                */
-
                                 }
                                 return false;
                             }
@@ -339,7 +303,6 @@ public class GameScreen implements Screen, InputProcessor {
                     }
                 }
             }
-            //System.out.println( game.getPartie().getTypeStructure() );
         }
         return false;
     }
