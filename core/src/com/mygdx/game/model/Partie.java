@@ -84,9 +84,21 @@ public class Partie {
      */
     private De de1, de2;
 
+
     /**
      * Constructeur de partie
      */
+    public Partie(GameScreen gamescreen, HUD hud) {
+        this.gameScreen = gamescreen;
+        this.setHud(hud);
+        creerPlateau();
+        creerJoueurs();
+        creerDes();
+        joueurActif = joueurs[0];
+        donnerRessourcesDepart();
+        premierTour();
+    }
+
     public Partie() {
         creerPlateau();
         creerJoueurs();
@@ -131,7 +143,7 @@ public class Partie {
         joueurSuivant();
         typeStructure = 0;
         if (plateau.getVoleur().isActif()) {
-            plateau.getVoleur().setActif( false );
+            plateau.getVoleur().setActif(false);
         }
         nouveauTour();
     }
@@ -160,6 +172,7 @@ public class Partie {
         activerVoleur();
         donnerRessourcesAuxJoueurs(de1.getValeur() + de2.getValeur());
     }
+
     /**
      * Début du nouveau tour
      */
@@ -170,8 +183,8 @@ public class Partie {
         activerVoleur();
         donnerRessourcesAuxJoueurs(de1.getValeur() + de2.getValeur());
 
-        for (int i=0 ; i<joueurs.length ; i++ ) {
-            System.out.println("Joueur "+i+"\t"+joueurs[i].getRessourcesString());
+        for (int i = 0; i < joueurs.length; i++) {
+            System.out.println("Joueur " + i + "\t" + joueurs[i].getRessourcesString());
         }
     }
 
@@ -207,7 +220,7 @@ public class Partie {
     }
 
     public void activerVoleur() {
-        if(de1.getValeur()+de2.getValeur() == 7)  {
+        if (de1.getValeur() + de2.getValeur() == 7) {
             plateau.getVoleur().setActif(true);
         }
     }
@@ -292,12 +305,10 @@ public class Partie {
         }
         try {
             plateau.getVoleur().setActif(false);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.err.println(e.getMessage());
+        }
     }
-    }
-
 
 
     // Vol d'une ressource aupres d'un des joueurs adjacents apres avoir deplace le voleur (et apres la methode actionVoleur ci-dessus)
@@ -393,6 +404,10 @@ public class Partie {
     public static HUD getHud() {
 
         return hud;
+    }
+
+    public static void setGameScreen(GameScreen gameScreen) {
+        Partie.gameScreen = gameScreen;
     }
 
     public static GameScreen getGameScreen() {

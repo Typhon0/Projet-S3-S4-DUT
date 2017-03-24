@@ -22,6 +22,11 @@ import com.mygdx.game.Catan;
 import com.mygdx.game.autre.Musique;
 import com.mygdx.game.model.Constantes;
 
+import de.tomgrill.gdxdialogs.core.GDXDialogs;
+import de.tomgrill.gdxdialogs.core.GDXDialogsSystem;
+import de.tomgrill.gdxdialogs.core.dialogs.GDXButtonDialog;
+import de.tomgrill.gdxdialogs.core.listener.ButtonClickListener;
+
 /**
  * Created by typhon0 on 28/02/17.
  */
@@ -32,10 +37,13 @@ public class MainMenu implements Screen {
     Stage stage;
     Catan game;
     Musique musique;
+    public GDXDialogs dialogs;
 
 
     // constructor to keep a reference to the main Game class
     public MainMenu(Catan pgame, Musique mus) {
+
+        dialogs = GDXDialogsSystem.install();
         musique = mus;
         //lancement de la musique
         musique.lancerMusique();
@@ -52,7 +60,7 @@ public class MainMenu implements Screen {
         table.setSize(800, 510);
 
         //Background
-        Texture t = new Texture(Constantes.CHEMIN_ACCES_UI+"background_menu.jpg");
+        Texture t = new Texture(Constantes.CHEMIN_ACCES_UI + "background_menu.jpg");
         Drawable d = new TextureRegionDrawable(new TextureRegion(t));
         table.setBackground(d);
         table.setFillParent(true);
@@ -65,7 +73,6 @@ public class MainMenu implements Screen {
         final TextButton startGame = new TextButton("Nouvelle partie", skin);
         table.add(startGame).size(300, 110).padTop(10).padRight(-200);
         table.row();
-
 
 
         //Button
@@ -90,7 +97,7 @@ public class MainMenu implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 options.addAction(Actions.fadeOut(0.7f));
-                game.setScreen(new OptionScreen(game,false, musique));
+                game.setScreen(new OptionScreen(game, false, musique));
                 musique.lancerSon();
 
             }
@@ -100,7 +107,7 @@ public class MainMenu implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 startGame.addAction(Actions.fadeOut(0.7f));
-
+                game.NewPartie();
                 game.setScreen(new GameScreen(game, musique));
                 musique.lancerSon();
             }
@@ -111,8 +118,26 @@ public class MainMenu implements Screen {
         loadgame.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                //TODO LoadPartie
+                if (game.getPartie() != null) {
+                    startGame.addAction(Actions.fadeOut(0.7f));
+                    game.setScreen(new GameScreen(game, musique));
+                    musique.lancerSon();
+                } else {
+                    GDXButtonDialog bDialog = dialogs.newDialog(GDXButtonDialog.class);
+                    bDialog.setTitle("Information");
+                    bDialog.setMessage("Vous devez d'abord créer une nouvelle partie");
 
+
+                    bDialog.setClickListener(new ButtonClickListener() {
+
+                        @Override
+                        public void click(int button) {
+                        }
+                    });
+                    bDialog.addButton(" Ok ");
+
+                    bDialog.build().show();
+                }
             }
         });
 

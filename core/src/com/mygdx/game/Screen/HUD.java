@@ -252,9 +252,10 @@ public class HUD {
                 windows_stat.add(stone_count);
                 windows_stat.add(mouton_count);
                 windows_stat.add(brick_count);
-                windows_stat.add(route_count);
-                windows_stat.add(colonie_count);
+
                 windows_stat.add(ville_count);
+                windows_stat.add(colonie_count);
+                windows_stat.add(route_count);
 
 
                 windows_stat.row();
@@ -265,9 +266,11 @@ public class HUD {
                 windows_stat.add(stone_count_j2);
                 windows_stat.add(mouton_count_j2);
                 windows_stat.add(brick_count_j2);
-                windows_stat.add(route_count_j2);
-                windows_stat.add(colonie_count_j2);
                 windows_stat.add(ville_count_j2);
+                windows_stat.add(colonie_count_j2);
+                windows_stat.add(route_count_j2);
+
+
 
                 windows_stat.row();
 
@@ -277,9 +280,11 @@ public class HUD {
                 windows_stat.add(stone_count_j3);
                 windows_stat.add(mouton_count_j3);
                 windows_stat.add(brick_count_j3);
-                windows_stat.add(route_count_j3);
-                windows_stat.add(colonie_count_j3);
                 windows_stat.add(ville_count_j3);
+                windows_stat.add(colonie_count_j3);
+                windows_stat.add(route_count_j3);
+
+
 
                 windows_stat.row();
 
@@ -289,9 +294,11 @@ public class HUD {
                 windows_stat.add(stone_count_j4);
                 windows_stat.add(mouton_count_j4);
                 windows_stat.add(brick_count_j4);
-                windows_stat.add(route_count_j4);
-                windows_stat.add(colonie_count_j4);
                 windows_stat.add(ville_count_j4);
+                windows_stat.add(colonie_count_j4);
+                windows_stat.add(route_count_j4);
+
+
 
                 windows_stat.row();
                 windows_stat.add(deny);

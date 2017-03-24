@@ -31,7 +31,7 @@ public class Catan extends Game {
         sr = new ShapeRenderer();
         polyBatch = new PolygonSpriteBatch();
 
-        partie = new Partie();
+
 
         batch = new SpriteBatch();
         batch2 = new SpriteBatch();
@@ -50,5 +50,9 @@ public class Catan extends Game {
 
     public Partie getPartie() {
         return partie;
+    }
+
+    public void NewPartie(){
+        this.partie=new Partie();
     }
 }
