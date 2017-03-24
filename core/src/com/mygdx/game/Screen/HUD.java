@@ -43,12 +43,7 @@ public class HUD {
         this.game = game;
         this.game.getPartie().setHud(this);
         skin = new Skin(Gdx.files.internal("ui/glassy-ui.json"));
-        try {
-            dialogs = GDXDialogsSystem.install();
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-        }
-
+        dialogs = GDXDialogsSystem.install();
 
         stage = new Stage(new ExtendViewport(1920, 1080));
 
@@ -104,7 +99,7 @@ public class HUD {
         piocher.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.getPartie().getJoueurActif().setPoints(game.getPartie().getJoueurActif().getPoints() + 1);
+                acheterCarteDevellopementConfirm();
             }
         });
 
@@ -205,9 +200,9 @@ public class HUD {
                 stone_count.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_ROUGE].getPaquetRessources().getRessources()[3]));
                 mouton_count.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_ROUGE].getPaquetRessources().getRessources()[4]));
                 brick_count.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_ROUGE].getPaquetRessources().getRessources()[5]));
-                route_count.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_ROUGE].getPaquetStructures()[0]));
-                colonie_count.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_ROUGE].getPaquetStructures()[1]));
-                ville_count.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_ROUGE].getPaquetStructures()[2]));
+                route_count.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_ROUGE].getPaquetStructures()[Constantes.NUMERO_STRUCTURE_MIN]));
+                colonie_count.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_ROUGE].getPaquetStructures()[Constantes.NUMERO_STRUCTURE_MIN + 1]));
+                ville_count.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_ROUGE].getPaquetStructures()[Constantes.NUMERO_STRUCTURE_MIN + 2]));
 
 
                 wood_count_j2.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_BLEU].getPaquetRessources().getRessources()[1]));
@@ -215,27 +210,27 @@ public class HUD {
                 stone_count_j2.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_BLEU].getPaquetRessources().getRessources()[3]));
                 mouton_count_j2.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_BLEU].getPaquetRessources().getRessources()[4]));
                 brick_count_j2.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_BLEU].getPaquetRessources().getRessources()[5]));
-                route_count_j2.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_BLEU].getPaquetStructures()[0]));
-                colonie_count_j2.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_BLEU].getPaquetStructures()[1]));
-                ville_count_j2.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_BLEU].getPaquetStructures()[2]));
+                route_count_j2.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_BLEU].getPaquetStructures()[Constantes.NUMERO_STRUCTURE_MIN]));
+                colonie_count_j2.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_BLEU].getPaquetStructures()[Constantes.NUMERO_STRUCTURE_MIN + 1]));
+                ville_count_j2.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_BLEU].getPaquetStructures()[Constantes.NUMERO_STRUCTURE_MIN + 2]));
 
                 wood_count_j3.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_VERT].getPaquetRessources().getRessources()[1]));
                 foin_count_j3.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_VERT].getPaquetRessources().getRessources()[2]));
                 stone_count_j3.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_VERT].getPaquetRessources().getRessources()[3]));
                 mouton_count_j3.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_VERT].getPaquetRessources().getRessources()[4]));
                 brick_count_j3.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_VERT].getPaquetRessources().getRessources()[5]));
-                route_count_j3.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_VERT].getPaquetStructures()[0]));
-                colonie_count_j3.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_VERT].getPaquetStructures()[1]));
-                ville_count_j3.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_VERT].getPaquetStructures()[2]));
+                route_count_j3.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_VERT].getPaquetStructures()[Constantes.NUMERO_STRUCTURE_MIN]));
+                colonie_count_j3.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_VERT].getPaquetStructures()[Constantes.NUMERO_STRUCTURE_MIN + 1]));
+                ville_count_j3.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_VERT].getPaquetStructures()[Constantes.NUMERO_STRUCTURE_MIN + 2]));
 
                 wood_count_j4.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_JAUNE].getPaquetRessources().getRessources()[1]));
                 foin_count_j4.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_JAUNE].getPaquetRessources().getRessources()[2]));
                 stone_count_j4.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_JAUNE].getPaquetRessources().getRessources()[3]));
                 mouton_count_j4.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_JAUNE].getPaquetRessources().getRessources()[4]));
                 brick_count_j4.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_JAUNE].getPaquetRessources().getRessources()[5]));
-                route_count_j4.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_JAUNE].getPaquetStructures()[0]));
-                colonie_count_j4.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_JAUNE].getPaquetStructures()[1]));
-                ville_count_j4.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_JAUNE].getPaquetStructures()[2]));
+                route_count_j4.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_JAUNE].getPaquetStructures()[Constantes.NUMERO_STRUCTURE_MIN]));
+                colonie_count_j4.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_JAUNE].getPaquetStructures()[Constantes.NUMERO_STRUCTURE_MIN + 1]));
+                ville_count_j4.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_JAUNE].getPaquetStructures()[Constantes.NUMERO_STRUCTURE_MIN + 2]));
 
                 windows_stat.row();
                 windows_stat.add(space);
@@ -396,6 +391,38 @@ public class HUD {
 
 
     }
+
+    /**
+     * Affiche la fenêtre de confirmation pour acheter une carte de dévellopement
+     */
+    public void acheterCarteDevellopementConfirm() {
+        ;
+        GDXButtonDialog bDialog = dialogs.newDialog(GDXButtonDialog.class);
+        bDialog.setTitle("Acheter une carte de dévellopement ?");
+        bDialog.setMessage("Voulez-vous vraiment achter une carte de dévellopement ?");
+
+
+        bDialog.setClickListener(new ButtonClickListener() {
+
+            @Override
+            public void click(int button) {
+                System.out.println(button);
+
+                if (button == 1) { //Annuler
+
+                } else if (button == 0) { //Oui
+                    game.getPartie().getJoueurActif().acheterCarteDeveloppement();
+
+                }
+            }
+        });
+        bDialog.addButton(" Acheter ");
+        bDialog.addButton(" Annuler ");
+
+        bDialog.build().show();
+
+    }
+
 
     /**
      * Affiche la fenêtre de confirmation pour quitter la partie
