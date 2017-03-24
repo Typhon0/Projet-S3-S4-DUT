@@ -62,12 +62,10 @@ public class Joueur {
         this.points = 0;
         this.paquetStructures = new int[Constantes.TAILLE_TABLEAU_STRUCTURE];
         this.listeStructures = new ArrayList<Structure>();
-        this.ressources = new PaquetRessources( couleur );
+        this.ressources = new PaquetRessources(couleur);
         this.couleur = couleur;
         remplirPaquetStructures();
     }
-
-    // Ajoute 4 villes, 5 colonies et 15 routes
 
     /**
      * Affecte au joueur de pions : des villes, colonies et routes. par défaut ajoute 4 villes, 5 colonies et 15 routes
@@ -88,7 +86,7 @@ public class Joueur {
     public void ajouterPointVictoire(int points) {
         this.points += points;
         if (points >= 10) {
-            Partie.getHud().afficherMessage( "Victoire","Vous avez gagné la partie" );
+            Partie.getHud().afficherMessage("Victoire", "Vous avez gagné la partie !");
         }
     }
 
@@ -115,23 +113,23 @@ public class Joueur {
             if (sc.isEstBatiment()) {
                 if (paquetStructures[Constantes.VILLE] > 0) {
                     int[] cout = Constantes.getCoutConstructionVille();
-                    if (estAchetable( cout )) {
+                    if (estAchetable(cout)) {
                         paquetStructures[Constantes.VILLE]--; // décrémente de 1 le nombre de villes restantes
-                        acheter( cout ); // achète le cout de la ville
-                        Structure s = new Structure( this, sc, new Vector2( sc.getPosition().x, sc.getPosition().y ), Constantes.VILLE ); // Création de la structure
+                        acheter(cout); // achète le cout de la ville
+                        Structure s = new Structure(this, sc, new Vector2(sc.getPosition().x, sc.getPosition().y), Constantes.VILLE); // Création de la structure
                         s.affecterTexture(); // affecte la texture à la structure selon son type de structure
-                        ajouterStructure( s ); // ajoute la structure à la liste de structures du joueur
-                        sc.setEstConstruit( true ); //
-                        sc.setStructure( s );
+                        ajouterStructure(s); // ajoute la structure à la liste de structures du joueur
+                        sc.setEstConstruit(true); //
+                        sc.setStructure(s);
                         //System.out.println("Points : "+points);
                     } else
-                        Partie.getHud().afficherMessage( "Erreur de construction de ville", "Vous n'avez pas assez de ressources pour construire une ville" );
+                        Partie.getHud().afficherMessage("Erreur de construction de ville", "Vous n'avez pas assez de ressources pour construire une ville");
                 } else
-                    Partie.getHud().afficherMessage( "Erreur de construction de ville", "Vous n'avez plus de pion de type Ville en stock" );
+                    Partie.getHud().afficherMessage("Erreur de construction de ville", "Vous n'avez plus de pion de type Ville en stock");
             } else
-                Partie.getHud().afficherMessage( "Erreur de construction de ville", "Vous ne pouvez pas construire une ville sur un site de construction de route" );
+                Partie.getHud().afficherMessage("Erreur de construction de ville", "Vous ne pouvez pas construire une ville sur un site de construction de route");
         } else
-            Partie.getHud().afficherMessage( "Erreur de construction de ville", "Il y a déjà une structure construite à cet emplacement" );
+            Partie.getHud().afficherMessage("Erreur de construction de ville", "Il y a déjà une structure construite à cet emplacement");
     }
 
     /**
@@ -157,24 +155,24 @@ public class Joueur {
             if (sc.isEstBatiment()) {
                 if (paquetStructures[Constantes.COLONIE] > 0) {
                     int[] cout = Constantes.getCoutConstructionColonie();
-                    if (estAchetable( cout )) {
+                    if (estAchetable(cout)) {
                         paquetStructures[Constantes.COLONIE]--; // décrémente de 1 le nombre de villes restantes
-                        acheter( cout ); // achète le cout de la ville
+                        acheter(cout); // achète le cout de la ville
                         //System.out.println("Coordonnées de la strucure : "+new Vector2( sc.getTuile().x, sc.getTuile().y ).toString());
-                        Structure s = new Structure( this, sc, new Vector2( sc.getPosition().x, sc.getPosition().y ), Constantes.COLONIE ); // Création de la structure
+                        Structure s = new Structure(this, sc, new Vector2(sc.getPosition().x, sc.getPosition().y), Constantes.COLONIE); // Création de la structure
                         s.affecterTexture(); // affecte la texture à la structure selon son type de structure
-                        ajouterStructure( s ); // ajoute la structure à la liste de structures du joueur
-                        sc.setEstConstruit( true ); //
-                        sc.setStructure( s );
+                        ajouterStructure(s); // ajoute la structure à la liste de structures du joueur
+                        sc.setEstConstruit(true); //
+                        sc.setStructure(s);
                         //System.out.println("Points : "+points);
                     } else
-                        Partie.getHud().afficherMessage( "Erreur de construction de colonie", "Vous n'avez pas assez de ressources pour construire une colonie" );
+                        Partie.getHud().afficherMessage("Erreur de construction de colonie", "Vous n'avez pas assez de ressources pour construire une colonie");
                 } else
-                    Partie.getHud().afficherMessage( "Erreur de construction de colonie", "Vous n'avez plus de pion de type Colonie en stock" );
+                    Partie.getHud().afficherMessage("Erreur de construction de colonie", "Vous n'avez plus de pion de type Colonie en stock");
             } else
-                Partie.getHud().afficherMessage( "Erreur de construction de colonie", "Vous ne pouvez pas construire une colonie sur un site de construction de route" );
+                Partie.getHud().afficherMessage("Erreur de construction de colonie", "Vous ne pouvez pas construire une colonie sur un site de construction de route");
         } else
-            Partie.getHud().afficherMessage( "Erreur de construction de colonie", "Il y a déjà une structure construite à cet emplacement" );
+            Partie.getHud().afficherMessage("Erreur de construction de colonie", "Il y a déjà une structure construite à cet emplacement");
     }
 
     /**
@@ -200,35 +198,37 @@ public class Joueur {
             if (!sc.isEstBatiment()) {
                 if (paquetStructures[Constantes.ROUTE] > 0) {
                     int[] cout = Constantes.getCoutConstructionRoute();
-                    if (estAchetable( cout )) {
+                    if (estAchetable(cout)) {
                         paquetStructures[Constantes.ROUTE]--; // décrémente de 1 le nombre de villes restantes
-                        acheter( cout ); // achète le cout de la ville
+                        acheter(cout); // achète le cout de la ville
                         //System.out.println("Coordonnées de la strucure : "+new Vector2( sc.getTuile().x, sc.getTuile().y ).toString());
-                        Structure s = new Structure( this, sc, new Vector2( sc.getPosition().x, sc.getPosition().y ), Constantes.ROUTE ); // Création de la structure
+                        Structure s = new Structure(this, sc, new Vector2(sc.getPosition().x, sc.getPosition().y), Constantes.ROUTE); // Création de la structure
                         s.affecterTexture(); // affecte la texture à la structure selon son type de structure
-                        ajouterStructure( s ); // ajoute la structure à la liste de structures du joueur
-                        sc.setEstConstruit( true ); //
-                        sc.setStructure( s );
+                        ajouterStructure(s); // ajoute la structure à la liste de structures du joueur
+                        sc.setEstConstruit(true); //
+                        sc.setStructure(s);
                         //System.out.println("Points : "+points);
                     } else
-                        Partie.getHud().afficherMessage( "Erreur de construction de route", "Vous n'avez pas assez de ressources pour construire une route" );
+                        Partie.getHud().afficherMessage("Erreur de construction de route", "Vous n'avez pas assez de ressources pour construire une route");
                 } else
-                    Partie.getHud().afficherMessage( "Erreur de construction de route", "Vous n'avez plus de pion de type Route en stock" );
+                    Partie.getHud().afficherMessage("Erreur de construction de route", "Vous n'avez plus de pion de type Route en stock");
             } else
-                Partie.getHud().afficherMessage( "Erreur de construction de route", "Vous ne pouvez pas construire une route sur un site de construction de batiment" );
+                Partie.getHud().afficherMessage("Erreur de construction de route", "Vous ne pouvez pas construire une route sur un site de construction de batiment");
         } else
-            Partie.getHud().afficherMessage( "Erreur de construction de route", "Il y a déjà une structure construite à cet emplacement" );
+            Partie.getHud().afficherMessage("Erreur de construction de route", "Il y a déjà une structure construite à cet emplacement");
     }
 
+    /**
+     * Récupère le tableau de cout d'une carte de développement. Vérifie si le joueur a assez de ressources pour acheter une carte.
+     */
     public void acheterCarteDeveloppement() {
         int[] cout = Constantes.getCoutCarteDeveloppement();
-        if (estAchetable( cout )) {
-            paquetStructures[Constantes.ROUTE]--; // décrémente de 1 le nombre de villes restantes
-            acheter( cout ); // achète le cout de la ville
-            ajouterPointVictoire( 1 );
-            Partie.getHud().afficherMessage( "Achat d'une carte de déveoppement", "Vous avez gagné 1 point de victoire");
+        if (estAchetable(cout)) {
+            acheter(cout); // achète le cout de la ville
+            ajouterPointVictoire(1);
+            Partie.getHud().afficherMessage("Achat d'une carte de déveoppement", "Vous avez gagné 1 point de victoire");
         } else
-            Partie.getHud().afficherMessage( "Impossible d'acheter une carte développement", "Vous n'avez pas assez de ressources pour acheter une carte développement" );
+            Partie.getHud().afficherMessage("Impossible d'acheter une carte développement", "Vous n'avez pas assez de ressources pour acheter une carte développement");
     }
 
     /**
@@ -239,7 +239,7 @@ public class Joueur {
      */
     public boolean estAchetable(int[] cout) {
         for (int i = Constantes.NUMERO_RESSOURCE_MIN; i <= Constantes.NUMERO_RESSOURCE_MAX; i++) {
-            if (!ressources.estRetirable( i, cout[i] )) {
+            if (!ressources.estRetirable(i, cout[i])) {
                 return false;
             }
         }
@@ -254,7 +254,7 @@ public class Joueur {
     public void acheter(int[] cout) {
         for (int i = Constantes.NUMERO_RESSOURCE_MIN; i <= Constantes.NUMERO_RESSOURCE_MAX; i++) {
             // ajoute les ressources au plateau, retire les ressources du joueur, la ressource i,pour un cout de cout[i]
-            PaquetRessources.recevoirRessource( Plateau.getRessources(), ressources, i, cout[i] );
+            PaquetRessources.recevoirRessource(Plateau.getRessources(), ressources, i, cout[i]);
         }
     }
 
@@ -264,8 +264,8 @@ public class Joueur {
      * @param s
      */
     public void ajouterStructure(Structure s) {
-        if (!listeStructures.contains( s )) {
-            listeStructures.add( s );
+        if (!listeStructures.contains(s)) {
+            listeStructures.add(s);
         }
     }
 
@@ -277,7 +277,7 @@ public class Joueur {
     public String getRessourcesString() {
         String s = "";
         for (int i = Constantes.NUMERO_RESSOURCE_MIN; i <= Constantes.NUMERO_RESSOURCE_MAX; i++) {
-            s += Constantes.nomRessource( i ) + " : " + ressources.getRessources()[i] + "\t";
+            s += Constantes.nomRessource(i) + " : " + ressources.getRessources()[i] + "\t";
         }
         return s;
     }
@@ -286,7 +286,7 @@ public class Joueur {
      * Affiche les ressources
      */
     public void afficherRessources() {
-        System.out.println( getRessourcesString() );
+        System.out.println(getRessourcesString());
     }
 
     /**
@@ -303,37 +303,27 @@ public class Joueur {
         return false;
     }
 
+    /**
+     * Parcours de toutes les structures du joueur et vérifie si chaque structure est liée à un port.
+     *
+     * @return Taux de change minimum des ports que possède le joueur
+     */
     public int getTauxDeChangeMinimum() {
         int taux = Constantes.PORT_TAUX_DE_CHANGE_MAXIMUM;
         for (Structure s : listeStructures) {
             if (s.getSc().possedePort()) {
-                if (s.getSc().getPort().getTauxDeChange() < taux);
+                if (s.getSc().getPort().getTauxDeChange() < taux) ;
                 taux = s.getSc().getPort().getTauxDeChange();
             }
         }
         return taux;
     }
 
+
     // Getters et Setters
 
     public void setPoints(int points) {
         this.points = points;
-    }
-
-    public void setPaquetStructures(int[] paquetStructures) {
-        this.paquetStructures = paquetStructures;
-    }
-
-    public void setRessources(PaquetRessources ressources) {
-        this.ressources = ressources;
-    }
-
-    public void setListeStructures(List<Structure> listeStructures) {
-        this.listeStructures = listeStructures;
-    }
-
-    public void setCouleur(int couleur) {
-        this.couleur = couleur;
     }
 
     public int getPoints() {
