@@ -8,6 +8,11 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+import de.tomgrill.gdxdialogs.core.GDXDialogs;
+import de.tomgrill.gdxdialogs.core.GDXDialogsSystem;
+import de.tomgrill.gdxdialogs.core.dialogs.GDXButtonDialog;
+import de.tomgrill.gdxdialogs.core.listener.ButtonClickListener;
+
 /**
  * <b> Partie est la classe représentant le partie du jeu</b>
  * <p>
@@ -159,10 +164,6 @@ public class Partie {
      * Début du nouveau tour
      */
     public void nouveauTour() {
-
-        for (int i=0 ; i<joueurs.length ; i++ ) {
-            System.out.println("Joueur "+i+"\t"+joueurs[i].getRessourcesString());
-        }
         de1.lancer();
         de2.lancer();
         hud.afficherMessage("Tour du joueur " + Constantes.couleurJoueur(joueurActif.getCouleur()), "Valeur des Des : " + (de1.getValeur() + de2.getValeur()));

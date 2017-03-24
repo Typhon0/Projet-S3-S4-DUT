@@ -51,23 +51,11 @@ import static com.mygdx.game.model.Plateau.*;
 
 public class GameScreen implements Screen, InputProcessor {
     private Catan game;
-    public Sprite sprite;
-    public FloatArray vertices, v2, v3;
-    public Vector2 center;
-    public Texture texture, texture2, textureBrick;
-    public TextureRegion texture3, texreg;
-    public PolygonSprite polygonSprite, polygonSprite2;
-    public ArrayList<PolygonRegion> listePolygonRegion;
     public Skin skin;
     public GDXDialogs dialogs;
-    public Stage stage;
     private HUD hud;
-
     private Musique musique;
-
-
     private State state = State.RUN; // status du jeu
-
 
     Label point_vic_J1;
     Label point_vic_J2;
