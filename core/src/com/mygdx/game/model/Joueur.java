@@ -87,6 +87,9 @@ public class Joueur {
      */
     public void ajouterPointVictoire(int points) {
         this.points += points;
+        if (points >= 10) {
+            Partie.getHud().afficherMessage( "Victoire","Vous avez gagné la partie" );
+        }
     }
 
     /**
@@ -215,6 +218,17 @@ public class Joueur {
                 Partie.getHud().afficherMessage( "Erreur de construction de route", "Vous ne pouvez pas construire une route sur un site de construction de batiment" );
         } else
             Partie.getHud().afficherMessage( "Erreur de construction de route", "Il y a déjà une structure construite à cet emplacement" );
+    }
+
+    public void acheterCarteDeveloppement() {
+        int[] cout = Constantes.getCoutCarteDeveloppement();
+        if (estAchetable( cout )) {
+            paquetStructures[Constantes.ROUTE]--; // décrémente de 1 le nombre de villes restantes
+            acheter( cout ); // achète le cout de la ville
+            ajouterPointVictoire( 1 );
+            Partie.getHud().afficherMessage( "Achat d'une carte de déveoppement", "Vous avez gagné 1 point de victoire");
+        } else
+            Partie.getHud().afficherMessage( "Impossible d'acheter une carte développement", "Vous n'avez pas assez de ressources pour acheter une carte développement" );
     }
 
     /**

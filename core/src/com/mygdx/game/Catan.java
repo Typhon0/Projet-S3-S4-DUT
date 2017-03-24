@@ -46,9 +46,6 @@ public class Catan extends Game {
 
     @Override
     public void dispose() {
-		//batch.dispose();
-       // batch2.dispose();
-//		img.dispose();
     }
 
     public Partie getPartie() {

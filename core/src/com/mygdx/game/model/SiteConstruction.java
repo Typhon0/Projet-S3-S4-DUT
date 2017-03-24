@@ -91,14 +91,6 @@ public class SiteConstruction {
     public boolean estToucheInt(int x, int y) {
         if (x >= position.x - Constantes.STRUCTURE_DELTA_X && x <= position.x + Constantes.STRUCTURE_DELTA_X &&
                 y >= position.y - Constantes.STRUCTURE_DELTA_Y && y <= position.y + Constantes.STRUCTURE_DELTA_Y) {
-//            String message = "";
-//            if (estBatiment) {
-//                message = "batiment";
-//            }
-//            else {
-//                message = "route";
-//            }
-//            System.out.println("Le site de construction ("+message+") : "+this.toString()+" "+position.x+","+position.y+" a été touché");
             return true;
         }
         return false;
