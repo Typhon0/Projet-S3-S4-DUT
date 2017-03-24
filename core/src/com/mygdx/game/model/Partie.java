@@ -252,7 +252,6 @@ public class Partie {
                     }
                 }
             }
-
         }
     }
 

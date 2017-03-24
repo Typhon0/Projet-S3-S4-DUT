@@ -123,7 +123,6 @@ public class Joueur {
                         ajouterStructure(s); // ajoute la structure à la liste de structures du joueur
                         sc.setEstConstruit(true); //
                         sc.setStructure(s);
-                        //System.out.println("Points : "+points);
                     } else
                         Partie.getHud().afficherMessage("Erreur de construction de ville", "Vous n'avez pas assez de ressources pour construire une ville");
                 } else
@@ -160,13 +159,11 @@ public class Joueur {
                     if (estAchetable(cout)) {
                         paquetStructures[Constantes.COLONIE]--; // décrémente de 1 le nombre de villes restantes
                         acheter(cout); // achète le cout de la ville
-                        //System.out.println("Coordonnées de la strucure : "+new Vector2( sc.getTuile().x, sc.getTuile().y ).toString());
                         Structure s = new Structure(this, sc, new Vector2(sc.getPosition().x, sc.getPosition().y), Constantes.COLONIE); // Création de la structure
                         s.affecterTexture(); // affecte la texture à la structure selon son type de structure
                         ajouterStructure(s); // ajoute la structure à la liste de structures du joueur
                         sc.setEstConstruit(true); //
                         sc.setStructure(s);
-                        //System.out.println("Points : "+points);
                     } else
                         Partie.getHud().afficherMessage("Erreur de construction de colonie", "Vous n'avez pas assez de ressources pour construire une colonie");
                 } else
@@ -203,13 +200,11 @@ public class Joueur {
                     if (estAchetable(cout)) {
                         paquetStructures[Constantes.ROUTE]--; // décrémente de 1 le nombre de villes restantes
                         acheter(cout); // achète le cout de la ville
-                        //System.out.println("Coordonnées de la strucure : "+new Vector2( sc.getTuile().x, sc.getTuile().y ).toString());
                         Structure s = new Structure(this, sc, new Vector2(sc.getPosition().x, sc.getPosition().y), Constantes.ROUTE); // Création de la structure
                         s.affecterTexture(); // affecte la texture à la structure selon son type de structure
                         ajouterStructure(s); // ajoute la structure à la liste de structures du joueur
                         sc.setEstConstruit(true); //
                         sc.setStructure(s);
-                        //System.out.println("Points : "+points);
                     } else
                         Partie.getHud().afficherMessage("Erreur de construction de route", "Vous n'avez pas assez de ressources pour construire une route");
                 } else
@@ -223,7 +218,6 @@ public class Joueur {
     public void acheterCarteDeveloppement() {
         int[] cout = Constantes.getCoutCarteDeveloppement();
         if (estAchetable(cout)) {
-            paquetStructures[Constantes.ROUTE]--; // décrémente de 1 le nombre de villes restantes
             acheter(cout); // achète le cout de la ville
             ajouterPointVictoire(1);
             Partie.getHud().afficherMessage("Achat d'une carte de déveoppement", "Vous avez gagné 1 point de victoire");
