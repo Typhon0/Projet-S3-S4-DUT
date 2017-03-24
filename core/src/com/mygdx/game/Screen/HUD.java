@@ -405,10 +405,8 @@ public class HUD {
     public void acheterCarteDevellopementConfirm() {
         ;
         GDXButtonDialog bDialog = dialogs.newDialog(GDXButtonDialog.class);
-        bDialog.setTitle("Acheter une carte de dévellopement ?");
-        bDialog.setMessage("Voulez-vous vraiment achter une carte de dévellopement ?");
-
-
+        bDialog.setTitle("Achat de carte de développement");
+        bDialog.setMessage("Confirmer l'achat d'une carte de développement?");
         bDialog.setClickListener(new ButtonClickListener() {
 
             @Override
@@ -425,9 +423,7 @@ public class HUD {
         });
         bDialog.addButton(" Acheter ");
         bDialog.addButton(" Annuler ");
-
         bDialog.build().show();
-
     }
 
 
