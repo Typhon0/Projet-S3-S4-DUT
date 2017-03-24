@@ -57,14 +57,16 @@ public class MainMenu implements Screen {
         table.setBackground(d);
         table.setFillParent(true);
 
-        //Text Button
-        final TextButton startGame = new TextButton("Nouvelle partie", skin);
-        table.add(startGame).size(300, 110).padRight(-200);
+        final TextButton loadgame = new TextButton("Reprendre partie", skin);
+        table.add(loadgame).size(300, 110).padRight(-200);
         table.row();
 
-        final TextButton loadgame = new TextButton("Charger partie", skin);
-        table.add(loadgame).size(300, 110).padTop(10).padRight(-200);
+        //Text Button
+        final TextButton startGame = new TextButton("Nouvelle partie", skin);
+        table.add(startGame).size(300, 110).padTop(10).padRight(-200);
         table.row();
+
+
 
         //Button
         final Button quit = new Button(skin, "exit");
@@ -109,9 +111,7 @@ public class MainMenu implements Screen {
         loadgame.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                loadgame.addAction(Actions.fadeOut(0.7f));
-                game.setScreen(new LoadGameScreen(game, musique));
-                musique.lancerSon();
+                //TODO LoadPartie
 
             }
         });
