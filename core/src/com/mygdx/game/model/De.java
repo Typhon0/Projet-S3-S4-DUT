@@ -60,7 +60,7 @@ public class De {
      * @see De#MAX
      */
     public void lancer() {
-        valeur = MIN + r.nextInt( MAX - MIN + 1 );
+        valeur = MIN + r.nextInt(MAX - MIN + 1);
     }
 
     /**
