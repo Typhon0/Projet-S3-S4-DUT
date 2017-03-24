@@ -122,13 +122,13 @@ public class Partie {
      * Fin de tour du joueur. Réinitialise la structure sélectionnée.
      */
     public void finDeTour() {
+        System.err.println(joueurActif.possedePort());
         joueurSuivant();
         typeStructure = 0;
         if (plateau.getVoleur().isActif()) {
             plateau.getVoleur().setActif( false );
         }
         nouveauTour();
-        System.err.println(joueurActif.possedePort());
     }
 
     /**
