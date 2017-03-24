@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.PolygonRegion;
@@ -65,10 +66,10 @@ public class GameScreen implements Screen, InputProcessor {
     private State state = State.RUN; // status du jeu
 
 
-    Label point_vic_J1 ;
-    Label point_vic_J2 ;
-    Label point_vic_J3 ;
-    Label point_vic_J4 ;
+    Label point_vic_J1;
+    Label point_vic_J2;
+    Label point_vic_J3;
+    Label point_vic_J4;
 
     public GameScreen(Catan g) {
         this.game = g;
@@ -86,10 +87,10 @@ public class GameScreen implements Screen, InputProcessor {
         Gdx.input.setInputProcessor(inputMultiplexer);
         skin = new Skin(Gdx.files.internal("ui/glassy-ui.json"));
 
-        point_vic_J1 = new Label("0", skin);
-        point_vic_J2 = new Label("0", skin);
-        point_vic_J3 = new Label("0", skin);
-        point_vic_J4 = new Label("0", skin);
+        point_vic_J1 = new Label("0", skin, "big");
+        point_vic_J2 = new Label("0", skin, "big");
+        point_vic_J3 = new Label("0", skin, "big");
+        point_vic_J4 = new Label("0", skin, "big");
 
 
     }
@@ -115,15 +116,20 @@ public class GameScreen implements Screen, InputProcessor {
 
                 Table table2 = new Table();
                 table2.setSize(1920, 1080);
+                table2.setPosition(700,-470);
 
                 point_vic_J1.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_BLEU].getPoints()));
+                point_vic_J1.setColor(Color.BLUE);
                 point_vic_J2.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_JAUNE].getPoints()));
+                point_vic_J2.setColor(Color.YELLOW);
                 point_vic_J3.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_ROUGE].getPoints()));
+                point_vic_J3.setColor(Color.RED);
                 point_vic_J4.setText(String.valueOf(game.getPartie().getJoueurs()[Constantes.COULEUR_VERT].getPoints()));
+                point_vic_J4.setColor(Color.GREEN);
 
-                table2.add(point_vic_J1);
-                table2.add(point_vic_J2);
-                table2.add(point_vic_J3);
+                table2.add(point_vic_J1).padRight(50);
+                table2.add(point_vic_J2).padRight(50);
+                table2.add(point_vic_J3).padRight(50);
                 table2.add(point_vic_J4);
 
                 hud.stage.addActor(table2);

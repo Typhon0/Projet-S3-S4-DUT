@@ -1,6 +1,7 @@
 package com.mygdx.game.Screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -127,6 +128,10 @@ public class HUD {
                 final Label j2_label = new Label("Joueur bleu", skin);
                 final Label j3_label = new Label("Joueur vert", skin);
                 final Label j4_label = new Label("Joueur jaune", skin);
+                j1_label.setColor(Color.RED);
+                j2_label.setColor(Color.BLUE);
+                j3_label.setColor(Color.GREEN);
+                j4_label.setColor(Color.YELLOW);
 
 
                 final Label wood_count = new Label("0", skin, "big");
@@ -401,8 +406,6 @@ public class HUD {
                 if (button == 1) { //Annuler
 
                 } else if (button == 0) { //Oui
-                    //TODO passer le tour
-                    System.out.println("passe tour");
                     game.getPartie().finDeTour();
 
                 }

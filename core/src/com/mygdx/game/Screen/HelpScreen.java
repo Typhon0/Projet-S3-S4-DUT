@@ -3,6 +3,7 @@ package com.mygdx.game.Screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -39,6 +40,7 @@ public class HelpScreen implements Screen {
 
         skin = new Skin(Gdx.files.internal("ui/glassy-ui.json"));
         Label regle = new Label(null, skin);
+        regle.setColor(Color.BLACK);
         regle.setText("Repudiandae nam in nam quia omnis possimus. Rem et est est iste. Rerum enim et autem quo fugiat quibusdam sit. Doloribus voluptatem et id alias labore impedit quibusdam atque.\n" +
                 "Doloremque ut laborum dolorum et. Asperiores sint illo vel odit rerum reiciendis non accusamus. Architecto provident quae id velit est error autem.\n" +
                 "Est totam in deleniti assumenda rerum quia. Et quia quo maiores aut error. Tenetur voluptatibus provident qui et harum ut. Ducimus fugiat sit culpa nobis aspernatur saepe iusto omnis. Quia in explicabo officia eius. Aut velit dolorem animi et aliquid iure nam qui.\n" +
@@ -53,7 +55,7 @@ public class HelpScreen implements Screen {
         table.setSize(800, 500);
 
         //Background
-        Texture t = new Texture(Constantes.CHEMIN_ACCES_UI+"background_menu.jpg");
+        Texture t = new Texture(Constantes.CHEMIN_ACCES_UI + "background_menu.jpg");
         Drawable d = new TextureRegionDrawable(new TextureRegion(t));
         table.setBackground(d);
         table.setFillParent(true);
