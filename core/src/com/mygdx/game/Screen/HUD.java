@@ -26,10 +26,6 @@ import de.tomgrill.gdxdialogs.core.GDXDialogsSystem;
 import de.tomgrill.gdxdialogs.core.dialogs.GDXButtonDialog;
 import de.tomgrill.gdxdialogs.core.listener.ButtonClickListener;
 
-/**
- * Created by typhon0 on 15/03/17.
- */
-
 public class HUD {
     private static Catan game;
     public Stage stage;
@@ -104,11 +100,11 @@ public class HUD {
         stage.addActor(table);
 
 
-        //Listener Bouton piocher
+        //Listener Bouton piocher carte dévellopement
         piocher.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-
+                game.getPartie().getJoueurActif().setPoints(game.getPartie().getJoueurActif().getPoints() + 1);
             }
         });
 
@@ -566,6 +562,511 @@ public class HUD {
      * est selectionner le nombre de ressource échanger.
      */
     public void windowEchange2() {
+
+        final int[] ressources_J1 = new int[Constantes.TAILLE_TABLEAU_RESSOURCE];
+        int[] ressources_J2 = new int[Constantes.TAILLE_TABLEAU_RESSOURCE];
+
+
+        Button deny = new Button(skin, "deny");
+        Button confirm = new Button(skin, "confirm");
+        Label J1_label = new Label("Joueur 1", skin);
+        Label J2_label = new Label("Joueur 2", skin);
+        Label space = new Label(" ", skin);
+
+
+        //J1 button
+        final Label bois_label = new Label("Bois", skin);
+        final Label count_bois_J1 = new Label("0", skin, "big");
+        Button plus_bois_J1 = new Button(skin, "plus");
+        Button minus_bois_J1 = new Button(skin, "minus");
+
+        Label argile_label = new Label("Argile", skin);
+        final Label count_argile_J1 = new Label("0", skin, "big");
+        Button plus_argile_J1 = new Button(skin, "plus");
+        Button minus_argile_J1 = new Button(skin, "minus");
+
+        Label laine_label = new Label("Laine", skin);
+        final Label count_laine_J1 = new Label("0", skin, "big");
+        Button plus_laine_J1 = new Button(skin, "plus");
+        Button minus_laine_J1 = new Button(skin, "minus");
+
+        Label pierre_label = new Label("Pierre", skin);
+        final Label count_pierre_J1 = new Label("0", skin, "big");
+        Button plus_pierre_J1 = new Button(skin, "plus");
+        Button minus_pierre_J1 = new Button(skin, "minus");
+
+        Label ble_label = new Label("Blé", skin);
+        final Label count_ble_J1 = new Label("0", skin, "big");
+        Button plus_ble_J1 = new Button(skin, "plus");
+        Button minus_ble_J1 = new Button(skin, "minus");
+
+        //J2 Button
+
+        Label bois_label_J2 = new Label("Bois", skin);
+        final Label count_bois_J2 = new Label("0", skin, "big");
+        Button plus_bois_J2 = new Button(skin, "plus");
+        Button minus_bois_J2 = new Button(skin, "minus");
+
+        Label argile_label_J2 = new Label("Argile", skin);
+        final Label count_argile_J2 = new Label("0", skin, "big");
+        Button plus_argile_J2 = new Button(skin, "plus");
+        Button minus_argile_J2 = new Button(skin, "minus");
+
+        Label laine_label_J2 = new Label("Laine", skin);
+        final Label count_laine_J2 = new Label("0", skin, "big");
+        Button plus_laine_J2 = new Button(skin, "plus");
+        Button minus_laine_J2 = new Button(skin, "minus");
+
+        Label pierre_label_J2 = new Label("Pierre", skin);
+        final Label count_pierre_J2 = new Label("0", skin, "big");
+        Button plus_pierre_J2 = new Button(skin, "plus");
+        Button minus_pierre_J2 = new Button(skin, "minus");
+
+        Label ble_label_J2 = new Label("Ble", skin);
+        final Label count_ble_J2 = new Label("0", skin, "big");
+        Button plus_ble_J2 = new Button(skin, "plus");
+        Button minus_ble_J2 = new Button(skin, "minus");
+
+
+        final Window echange2Windows = new Window("Echange", skin);
+
+        echange2Windows.add(J1_label);
+        echange2Windows.add(space);
+        echange2Windows.add(space);
+        echange2Windows.add(space);
+        echange2Windows.add(space);
+        echange2Windows.add(J2_label);
+
+        echange2Windows.row();
+
+        echange2Windows.add(bois_label);
+        echange2Windows.add(plus_bois_J1);
+        echange2Windows.add(count_bois_J1);
+        echange2Windows.add(minus_bois_J1);
+
+        echange2Windows.add(bois_label_J2).padLeft(100).padRight(80);
+        echange2Windows.add(plus_bois_J2);
+        echange2Windows.add(count_bois_J2);
+        echange2Windows.add(minus_bois_J2);
+
+        echange2Windows.row();
+
+        echange2Windows.add(laine_label);
+        echange2Windows.add(plus_laine_J1);
+        echange2Windows.add(count_laine_J1);
+        echange2Windows.add(minus_laine_J1);
+
+        echange2Windows.add(laine_label_J2);
+        echange2Windows.add(plus_laine_J2);
+        echange2Windows.add(count_laine_J2);
+        echange2Windows.add(minus_laine_J2);
+
+        echange2Windows.row();
+
+        echange2Windows.add(argile_label);
+        echange2Windows.add(plus_argile_J1);
+        echange2Windows.add(count_argile_J1);
+        echange2Windows.add(minus_argile_J1);
+
+        echange2Windows.add(argile_label_J2);
+        echange2Windows.add(plus_argile_J2);
+        echange2Windows.add(count_argile_J2);
+        echange2Windows.add(minus_argile_J2);
+
+        echange2Windows.row();
+
+        echange2Windows.add(pierre_label);
+        echange2Windows.add(plus_pierre_J1);
+        echange2Windows.add(count_pierre_J1);
+        echange2Windows.add(minus_pierre_J1);
+
+        echange2Windows.add(pierre_label_J2);
+        echange2Windows.add(plus_pierre_J2);
+        echange2Windows.add(count_pierre_J2);
+        echange2Windows.add(minus_pierre_J2);
+
+        echange2Windows.row();
+
+        echange2Windows.add(ble_label);
+        echange2Windows.add(plus_ble_J1);
+        echange2Windows.add(count_ble_J1);
+        echange2Windows.add(minus_ble_J1);
+
+        echange2Windows.add(ble_label_J2);
+        echange2Windows.add(plus_ble_J2);
+        echange2Windows.add(count_ble_J2);
+        echange2Windows.add(minus_ble_J2);
+
+        echange2Windows.row();
+        //button
+        echange2Windows.add(deny);
+        echange2Windows.add(confirm);
+
+        echange2Windows.setSize(1500, 1000);
+        echange2Windows.setPosition(450, stage.getHeight() / 2 - echange2Windows.getHeight() / 2);
+
+        stage.addActor(echange2Windows);
+
+
+        //Touch listener bouton cancel
+        deny.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                echange2Windows.setVisible(false);
+
+            }
+        });
+
+        //Touch listener bouton valider
+        confirm.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                int[] ressource_j1 = new int[Constantes.TAILLE_TABLEAU_RESSOURCE];
+                ressource_j1[Constantes.ARGILE] = Integer.valueOf(count_argile_J1.getText().toString());
+                ressource_j1[Constantes.BLE] = Integer.valueOf(count_ble_J1.getText().toString());
+                ressource_j1[Constantes.BOIS] = Integer.valueOf(count_bois_J1.getText().toString());
+                ressource_j1[Constantes.LAINE] = Integer.valueOf(count_laine_J1.getText().toString());
+                ressource_j1[Constantes.MINERAI] = Integer.valueOf(count_pierre_J1.getText().toString());
+
+
+                int[] ressource_j2 = new int[Constantes.TAILLE_TABLEAU_RESSOURCE];
+
+                ressource_j2[Constantes.ARGILE] = Integer.valueOf(count_argile_J2.getText().toString());
+                ressource_j2[Constantes.BLE] = Integer.valueOf(count_ble_J2.getText().toString());
+                ressource_j2[Constantes.BOIS] = Integer.valueOf(count_bois_J2.getText().toString());
+                ressource_j2[Constantes.LAINE] = Integer.valueOf(count_laine_J2.getText().toString());
+                ressource_j2[Constantes.MINERAI] = Integer.valueOf(count_pierre_J2.getText().toString());
+
+                System.out.println("Ressource J1");
+                for (int i = Constantes.NUMERO_RESSOURCE_MIN; i < Constantes.TAILLE_TABLEAU_RESSOURCE; i++) {
+                    System.out.println(ressource_j1[i]);
+                }
+
+                System.out.println("Ressource J2");
+                for (int i = Constantes.NUMERO_RESSOURCE_MIN; i < Constantes.TAILLE_TABLEAU_RESSOURCE; i++) {
+                    System.out.println(ressource_j2[i]);
+                }
+
+
+                for (int i = Constantes.NUMERO_RESSOURCE_MIN; i < Constantes.TAILLE_TABLEAU_RESSOURCE; i++) {
+                    PaquetRessources.recevoirRessource(game.getPartie().getJoueurActif().getPaquetRessources(),
+                            game.getPartie().getJoueurAQuiOnVeutEchanger().getPaquetRessources(),
+                            i, ressource_j2[i]);
+                }
+
+                for (int i = Constantes.NUMERO_RESSOURCE_MIN; i < Constantes.TAILLE_TABLEAU_RESSOURCE; i++) {
+                    PaquetRessources.recevoirRessource(game.getPartie().getJoueurAQuiOnVeutEchanger().getPaquetRessources(),
+                            game.getPartie().getJoueurActif().getPaquetRessources(),
+                            i, ressource_j1[i]);
+                }
+
+
+                System.out.println("Ressource J1");
+                for (int i = Constantes.NUMERO_RESSOURCE_MIN; i < Constantes.TAILLE_TABLEAU_RESSOURCE; i++) {
+                    System.out.println(game.getPartie().getJoueurActif().getPaquetRessources().getRessources()[i]);
+                }
+
+                System.out.println("Ressource J2");
+                for (int i = Constantes.NUMERO_RESSOURCE_MIN; i < Constantes.TAILLE_TABLEAU_RESSOURCE; i++) {
+                    System.out.println(game.getPartie().getJoueurAQuiOnVeutEchanger().getPaquetRessources().getRessources()[i]);
+                }
+                echange2Windows.setVisible(false);
+
+
+            }
+        });
+
+        plus_bois_J1.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                int tmp_count = Integer.valueOf(count_bois_J1.getText().toString());
+                tmp_count++;
+                count_bois_J1.setText(String.valueOf(tmp_count));
+            }
+        });
+
+        minus_bois_J1.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                int tmp_count = Integer.valueOf(count_bois_J1.getText().toString());
+                tmp_count--;
+                count_bois_J1.setText(String.valueOf(tmp_count));
+            }
+        });
+
+        plus_bois_J2.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                int tmp_count = Integer.valueOf(count_bois_J2.getText().toString());
+                tmp_count++;
+                count_bois_J2.setText(String.valueOf(tmp_count));
+            }
+        });
+
+        minus_bois_J2.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                int tmp_count = Integer.valueOf(count_bois_J2.getText().toString());
+                tmp_count--;
+                count_bois_J2.setText(String.valueOf(tmp_count));
+            }
+        });
+
+
+        plus_laine_J1.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                int tmp_count = Integer.valueOf(count_laine_J1.getText().toString());
+                tmp_count++;
+                count_laine_J1.setText(String.valueOf(tmp_count));
+            }
+        });
+
+        minus_laine_J1.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                int tmp_count = Integer.valueOf(count_laine_J1.getText().toString());
+                tmp_count--;
+                count_laine_J1.setText(String.valueOf(tmp_count));
+            }
+        });
+
+        plus_laine_J2.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                int tmp_count = Integer.valueOf(count_laine_J2.getText().toString());
+                tmp_count++;
+                count_laine_J2.setText(String.valueOf(tmp_count));
+            }
+        });
+
+        minus_laine_J2.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                int tmp_count = Integer.valueOf(count_laine_J2.getText().toString());
+                tmp_count--;
+                count_laine_J2.setText(String.valueOf(tmp_count));
+            }
+        });
+
+
+        plus_argile_J1.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                int tmp_count = Integer.valueOf(count_argile_J1.getText().toString());
+                tmp_count++;
+                count_argile_J1.setText(String.valueOf(tmp_count));
+            }
+        });
+
+        minus_argile_J1.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                int tmp_count = Integer.valueOf(count_argile_J1.getText().toString());
+                tmp_count--;
+                count_argile_J1.setText(String.valueOf(tmp_count));
+            }
+        });
+
+        plus_argile_J2.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                int tmp_count = Integer.valueOf(count_argile_J2.getText().toString());
+                tmp_count++;
+                count_argile_J2.setText(String.valueOf(tmp_count));
+            }
+        });
+
+        minus_argile_J2.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                int tmp_count = Integer.valueOf(count_argile_J2.getText().toString());
+                tmp_count--;
+                count_argile_J2.setText(String.valueOf(tmp_count));
+            }
+        });
+
+
+        plus_pierre_J1.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                int tmp_count = Integer.valueOf(count_pierre_J1.getText().toString());
+                tmp_count++;
+                count_pierre_J1.setText(String.valueOf(tmp_count));
+            }
+        });
+
+        minus_pierre_J1.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                int tmp_count = Integer.valueOf(count_pierre_J1.getText().toString());
+                tmp_count--;
+                count_pierre_J1.setText(String.valueOf(tmp_count));
+            }
+        });
+
+        plus_pierre_J2.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                int tmp_count = Integer.valueOf(count_pierre_J2.getText().toString());
+                tmp_count++;
+                count_pierre_J2.setText(String.valueOf(tmp_count));
+            }
+        });
+
+        minus_pierre_J2.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                int tmp_count = Integer.valueOf(count_pierre_J2.getText().toString());
+                tmp_count--;
+                count_pierre_J2.setText(String.valueOf(tmp_count));
+            }
+        });
+
+
+        plus_ble_J1.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                int tmp_count = Integer.valueOf(count_ble_J1.getText().toString());
+                tmp_count++;
+                count_ble_J1.setText(String.valueOf(tmp_count));
+            }
+        });
+
+        minus_ble_J1.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                int tmp_count = Integer.valueOf(count_ble_J1.getText().toString());
+                tmp_count--;
+                count_ble_J1.setText(String.valueOf(tmp_count));
+            }
+        });
+
+        plus_ble_J2.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                int tmp_count = Integer.valueOf(count_ble_J2.getText().toString());
+                tmp_count++;
+                count_ble_J2.setText(String.valueOf(tmp_count));
+            }
+        });
+
+        minus_ble_J2.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                int tmp_count = Integer.valueOf(count_ble_J2.getText().toString());
+                tmp_count--;
+                count_ble_J2.setText(String.valueOf(tmp_count));
+            }
+        });
+
+
+    }
+
+    /**
+     * Affiche la fênetre d'échange ou est selectionner
+     * le joueur avec qui l'on veut échanger.
+     */
+    public void windowsEchangePort() {
+
+        TextButton Jbleu_button = new TextButton("Bleu", skin);
+        TextButton Jrouge_button = new TextButton("Rouge", skin);
+        TextButton Jvert_button = new TextButton("Vert", skin);
+        TextButton Jjaune_button = new TextButton("Jaune", skin);
+
+        switch (game.getPartie().getJoueurActif().getCouleur()) {
+            case Constantes.COULEUR_BLEU:
+                Jbleu_button.setVisible(false);
+                break;
+            case Constantes.COULEUR_JAUNE:
+                Jjaune_button.setVisible(false);
+
+                break;
+            case Constantes.COULEUR_ROUGE:
+                Jrouge_button.setVisible(false);
+
+                break;
+            case Constantes.COULEUR_VERT:
+                Jvert_button.setVisible(false);
+
+                break;
+            default:
+                break;
+
+        }
+
+        Button deny = new Button(skin, "deny");
+
+
+        final Window echangeWindows = new Window("Choisir joueur avec qui echanger", skin);
+
+
+        echangeWindows.add(Jbleu_button).padRight(-100);
+        echangeWindows.add(Jrouge_button);
+        echangeWindows.add(Jvert_button);
+        echangeWindows.add(Jjaune_button);
+
+
+        echangeWindows.row();
+        //button
+        echangeWindows.add(deny).padTop(50).padRight(200);
+        echangeWindows.setSize(1000, 500);
+        echangeWindows.setPosition(450, stage.getHeight() / 2 - echangeWindows.getHeight() / 2);
+
+        stage.addActor(echangeWindows);
+
+        //Touch listener bouton bleu
+        Jbleu_button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                echangeWindows.setVisible(false);
+                game.getPartie().setJoueurAQuiOnVeutEchanger(game.getPartie().getJoueurs()[Constantes.COULEUR_BLEU]);
+                windowEchange2();
+            }
+        });
+
+        //Touch listener bouton rouge
+        Jrouge_button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.getPartie().setJoueurAQuiOnVeutEchanger(game.getPartie().getJoueurs()[Constantes.COULEUR_ROUGE]);
+                windowEchange2();
+            }
+        });
+
+        //Touch listener bouton vert
+        Jvert_button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.getPartie().setJoueurAQuiOnVeutEchanger(game.getPartie().getJoueurs()[Constantes.COULEUR_VERT]);
+                windowEchange2();
+            }
+        });
+
+        //Touch listener bouton jaune
+        Jjaune_button.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.getPartie().setJoueurAQuiOnVeutEchanger(game.getPartie().getJoueurs()[Constantes.COULEUR_JAUNE]);
+                windowEchange2();
+            }
+        });
+
+        //Touch listener bouton cancel
+        deny.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                echangeWindows.setVisible(false);
+
+            }
+        });
+    }
+
+    /**
+     * Affiche la fênetre d'échange ou
+     * est selectionner le nombre de ressource échanger.
+     */
+    public void windowEchangePort2() {
 
         final int[] ressources_J1 = new int[Constantes.TAILLE_TABLEAU_RESSOURCE];
         int[] ressources_J2 = new int[Constantes.TAILLE_TABLEAU_RESSOURCE];
