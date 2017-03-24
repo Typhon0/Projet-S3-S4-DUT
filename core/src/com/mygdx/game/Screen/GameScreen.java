@@ -49,6 +49,8 @@ public class GameScreen implements Screen, InputProcessor {
         musique = mus;
         this.game = g;
 
+        //this.game.nouvellePartie();
+
         try {
             dialogs = GDXDialogsSystem.install();
         } catch (Exception e) {
@@ -57,6 +59,8 @@ public class GameScreen implements Screen, InputProcessor {
 
         state = State.RUN;
         hud = new HUD(game.batch, g, musique);
+        this.game.setPartie(new Partie(this,hud));
+        game.getPartie().initialiserPartie();
         InputMultiplexer inputMultiplexer = new InputMultiplexer();
         inputMultiplexer.addProcessor(hud.stage);
         inputMultiplexer.addProcessor(this);

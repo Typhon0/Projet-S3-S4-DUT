@@ -91,15 +91,12 @@ public class Partie {
     public Partie(GameScreen gamescreen, HUD hud) {
         this.gameScreen = gamescreen;
         this.setHud(hud);
-        creerPlateau();
-        creerJoueurs();
-        creerDes();
-        joueurActif = joueurs[0];
-        donnerRessourcesDepart();
-        premierTour();
     }
 
     public Partie() {
+    }
+
+    public void initialiserPartie() {
         creerPlateau();
         creerJoueurs();
         creerDes();
@@ -107,7 +104,6 @@ public class Partie {
         donnerRessourcesDepart();
         premierTour();
     }
-
     /**
      * Crée les 4 joueurs
      */
@@ -139,7 +135,6 @@ public class Partie {
      * Fin de tour du joueur. Réinitialise la structure sélectionnée.
      */
     public void finDeTour() {
-        System.err.println(joueurActif.possedePort());
         joueurSuivant();
         typeStructure = 0;
         if (plateau.getVoleur().isActif()) {
@@ -167,8 +162,11 @@ public class Partie {
     }
 
     public void premierTour() {
+        //hud.afficherMessage("Nouvelle partie ","C'est le joueur " + Constantes.couleurJoueur(joueurActif.getCouleur())+" qui commence");
         de1.lancer();
         de2.lancer();
+        int sommeDes = de1.getValeur() + de2.getValeur();
+        hud.afficherMessage("Nouvelle partie - tour du joueur " + Constantes.couleurJoueur(joueurActif.getCouleur()), "Valeur du lancer des dés : " + sommeDes);
         activerVoleur();
         donnerRessourcesAuxJoueurs(de1.getValeur() + de2.getValeur());
     }
@@ -179,25 +177,10 @@ public class Partie {
     public void nouveauTour() {
         de1.lancer();
         de2.lancer();
-        hud.afficherMessage("Tour du joueur " + Constantes.couleurJoueur(joueurActif.getCouleur()), "Valeur des Des : " + (de1.getValeur() + de2.getValeur()));
+        int sommeDes = de1.getValeur() + de2.getValeur();
+        hud.afficherMessage("Tour du joueur " + Constantes.couleurJoueur(joueurActif.getCouleur()), "Valeur du lancer des dés : " + sommeDes);
         activerVoleur();
         donnerRessourcesAuxJoueurs(de1.getValeur() + de2.getValeur());
-
-        for (int i = 0; i < joueurs.length; i++) {
-            System.out.println("Joueur " + i + "\t" + joueurs[i].getRessourcesString());
-        }
-    }
-
-    /**
-     * Vérifie si le joueur actif a atteint les 10 points de victoire
-     */
-    public void verifierPointsVictoire() {
-        if (joueurActif.getPoints() >= Constantes.POINTS_VICTOIRE_MAX) {
-            //System.out.println("Le joueur " + joueurActif.toString() + " a gagné");
-            hud.afficherMessage("Vainqueur de la partie : joueur " + Constantes.couleurJoueur(joueurActif.getCouleur()), "Vous avez gagné !");
-        } else {
-            //System.out.println("Le joueur " + joueurActif.toString() + "n'a pas atteint 10 PV");
-        }
     }
 
     /**
@@ -210,12 +193,6 @@ public class Partie {
             PaquetRessources.recevoirRessource(joueurs[i].getPaquetRessources(), plateau.getRessources(), Constantes.MINERAI, Constantes.MONTANT_RESSOURCE_DEPART_MINERAI);
             PaquetRessources.recevoirRessource(joueurs[i].getPaquetRessources(), plateau.getRessources(), Constantes.BOIS, Constantes.MONTANT_RESSOURCE_DEPART_BOIS);
             PaquetRessources.recevoirRessource(joueurs[i].getPaquetRessources(), plateau.getRessources(), Constantes.LAINE, Constantes.MONTANT_RESSOURCE_DEPART_LAINE);
-        }
-    }
-
-    public void afficherPointsVictoire() {
-        for (int i = 0; i < joueurs.length; i++) {
-            System.out.println("Joueur " + i + " " + joueurs[i].getPoints());
         }
     }
 

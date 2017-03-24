@@ -76,7 +76,7 @@ public class Voleur {
     public void setActif(boolean actif) {
         this.actif = actif;
         if (this.actif == true)
-            Partie.getHud().afficherMessage("Voleur actif", "Vous devez choisir une tuile ou placer le voleur");
+            Partie.getGameScreen().afficherMessage("Voleur actif", "Vous devez choisir une tuile ou placer le voleur");
     }
 }
 

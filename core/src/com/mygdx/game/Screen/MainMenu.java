@@ -107,7 +107,7 @@ public class MainMenu implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 startGame.addAction(Actions.fadeOut(0.7f));
-                game.NewPartie();
+                //game.nouvellePartie();
                 game.setScreen(new GameScreen(game, musique));
                 musique.lancerSon();
             }

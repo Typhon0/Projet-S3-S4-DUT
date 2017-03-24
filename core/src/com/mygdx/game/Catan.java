@@ -32,7 +32,7 @@ public class Catan extends Game {
         polyBatch = new PolygonSpriteBatch();
 
 
-
+        partie = new Partie();
         batch = new SpriteBatch();
         batch2 = new SpriteBatch();
         final Musique musique = new Musique();
@@ -52,7 +52,11 @@ public class Catan extends Game {
         return partie;
     }
 
-    public void NewPartie(){
+    public void nouvellePartie(){
         this.partie=new Partie();
+    }
+
+    public void setPartie(Partie partie) {
+        this.partie = partie;
     }
 }
