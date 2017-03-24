@@ -323,11 +323,17 @@ public class HUD {
             }
         });
 
-        //Listener Bouton echange
+        //Listener Bouton echangePort
         echangePort.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                windowsEchange();
+
+                if (game.getPartie().getJoueurActif().possedePort() == true) {
+                    windowEchangePort();
+                } else {
+                    afficherMessage("Information", "Vous ne possedez pas de port");
+                }
+
 
             }
         });
@@ -964,109 +970,11 @@ public class HUD {
     }
 
     /**
-     * Affiche la fênetre d'échange ou est selectionner
-     * le joueur avec qui l'on veut échanger.
-     */
-    public void windowsEchangePort() {
-
-        TextButton Jbleu_button = new TextButton("Bleu", skin);
-        TextButton Jrouge_button = new TextButton("Rouge", skin);
-        TextButton Jvert_button = new TextButton("Vert", skin);
-        TextButton Jjaune_button = new TextButton("Jaune", skin);
-
-        switch (game.getPartie().getJoueurActif().getCouleur()) {
-            case Constantes.COULEUR_BLEU:
-                Jbleu_button.setVisible(false);
-                break;
-            case Constantes.COULEUR_JAUNE:
-                Jjaune_button.setVisible(false);
-
-                break;
-            case Constantes.COULEUR_ROUGE:
-                Jrouge_button.setVisible(false);
-
-                break;
-            case Constantes.COULEUR_VERT:
-                Jvert_button.setVisible(false);
-
-                break;
-            default:
-                break;
-
-        }
-
-        Button deny = new Button(skin, "deny");
-
-
-        final Window echangeWindows = new Window("Choisir joueur avec qui echanger", skin);
-
-
-        echangeWindows.add(Jbleu_button).padRight(-100);
-        echangeWindows.add(Jrouge_button);
-        echangeWindows.add(Jvert_button);
-        echangeWindows.add(Jjaune_button);
-
-
-        echangeWindows.row();
-        //button
-        echangeWindows.add(deny).padTop(50).padRight(200);
-        echangeWindows.setSize(1000, 500);
-        echangeWindows.setPosition(450, stage.getHeight() / 2 - echangeWindows.getHeight() / 2);
-
-        stage.addActor(echangeWindows);
-
-        //Touch listener bouton bleu
-        Jbleu_button.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                echangeWindows.setVisible(false);
-                game.getPartie().setJoueurAQuiOnVeutEchanger(game.getPartie().getJoueurs()[Constantes.COULEUR_BLEU]);
-                windowEchange2();
-            }
-        });
-
-        //Touch listener bouton rouge
-        Jrouge_button.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.getPartie().setJoueurAQuiOnVeutEchanger(game.getPartie().getJoueurs()[Constantes.COULEUR_ROUGE]);
-                windowEchange2();
-            }
-        });
-
-        //Touch listener bouton vert
-        Jvert_button.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.getPartie().setJoueurAQuiOnVeutEchanger(game.getPartie().getJoueurs()[Constantes.COULEUR_VERT]);
-                windowEchange2();
-            }
-        });
-
-        //Touch listener bouton jaune
-        Jjaune_button.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.getPartie().setJoueurAQuiOnVeutEchanger(game.getPartie().getJoueurs()[Constantes.COULEUR_JAUNE]);
-                windowEchange2();
-            }
-        });
-
-        //Touch listener bouton cancel
-        deny.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                echangeWindows.setVisible(false);
-
-            }
-        });
-    }
-
-    /**
-     * Affiche la fênetre d'échange ou
+     * Affiche la fênetre d'échange du port ou
      * est selectionner le nombre de ressource échanger.
      */
-    public void windowEchangePort2() {
+    public void windowEchangePort() {
+
 
         final int[] ressources_J1 = new int[Constantes.TAILLE_TABLEAU_RESSOURCE];
         int[] ressources_J2 = new int[Constantes.TAILLE_TABLEAU_RESSOURCE];
@@ -1133,91 +1041,91 @@ public class HUD {
         Button minus_ble_J2 = new Button(skin, "minus");
 
 
-        final Window echange2Windows = new Window("Echange", skin);
+        final Window echange2WindowsPort = new Window("Echange", skin);
 
-        echange2Windows.add(J1_label);
-        echange2Windows.add(space);
-        echange2Windows.add(space);
-        echange2Windows.add(space);
-        echange2Windows.add(space);
-        echange2Windows.add(J2_label);
+        echange2WindowsPort.add(J1_label);
+        echange2WindowsPort.add(space);
+        echange2WindowsPort.add(space);
+        echange2WindowsPort.add(space);
+        echange2WindowsPort.add(space);
+        echange2WindowsPort.add(J2_label);
 
-        echange2Windows.row();
+        echange2WindowsPort.row();
 
-        echange2Windows.add(bois_label);
-        echange2Windows.add(plus_bois_J1);
-        echange2Windows.add(count_bois_J1);
-        echange2Windows.add(minus_bois_J1);
+        echange2WindowsPort.add(bois_label);
+        echange2WindowsPort.add(plus_bois_J1);
+        echange2WindowsPort.add(count_bois_J1);
+        echange2WindowsPort.add(minus_bois_J1);
 
-        echange2Windows.add(bois_label_J2).padLeft(100).padRight(80);
-        echange2Windows.add(plus_bois_J2);
-        echange2Windows.add(count_bois_J2);
-        echange2Windows.add(minus_bois_J2);
+        echange2WindowsPort.add(bois_label_J2).padLeft(100).padRight(80);
+        echange2WindowsPort.add(plus_bois_J2);
+        echange2WindowsPort.add(count_bois_J2);
+        echange2WindowsPort.add(minus_bois_J2);
 
-        echange2Windows.row();
+        echange2WindowsPort.row();
 
-        echange2Windows.add(laine_label);
-        echange2Windows.add(plus_laine_J1);
-        echange2Windows.add(count_laine_J1);
-        echange2Windows.add(minus_laine_J1);
+        echange2WindowsPort.add(laine_label);
+        echange2WindowsPort.add(plus_laine_J1);
+        echange2WindowsPort.add(count_laine_J1);
+        echange2WindowsPort.add(minus_laine_J1);
 
-        echange2Windows.add(laine_label_J2);
-        echange2Windows.add(plus_laine_J2);
-        echange2Windows.add(count_laine_J2);
-        echange2Windows.add(minus_laine_J2);
+        echange2WindowsPort.add(laine_label_J2);
+        echange2WindowsPort.add(plus_laine_J2);
+        echange2WindowsPort.add(count_laine_J2);
+        echange2WindowsPort.add(minus_laine_J2);
 
-        echange2Windows.row();
+        echange2WindowsPort.row();
 
-        echange2Windows.add(argile_label);
-        echange2Windows.add(plus_argile_J1);
-        echange2Windows.add(count_argile_J1);
-        echange2Windows.add(minus_argile_J1);
+        echange2WindowsPort.add(argile_label);
+        echange2WindowsPort.add(plus_argile_J1);
+        echange2WindowsPort.add(count_argile_J1);
+        echange2WindowsPort.add(minus_argile_J1);
 
-        echange2Windows.add(argile_label_J2);
-        echange2Windows.add(plus_argile_J2);
-        echange2Windows.add(count_argile_J2);
-        echange2Windows.add(minus_argile_J2);
+        echange2WindowsPort.add(argile_label_J2);
+        echange2WindowsPort.add(plus_argile_J2);
+        echange2WindowsPort.add(count_argile_J2);
+        echange2WindowsPort.add(minus_argile_J2);
 
-        echange2Windows.row();
+        echange2WindowsPort.row();
 
-        echange2Windows.add(pierre_label);
-        echange2Windows.add(plus_pierre_J1);
-        echange2Windows.add(count_pierre_J1);
-        echange2Windows.add(minus_pierre_J1);
+        echange2WindowsPort.add(pierre_label);
+        echange2WindowsPort.add(plus_pierre_J1);
+        echange2WindowsPort.add(count_pierre_J1);
+        echange2WindowsPort.add(minus_pierre_J1);
 
-        echange2Windows.add(pierre_label_J2);
-        echange2Windows.add(plus_pierre_J2);
-        echange2Windows.add(count_pierre_J2);
-        echange2Windows.add(minus_pierre_J2);
+        echange2WindowsPort.add(pierre_label_J2);
+        echange2WindowsPort.add(plus_pierre_J2);
+        echange2WindowsPort.add(count_pierre_J2);
+        echange2WindowsPort.add(minus_pierre_J2);
 
-        echange2Windows.row();
+        echange2WindowsPort.row();
 
-        echange2Windows.add(ble_label);
-        echange2Windows.add(plus_ble_J1);
-        echange2Windows.add(count_ble_J1);
-        echange2Windows.add(minus_ble_J1);
+        echange2WindowsPort.add(ble_label);
+        echange2WindowsPort.add(plus_ble_J1);
+        echange2WindowsPort.add(count_ble_J1);
+        echange2WindowsPort.add(minus_ble_J1);
 
-        echange2Windows.add(ble_label_J2);
-        echange2Windows.add(plus_ble_J2);
-        echange2Windows.add(count_ble_J2);
-        echange2Windows.add(minus_ble_J2);
+        echange2WindowsPort.add(ble_label_J2);
+        echange2WindowsPort.add(plus_ble_J2);
+        echange2WindowsPort.add(count_ble_J2);
+        echange2WindowsPort.add(minus_ble_J2);
 
-        echange2Windows.row();
+        echange2WindowsPort.row();
         //button
-        echange2Windows.add(deny);
-        echange2Windows.add(confirm);
+        echange2WindowsPort.add(deny);
+        echange2WindowsPort.add(confirm);
 
-        echange2Windows.setSize(1500, 1000);
-        echange2Windows.setPosition(450, stage.getHeight() / 2 - echange2Windows.getHeight() / 2);
+        echange2WindowsPort.setSize(1500, 1000);
+        echange2WindowsPort.setPosition(450, stage.getHeight() / 2 - echange2WindowsPort.getHeight() / 2);
 
-        stage.addActor(echange2Windows);
+        stage.addActor(echange2WindowsPort);
 
 
         //Touch listener bouton cancel
         deny.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                echange2Windows.setVisible(false);
+                echange2WindowsPort.setVisible(false);
 
             }
         });
@@ -1226,6 +1134,8 @@ public class HUD {
         confirm.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+
+
                 int[] ressource_j1 = new int[Constantes.TAILLE_TABLEAU_RESSOURCE];
                 ressource_j1[Constantes.ARGILE] = Integer.valueOf(count_argile_J1.getText().toString());
                 ressource_j1[Constantes.BLE] = Integer.valueOf(count_ble_J1.getText().toString());
@@ -1242,44 +1152,61 @@ public class HUD {
                 ressource_j2[Constantes.LAINE] = Integer.valueOf(count_laine_J2.getText().toString());
                 ressource_j2[Constantes.MINERAI] = Integer.valueOf(count_pierre_J2.getText().toString());
 
-                System.out.println("Ressource J1");
-                for (int i = Constantes.NUMERO_RESSOURCE_MIN; i < Constantes.TAILLE_TABLEAU_RESSOURCE; i++) {
-                    System.out.println(ressource_j1[i]);
-                }
-
-                System.out.println("Ressource J2");
-                for (int i = Constantes.NUMERO_RESSOURCE_MIN; i < Constantes.TAILLE_TABLEAU_RESSOURCE; i++) {
-                    System.out.println(ressource_j2[i]);
-                }
-
+                int sumj1 = 0, sumj2 = 0;
 
                 for (int i = Constantes.NUMERO_RESSOURCE_MIN; i < Constantes.TAILLE_TABLEAU_RESSOURCE; i++) {
-                    PaquetRessources.recevoirRessource(game.getPartie().getJoueurActif().getPaquetRessources(),
-                            game.getPartie().getJoueurAQuiOnVeutEchanger().getPaquetRessources(),
-                            i, ressource_j2[i]);
+                    sumj1 = sumj1 + ressource_j1[i];
+                    sumj2 = sumj2 +
+                            ressource_j2[i];
                 }
+                System.out.println("Somme " + sumj1 + " " + sumj2);
 
-                for (int i = Constantes.NUMERO_RESSOURCE_MIN; i < Constantes.TAILLE_TABLEAU_RESSOURCE; i++) {
-                    PaquetRessources.recevoirRessource(game.getPartie().getJoueurAQuiOnVeutEchanger().getPaquetRessources(),
-                            game.getPartie().getJoueurActif().getPaquetRessources(),
-                            i, ressource_j1[i]);
+                if (sumj1 == (sumj2 * game.getPartie().getJoueurActif().getTauxDeChangeMinimum())) { //Si la somme des valeur du j1 est égale à taux de change fois la somme des valeur j2
+
+                    System.out.println("Ressource J1");
+                    for (int i = Constantes.NUMERO_RESSOURCE_MIN; i < Constantes.TAILLE_TABLEAU_RESSOURCE; i++) {
+                        System.out.println(ressource_j1[i]);
+                    }
+
+                    System.out.println("Ressource J2");
+                    for (int i = Constantes.NUMERO_RESSOURCE_MIN; i < Constantes.TAILLE_TABLEAU_RESSOURCE; i++) {
+                        System.out.println(ressource_j2[i]);
+                    }
+
+
+                    for (int i = Constantes.NUMERO_RESSOURCE_MIN; i < Constantes.TAILLE_TABLEAU_RESSOURCE; i++) {
+                        PaquetRessources.recevoirRessource(game.getPartie().getJoueurActif().getPaquetRessources(),
+                                game.getPartie().getPlateau().getRessources(),
+                                i, ressource_j2[i]);
+                    }
+
+                    game.getPartie().getPlateau().getRessources();
+
+                    for (int i = Constantes.NUMERO_RESSOURCE_MIN; i < Constantes.TAILLE_TABLEAU_RESSOURCE; i++) {
+                        PaquetRessources.recevoirRessource(game.getPartie().getPlateau().getRessources(),
+                                game.getPartie().getJoueurActif().getPaquetRessources(),
+                                i, ressource_j1[i]);
+                    }
+
+
+                    System.out.println("Ressource J1");
+                    for (int i = Constantes.NUMERO_RESSOURCE_MIN; i < Constantes.TAILLE_TABLEAU_RESSOURCE; i++) {
+                        System.out.println(game.getPartie().getJoueurActif().getPaquetRessources().getRessources()[i]);
+                    }
+
+                    System.out.println("Ressource J2");
+                    for (int i = Constantes.NUMERO_RESSOURCE_MIN; i < Constantes.TAILLE_TABLEAU_RESSOURCE; i++) {
+                        System.out.println(game.getPartie().getPlateau().getRessources().getRessources()[i]);
+                    }
+                    echange2WindowsPort.setVisible(false);
+                } else {
+                    afficherMessage("Erreur echange", "Vous devez echanger avec le port 1 pour 3");
                 }
-
-
-                System.out.println("Ressource J1");
-                for (int i = Constantes.NUMERO_RESSOURCE_MIN; i < Constantes.TAILLE_TABLEAU_RESSOURCE; i++) {
-                    System.out.println(game.getPartie().getJoueurActif().getPaquetRessources().getRessources()[i]);
-                }
-
-                System.out.println("Ressource J2");
-                for (int i = Constantes.NUMERO_RESSOURCE_MIN; i < Constantes.TAILLE_TABLEAU_RESSOURCE; i++) {
-                    System.out.println(game.getPartie().getJoueurAQuiOnVeutEchanger().getPaquetRessources().getRessources()[i]);
-                }
-                echange2Windows.setVisible(false);
 
 
             }
         });
+
 
         plus_bois_J1.addListener(new ClickListener() {
             @Override
