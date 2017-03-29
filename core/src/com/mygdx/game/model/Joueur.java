@@ -5,6 +5,11 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.tomgrill.gdxdialogs.core.GDXDialogs;
+import de.tomgrill.gdxdialogs.core.GDXDialogsSystem;
+import de.tomgrill.gdxdialogs.core.dialogs.GDXButtonDialog;
+import de.tomgrill.gdxdialogs.core.listener.ButtonClickListener;
+
 /**
  * <b> Joueur est la classe représentant le joueur d'une partie. Le joueur peut échanger des ressources et construire des structures</b>
  * <p>
@@ -52,6 +57,9 @@ public class Joueur {
      */
     private int couleur; // couleur du joueur
 
+
+    private GDXDialogs dialogs;
+
     /**
      * Constructeur du Joueur. On initialise son nom, ses points victorires à 0, ses ressources, son tableau de pions et sa liste de structures construites.
      * Le paquet de strucures (les pions) sont initialiés par le nombre de pions de départ
@@ -65,6 +73,9 @@ public class Joueur {
         this.ressources = new PaquetRessources(couleur);
         this.couleur = couleur;
         remplirPaquetStructures();
+
+        dialogs = GDXDialogsSystem.install();
+
     }
 
     // Ajoute 4 villes, 5 colonies et 15 routes
@@ -87,8 +98,23 @@ public class Joueur {
      */
     public void ajouterPointVictoire(int points) {
         this.points += points;
-        if (points >= 10) {
-            Partie.getHud().afficherMessage("Victoire", "Vous avez gagné la partie");
+        if (points >= Constantes.POINTS_VICTOIRE_MAX) {
+            //  Partie.getHud().afficherMessage("Victoire", "Vous avez gagné la partie");
+
+            GDXButtonDialog bDialog = dialogs.newDialog(GDXButtonDialog.class);
+            bDialog.setTitle("Victoire");
+            bDialog.setMessage("Vous avez gagné la partie");
+
+
+            bDialog.setClickListener(new ButtonClickListener() {
+
+                @Override
+                public void click(int button) {
+                }
+            });
+            bDialog.addButton(" Ok ");
+
+            bDialog.build().show();
         }
     }
 
